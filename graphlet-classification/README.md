@@ -16,7 +16,7 @@ and thereby packing more information in each learning unit (as compared to previ
 for the representation learning task. It consists of three main steps. First, we generate random walks for each vertex (with pre-defined length 
 per walk and pre-defined number of walks per vertex). Second, each edge in this random walk is mapped as a property edge-word in the created document 
 (with the document label as the graph-id) where the property edge-word is defined as the concatenation of the properties of the source and 
-destination vertices. Lastly, we feed the generated documents (with their attached document labels) to a doc2vec algorithm which generates the vector representation for each document (which is a graph in this case).
+destination vertices. Lastly, we feed the generated documents (with their attached document labels) to a [doc2vec](https://dl.acm.org/citation.cfm?id=3044805.3045025) algorithm which generates the vector representation for each document (which is a graph in this case).
 
 Pg2vec creates graphlet embeddings for a specific set of graphlets and cannot be updated to incorporate modifications on these graphlets. 
 Instead, a new Pg2vec model should be trained on these modified graphlets.
