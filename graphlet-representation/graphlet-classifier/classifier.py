@@ -1,7 +1,5 @@
 """
-This file is for the classifier
-
-@author: rpatra
+This file is for the classifier (classical Convolutional Neural Networks classifier)
 """
 
 from __future__ import print_function

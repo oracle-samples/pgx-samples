@@ -41,3 +41,7 @@ The output of this step is a `csv` file with the graphlet vectors learnt using P
 ## Graphlet classifier <a name="graphlet-classifier"></a>
 In this last phase, we provide a Convolutional Neural Network to classify the graphlet vectors.
 We provide two python scripts, one for generating the train/test dataset for the classifier (`prepare-classifier-data.py`) and second for the classifier itself (`classifier.py`).
+
+Note that for this application, we require the following python dependencies: Numpy, Pandas, and Tensorflow.
+The application has been tested with python versions 2.7 and 3.6.
+
