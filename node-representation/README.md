@@ -1,4 +1,4 @@
-# Node classification using DeepWalk
+# Node representation using DeepWalk
 
 ## Table of contents:
 
