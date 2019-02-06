@@ -1,6 +1,5 @@
 /*
- * Generate vector representations from vertices in an input graph using PGX
- * @author: rpatra
+ * Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
  */
 
 package DeepWalkApp;

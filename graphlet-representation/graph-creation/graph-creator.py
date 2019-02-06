@@ -1,8 +1,6 @@
-"""
-This file generates the graph from the NCI109 dataset
-
-@author: rpatra
-"""
+#
+# Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
+#
 
 import pandas as pd
 import os

@@ -1,8 +1,6 @@
-"""
-This file prepares the NCI109 dataset for the classifier
-
-@author: rpatra
-"""
+#
+# Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
+#
 
 import pandas as pd
 import os

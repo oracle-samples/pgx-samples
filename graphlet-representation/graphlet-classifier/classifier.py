@@ -1,6 +1,6 @@
-"""
-This file is for the classifier (classical Convolutional Neural Networks classifier)
-"""
+#
+# Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
+#
 
 from __future__ import print_function
 

@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2013 - 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
  */
+
 import oracle.pgx.api.beta.annotations.GraphAlgorithm;
 import oracle.pgx.api.beta.PgxGraph;
 import oracle.pgx.api.beta.Scalar;
