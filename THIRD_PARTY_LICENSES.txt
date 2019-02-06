@@ -34,9 +34,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-*****************************************************************
+**************************************************************
 NUMPY : https://github.com/numpy/numpy/blob/master/LICENSE.txt
-*****************************************************************
+**************************************************************
 Copyright (c) 2005-2019, NumPy Developers.
 All rights reserved.
 
@@ -98,9 +98,9 @@ Files: numpy/core/src/multiarray/dragon4.c
 License: One of a kind
   For license text, see numpy/core/src/multiarray/dragon4.c
 
-*****************************************************************
+*************************************************************************
 TENSORFLOW : https://github.com/tensorflow/tensorflow/blob/master/LICENSE
-*****************************************************************
+*************************************************************************
 Copyright 2018 The TensorFlow Authors.  All rights reserved.
 
                                  Apache License
@@ -304,3 +304,8 @@ Copyright 2018 The TensorFlow Authors.  All rights reserved.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+*******************************************************************************************
+Zachary Karate Club dataset: http://networkdata.ics.uci.edu/netdata/html/zacharyKarate.html
+*******************************************************************************************
+Creative Commons License: http://creativecommons.org/licenses/by-nc-nd/2.5/
