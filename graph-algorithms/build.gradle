@@ -1,0 +1,24 @@
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def pgxDir = "$projectDir/../libs/pgx-3.2.0"
+def thirdpartyDeps = "$pgxDir/shared-memory/third-party"
+def commonDeps = "$pgxDir/shared-memory/common"
+def clientDeps = "$pgxDir/shared-memory/client"
+def serverDeps = "$pgxDir/shared-memory/server"
+def embeddedDeps = "$pgxDir/shared-memory/embedded"
+
+dependencies {
+  compile fileTree(dir: thirdpartyDeps, includes: ['*.jar'])
+  compile fileTree(dir: commonDeps, includes: ['*.jar'])
+  compile fileTree(dir: clientDeps, includes: ['*.jar'])
+  compile fileTree(dir: serverDeps, includes: ['*.jar'])
+  compile fileTree(dir: embeddedDeps, includes: ['*.jar'])
+}
+
+application {
+  mainClassName = 'oracle.pgx.algorithms.Main'
+  applicationDefaultJvmArgs = ['-Dpgx_conf=conf/pgx.conf']
+}
