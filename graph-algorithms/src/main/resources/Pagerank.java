@@ -11,7 +11,8 @@ import static java.lang.Math.abs;
 
 @GraphAlgorithm
 public class Pagerank {
-  public void pagerank(PgxGraph G, double e, double d, int max_iter_count, boolean norm, @Out VertexProperty<Double> rank) {
+  public void pagerank(PgxGraph G, double e, double d, int max_iter_count, boolean norm,
+      @Out VertexProperty<Double> rank) {
     Scalar<Double> diff = Scalar.create();
     int cnt = 0;
     double N = G.getNumVertices();
