@@ -7,7 +7,7 @@
 3. [Graph-based ML applications using PgxML](#pgxml-apps)
     1. [Graphlet classification](#graphlet-classification)
     2. [Node classification](#node-classification)
-4. [Graph Algorithms](#graph-algorithms)
+4. [PGX Algorithms](#pgx-algorithms)
 
 ****
     
@@ -32,5 +32,5 @@ More details regarding this application are available [here](graphlet-classifica
 This application demonstrates how we can extract vector representation for each node in a graph.
 For this application, we use the [DeepWalk](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/deepwalk.html) algorithm. 
 
-## Graph Algorithms <a name="graph-algorithms"></a>
+## PGX Algorithms <a name="pgx-algorithms"></a>
 We provide some implementations of widely-used classical graph algorithms like pagerank.
