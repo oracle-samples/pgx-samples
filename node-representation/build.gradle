@@ -1,0 +1,27 @@
+apply plugin: 'java'
+jar.enabled = false
+
+ext {
+  mainClassName = 'DeepWalkApp.GenerateNodeVectors'
+}
+
+def thirdpartyDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/third-party"
+def commonDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/common"
+def clientDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/client"
+def serverDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/server"
+def embeddedDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/embedded"
+
+dependencies {
+  compile fileTree(dir: thirdpartyDeps, includes: ['*.jar'])
+  compile fileTree(dir: commonDeps, includes: ['*.jar'])
+  compile fileTree(dir: clientDeps, includes: ['*.jar'])
+  compile fileTree(dir: serverDeps, includes: ['*.jar'])
+  compile fileTree(dir: embeddedDeps, includes: ['*.jar'])
+}
+
+task run(type: JavaExec, dependsOn: jar) {
+  jvmArgs = ['-Dpgx_conf=conf/pgx.conf']
+  classpath = sourceSets.main.runtimeClasspath
+  main = mainClassName
+  args = [project.projectDir]
+}

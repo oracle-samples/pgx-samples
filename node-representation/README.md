@@ -1,12 +1,10 @@
-# Node classification using DeepWalk
+# Node representation using DeepWalk
 
 ## Table of contents:
 
 1. [Overview](#overview)
-2. [Obtain data](#obtain-data)
-3. [Graph creation](#graph-creation)
-4. [Generate node vectors using DeepWalk](#generate-node-vectors)
-5. [Node classifier](#graphlet-classifier)
+2. [Graph creation from custom data](#graph-data)
+3. [Generate node vectors using DeepWalk](#generate-node-vectors)
 
 ****
     
@@ -19,13 +17,10 @@ for each vertex (which is the word in the input provided to the word2vec algorit
 DeepWalk creates vertex embeddings for a specific graph and cannot be updated to incorporate modifications on the graph. 
 Instead, a new DeepWalk model should be trained on this modified graph.
 
-## Obtain data <a name="obtain-data"></a>
-
-
-## Graph creation <a name="graph-creation"></a>
-
+## Graph creation from custom data <a name="graph-data"></a>
+The data for the DeepWalk application should be download and placed in the `data` folder.
+We provide an example using the Karate graph dataset.
 
 ## Generate node vectors using DeepWalk <a name="generate-node-vectors"></a>
-
-
-## Node classifier <a name="node-classifier"></a>
+In this phase, we run the DeepWalk algorithm using the provide gradle script by executing `gradle clean run`.
+The output of this step is a `csv` file with the node vectors learnt using DeepWalk algorithm.

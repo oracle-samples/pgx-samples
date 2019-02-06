@@ -1,4 +1,4 @@
-# Graphlet classification using PG2Vec
+# Graphlet representation using PG2Vec
 
 ## Table of contents:
 

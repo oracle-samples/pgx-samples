@@ -5,8 +5,8 @@
 1. [Overview](#overview)
 2. [Download PGX](#pgx-download)
 3. [Graph-based ML applications using PgxML](#pgxml-apps)
-    1. [Graphlet classification](#graphlet-classification)
-    2. [Node classification](#node-classification)
+    1. [Graphlet representation](#graphlet-representation)
+    2. [Node representation](#node-representation)
 4. [PGX Algorithms](#pgx-algorithms)
 
 ****
@@ -21,14 +21,14 @@ PgxML and PGX Algorithm are available from the 3.2.0 version of PGX and released
 Obtain the `pgx-3.2.0-server` zip file and unzip it in `libs` folder. These set of PGX libraries support standalone java applications. (Also mentioned [here](libs/README.md).)
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
-We provide two Graph-based ML applications, namely, `Graphlet classification` and `Node classification`.
+We provide two Graph-based ML applications, namely, `Graphlet representation` and `Node representation`.
 
-### Graphlet classification <a name="graphlet-classification"></a>
+### Graphlet representation <a name="graphlet-representation"></a>
 This application demostrates how we can extract vector representation for each graphlet in a cluster of graphlets.
 For this application, we use the [PG2Vec](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/pg2vec.html) algorithm.
-More details regarding this application are available [here](graphlet-classification/README.md).
+More details regarding this application are available [here](graphlet-representation/README.md).
 
-### Node classification <a name="node-classification"></a>
+### Node representation <a name="node-representation"></a>
 This application demonstrates how we can extract vector representation for each node in a graph.
 For this application, we use the [DeepWalk](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/deepwalk.html) algorithm. 
 
