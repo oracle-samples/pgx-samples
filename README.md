@@ -30,7 +30,8 @@ More details regarding this application are available [here](graphlet-representa
 
 ### Node representation <a name="node-representation"></a>
 This application demonstrates how we can extract vector representation for each node in a graph.
-For this application, we use the [DeepWalk](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/deepwalk.html) algorithm. 
+For this application, we use the [DeepWalk](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/deepwalk.html) algorithm.
+More details regarding this application are available [here](node-representation/README.md).
 
 ## PGX Algorithms <a name="pgx-algorithms"></a>
 We provide some implementations of widely-used classical graph algorithms like pagerank.
