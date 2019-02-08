@@ -304,8 +304,3 @@ Copyright 2018 The TensorFlow Authors.  All rights reserved.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-*******************************************************************************************
-Zachary Karate Club dataset: http://networkdata.ics.uci.edu/netdata/html/zacharyKarate.html
-*******************************************************************************************
-Creative Commons License: http://creativecommons.org/licenses/by-nc-nd/2.5/

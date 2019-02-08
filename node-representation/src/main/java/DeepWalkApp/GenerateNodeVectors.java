@@ -21,12 +21,12 @@ public class GenerateNodeVectors {
     String src_path = args[0];
 
     // read the input graph (built using PGX)
-    PgxGraph graph = session.readGraphWithProperties(src_path+"/data/graph/karate/karate.json").undirect();
+    PgxGraph graph = session.readGraphWithProperties(src_path+"/data/graph/sample/sample.json").undirect();
 
     // set the hyper-parameters of the DeepWalk model
     DeepWalkModel model = analyst.deepWalkModelBuilder()
         .setMinWordFrequency(1)
-        .setBatchSize(64)
+        .setBatchSize(32)
         .setNumEpochs(1)
         .setLayerSize(20)
         .setLearningRate(0.05)

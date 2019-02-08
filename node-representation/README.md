@@ -19,7 +19,7 @@ Instead, a new DeepWalk model should be trained on this modified graph.
 
 ## Graph creation from custom data <a name="graph-data"></a>
 The data for the DeepWalk application should be download and placed in the `data` folder.
-We provide an example using the Karate graph dataset.
+We provide an example using a sample dataset.
 
 ## Generate node vectors using DeepWalk <a name="generate-node-vectors"></a>
 In this phase, we run the DeepWalk algorithm using the provide gradle script by executing `gradle clean run`.

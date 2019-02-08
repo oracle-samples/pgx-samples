@@ -6,6 +6,6 @@
     "format": "csv",
     "separator": ",",
     "vertex_id_type": "int",
-    "edge_uris": ["karate_e.csv"],
-    "vertex_uris": ["karate_v.csv"]
+    "edge_uris": ["sample_e.csv"],
+    "vertex_uris": ["sample_v.csv"]
 }

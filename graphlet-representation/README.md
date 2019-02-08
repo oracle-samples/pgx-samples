@@ -24,8 +24,8 @@ Instead, a new Pg2vec model should be trained on these modified graphlets.
 
 ## Obtain data <a name="obtain-data"></a>
 The data for the PG2Vec application should be download and placed in the `data` folder.
-We provide one example for the [NCI109 dataset](https://ls11-www.cs.tu-dortmund.de/staff/morris/graphkerneldatasets) which could be
-fetched by executing the `get_data.sh` script.
+We provide one example for the [NCI109 dataset](https://ls11-www.cs.tu-dortmund.de/staff/morris/graphkerneldatasets) which you
+could fetch and unzip in `data/input` folder.
 
 
 ## Graph creation <a name="graph-creation"></a>
