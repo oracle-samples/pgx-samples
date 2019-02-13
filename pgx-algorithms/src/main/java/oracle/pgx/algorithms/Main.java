@@ -8,25 +8,27 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
+import com.google.common.collect.Streams;
 import oracle.pgx.api.CompiledProgram;
 import oracle.pgx.api.EdgeProperty;
 import oracle.pgx.api.Pgx;
+import oracle.pgx.api.PgxEdge;
 import oracle.pgx.api.PgxGraph;
 import oracle.pgx.api.PgxSession;
-import oracle.pgx.api.PgxVertex;
 import oracle.pgx.api.VertexProperty;
 import oracle.pgx.common.types.PropertyType;
 import oracle.pgx.common.util.vector.Vect;
+import oracle.pgx.config.FileGraphConfig;
+import oracle.pgx.config.FileGraphConfigBuilder;
 import oracle.pgx.config.Format;
-import oracle.pgx.config.GraphConfig;
 import oracle.pgx.config.GraphConfigBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,42 +56,88 @@ public class Main {
       // Massage raw data
       Path data = prepare(rawDataPath);
 
-      // Load graph
-      GraphConfig config = GraphConfigBuilder.forFileFormat(Format.CSV)
-          .hasHeader(true)
-          .setVertexIdColumn("id")
-          .setEdgeSourceColumn("userId")
-          .setEdgeDestinationColumn("movieId")
-          .addVertexUri(data.resolve("movies.csv").toString())
-          .addVertexUri(data.resolve("users.csv").toString())
-          .addEdgeUri(data.resolve("ratings.csv").toString())
-          .addVertexProperty("name", PropertyType.STRING)
-          .addVertexProperty("genre", PropertyType.STRING)
-          .addVertexProperty("is_left", PropertyType.BOOLEAN)
-          .addEdgeProperty("rating", PropertyType.DOUBLE)
-          .addEdgeProperty("timestamp", PropertyType.INTEGER)
+      // Load training graph
+      FileGraphConfig trainingConfig = getGraphConfigBuilder(data)
+          .addEdgeUri(data.resolve("ratings-training.csv").toString())
           .build();
 
-      PgxGraph graph = session.readGraphWithProperties(config);
+      PgxGraph trainingGraph = session.readGraphWithProperties(trainingConfig);
 
       // Run matrix vectorization
-      VertexProperty<Object, Boolean> is_left = graph.getVertexProperty("is_left");
-      EdgeProperty<Double> weight = graph.getEdgeProperty("rating");
-      VertexProperty<Object, Vect<Double>> features = graph.createVertexProperty(PropertyType.DOUBLE, VECTOR_LENGTH, "features", false);
-      program.run(graph, is_left, weight, LEARNING_RATE, CHANGE_PER_STEP, LAMBDA, MAX_STEP, VECTOR_LENGTH, features);
+      VertexProperty<Object, Boolean> is_left = trainingGraph.getVertexProperty("is_left");
+      EdgeProperty<Double> rating = trainingGraph.getEdgeProperty("rating");
+      VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(PropertyType.DOUBLE, VECTOR_LENGTH, "features", false);
+      program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, LAMBDA, MAX_STEP, VECTOR_LENGTH, features);
 
-      // Show results for first 10.
-      int i = 0;
-      for (PgxVertex<Object> vertex : graph.getVertices()) {
-        System.out.println("Feature vector " + vertex + " = " + Arrays.toString(features.get(vertex).toArray()));
-        i++;
-        if (i > 10) {
-          System.exit(0);
+      // Load test graph
+      FileGraphConfig testConfig = getGraphConfigBuilder(data)
+          .addEdgeUri(data.resolve("ratings-test.csv").toString())
+          .build();
+
+      PgxGraph testGraph = session.readGraphWithProperties(testConfig);
+
+      // Compute prediction for the test set
+      EdgeProperty<Object> prediction = testGraph.createEdgeProperty(PropertyType.DOUBLE);
+
+      for (PgxEdge e : testGraph.getEdges()) {
+        if (trainingGraph.getVertex(e.getSource().getId()) == null) {
+          continue;
         }
+
+        if (trainingGraph.getVertex(e.getDestination().getId()) == null) {
+          continue;
+        }
+
+        Vect<Double> userFeature = features.get(trainingGraph.getVertex(e.getSource().getId()));
+        Vect<Double> movieFeature = features.get(trainingGraph.getVertex(e.getDestination().getId()));
+
+        prediction.set(e, Double.min(dotProduct(userFeature, movieFeature), 5));
       }
 
-      // TODO: Train model on training set (subgraph?), test model on test set.
+      // Compute root mean squared error
+      double sumSquaredError = 0;
+      double length = 0;
+
+      for (PgxEdge e : testGraph.getEdges()) {
+        double actualRating = rating.get(e.getId());
+        double predictionRating = e.getProperty("rating");
+        double error = predictionRating - actualRating;
+        double squaredError = Math.pow(error, 2);
+
+        sumSquaredError += squaredError;
+        length++;
+      }
+
+      double meanSquaredError = sumSquaredError / length;
+      double rootMeanSquaredError = Math.sqrt(meanSquaredError);
+
+      System.out.println("RMSE = " + rootMeanSquaredError);
     }
+  }
+
+  private static double dotProduct(Vect<Double> v1, Vect<Double> v2) {
+    Stream<Double> s1 = Arrays.stream(v1.toArray());
+    Stream<Double> s2 = Arrays.stream(v2.toArray());
+
+    return Streams
+        .zip(s1, s2, (i1, i2) -> i1 * i2)
+        .reduce(0.0, Double::sum);
+  }
+
+  private static FileGraphConfigBuilder getGraphConfigBuilder(Path data) {
+    return GraphConfigBuilder
+            .forFileFormat(Format.CSV)
+            .hasHeader(true)
+            .setVertexIdColumn("id")
+            .setEdgeSourceColumn("userId")
+            .setEdgeDestinationColumn("movieId")
+            .addVertexUri(data.resolve("movies.csv").toString())
+            .addVertexUri(data.resolve("users.csv").toString())
+            .addVertexProperty("name", PropertyType.STRING)
+            .addVertexProperty("genre", PropertyType.STRING)
+            .addVertexProperty("is_left", PropertyType.BOOLEAN)
+            .addEdgeProperty("rating", PropertyType.DOUBLE)
+            .addEdgeProperty("timestamp", PropertyType.INTEGER);
   }
 
   private static Path prepare(Path rawDataPath) {
@@ -145,7 +193,7 @@ public class Main {
       Stream<String> lines = Files.lines(path).skip(1);
       File output = data.resolve("movies.csv").toFile();
 
-      if (!output.exists())  {
+      if (!output.exists()) {
         if (!output.createNewFile()) {
           throw new RuntimeException("Unable to create movies file.");
         }
@@ -173,9 +221,24 @@ public class Main {
     Path path = rawDataPath.resolve("ratings.csv");
 
     try {
-      Stream<String> lines = Files.lines(path);
-      File output = data.resolve("ratings.csv").toFile();
+      long rows = Files.lines(path).count();
+      long testSize = rows / 5;
+      long trainingSize = rows - testSize;
 
+      Stream<String> training = Files.lines(path).skip(1).limit(trainingSize);
+      Stream<String> test = Files.lines(path).skip(1 + trainingSize);
+
+      createRatings(training, data.resolve("ratings-training.csv"));
+      createRatings(test, data.resolve("ratings-test.csv"));
+    } catch (IOException e) {
+      throw new RuntimeException("Unable to read the ratings.", e);
+    }
+  }
+
+  private static void createRatings(Stream<String> lines, Path outputPath) {
+    File output = outputPath.toFile();
+
+    try {
       if (!output.exists()) {
         if (!output.createNewFile()) {
           throw new RuntimeException("Unable to create ratings file.");
@@ -186,18 +249,19 @@ public class Main {
         writer.write("userId,movieId,rating,timestamp");
         writer.newLine();
 
-        lines.skip(1).forEach(line -> {
+        lines.forEach(line -> {
           String[] columns = line.split(",");
+
           try {
             writer.write("1" + columns[0] + ",2" + columns[1] + "," + columns[2] + "," + columns[3]);
             writer.newLine();
           } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Unable to write ratings.");
           }
         });
       }
     } catch (IOException e) {
-      throw new RuntimeException("Unable to read the ratings.", e);
+      throw new RuntimeException("Unable to create output file.", e);
     }
   }
 

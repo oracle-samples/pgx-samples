@@ -26,6 +26,7 @@ Factorization Gradient Descent algorithm, runs the algorithm on the graph, and r
    2. Create a movies.csv with the correct header.
    3. Prepend a `1` to user identifiers and a `2` to movie identifiers.
    4. Create `is_left` property. Users are left, movies are not left (right).
+   5. Split the ratings in a training set and test set.
   2. Initialize PGX.
   3. Compile the Matrix Factorization Gradient Descent algorithm.
   4. Load the MovieLens graph.
