@@ -9,6 +9,8 @@
     <Root level="error">
       <AppenderRef ref="Console"/>
     </Root>
+    <Logger name="oracle.pgx.algorithms.Main" level="info">
+      <AppenderRef ref="Console"/>
+    </Logger>
   </Loggers>
 </Configuration>
-
