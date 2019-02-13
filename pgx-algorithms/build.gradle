@@ -20,5 +20,4 @@ dependencies {
 
 application {
   mainClassName = 'oracle.pgx.algorithms.Main'
-  applicationDefaultJvmArgs = ['-Dpgx_conf=conf/pgx.conf']
 }
