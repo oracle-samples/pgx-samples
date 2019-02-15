@@ -32,3 +32,11 @@ Factorization Gradient Descent algorithm, runs the algorithm on the graph, and r
   4. Load the MovieLens graph.
   5. Run the compiled algorithm on the MovieLens graph.
   6. Print the feature vectors for the first 10 vertices.
+
+## Usage 
+
+1. Download `web-Google.txt.gz` from https://snap.stanford.edu/data/web-Google.html, e.g. `wget /tmp/web-Google.txt.gz https://snap.stanford.edu/data/web-Google.txt.gz`.
+2. Extract the `web-Google.txt.gz` file, e.g. `gunzip web-Google.txt.gz`.
+3. Run `gradle run --args="<path-to-data>"` where `<path-to-data>` is the path to the directory where you extracted `web-Google.txt.gz`.
+
+(TODO: Explain about ArticleRank, link to paper, show modification of algorithm, etc.)

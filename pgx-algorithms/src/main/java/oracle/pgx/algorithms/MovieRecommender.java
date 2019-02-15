@@ -1,19 +1,15 @@
 /*
  * Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
  */
-
 package oracle.pgx.algorithms;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Streams;
@@ -33,8 +29,13 @@ import oracle.pgx.config.GraphConfigBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Main {
-  public static Logger logger = LoggerFactory.getLogger(Main.class);
+import static oracle.pgx.algorithms.Utils.atIndex;
+import static oracle.pgx.algorithms.Utils.getResource;
+import static oracle.pgx.algorithms.Utils.writeln;
+import static oracle.pgx.algorithms.Utils.writer;
+
+public class MovieRecommender {
+  public static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
   public static final int VECTOR_LENGTH = 20;
   public static final double LEARNING_RATE = 0.32;
   public static final double CHANGE_PER_STEP = 0.85;
@@ -42,19 +43,22 @@ public class Main {
   public static final int MAX_STEP = 100;
 
   public static void main(String[] args) throws Exception {
-    Path rawDataPath = Paths.get(args[0]);
+    Path rawData = Paths.get(args[0]);
 
-    if (!Files.exists(rawDataPath)) {
-      throw new IllegalArgumentException("The data path " + rawDataPath + " does not exist.");
+    if (!Files.exists(rawData)) {
+      throw new IllegalArgumentException("The argument path '" + rawData + "' does not exist.");
     }
 
     try (PgxSession session = Pgx.createSession("pgx-algorithm-session")) {
-      // Compile PGX algorithm
-      String code = getResource("MatrixFactorizationGradientDescent.java");
+      String code = getResource("algorithms/MatrixFactorizationGradientDescent.java");
       CompiledProgram program = session.compileProgram(code);
+      logger.info("Compiled program {}", program);
+
+      // TODO: Improve next block
+      // ------------------------------------------------------------------------------------------------
 
       // Massage raw data
-      Path data = prepare(rawDataPath);
+      Path data = prepare(rawData);
 
       // Load training graph
       FileGraphConfig trainingConfig = getGraphConfigBuilder(data)
@@ -110,6 +114,7 @@ public class Main {
 
       double meanSquaredError = sumSquaredError / length;
       double rootMeanSquaredError = Math.sqrt(meanSquaredError);
+      // ------------------------------------------------------------------------------------------------
 
       System.out.println("RMSE = " + rootMeanSquaredError);
     }
@@ -127,10 +132,6 @@ public class Main {
   private static FileGraphConfigBuilder getGraphConfigBuilder(Path data) {
     return GraphConfigBuilder
             .forFileFormat(Format.CSV)
-            .hasHeader(true)
-            .setVertexIdColumn("id")
-            .setEdgeSourceColumn("userId")
-            .setEdgeDestinationColumn("movieId")
             .addVertexUri(data.resolve("movies.csv").toString())
             .addVertexUri(data.resolve("users.csv").toString())
             .addVertexProperty("name", PropertyType.STRING)
@@ -157,61 +158,25 @@ public class Main {
 
   private static void createUsers(Path rawDataPath, Path data) {
     Path path = rawDataPath.resolve("ratings.csv");
+    Path output = createOutputFile(data.resolve("users.csv"));
 
-    try {
-      Stream<String> lines = Files.lines(path).skip(1);
-      File output = data.resolve("users.csv").toFile();
-
-      if (!output.exists()) {
-        if (!output.createNewFile()) {
-          throw new RuntimeException("Unable to create users file.");
-        }
-      }
-
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-        writer.write("id,name,genre,is_left");
-        writer.newLine();
-
-        lines.map(line -> line.split(",")[0]).distinct().forEach(user -> {
-          try {
-            writer.write("1" + user + ",,,true");
-            writer.newLine();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        });
-      }
+    try (Stream<String> lines = Files.lines(path).skip(1); Writer writer = writer(output)) {
+      lines.map(Splitter.comma).map(atIndex(0)).distinct().forEach(user ->
+        writeln(writer, "1" + user + ",,,true")
+      );
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the users.", e);
     }
   }
 
   private static void createMovies(Path rawDataPath, Path data) {
-    Path path = rawDataPath.resolve("movies.csv");
+    Path input = rawDataPath.resolve("movies.csv");
+    Path output = createOutputFile(data.resolve("movies.csv"));
 
-    try {
-      Stream<String> lines = Files.lines(path).skip(1);
-      File output = data.resolve("movies.csv").toFile();
-
-      if (!output.exists()) {
-        if (!output.createNewFile()) {
-          throw new RuntimeException("Unable to create movies file.");
-        }
-      }
-
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-        writer.write("id,name,genre,is_left");
-        writer.newLine();
-
-        lines.map(line -> line.split(",", 2)).distinct().forEach(movie -> {
-          try {
-            writer.write("2" + movie[0] + "," + movie[1] + ",false");
-            writer.newLine();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        });
-      }
+    try (Stream<String> lines = Files.lines(input).skip(1); Writer writer = writer(output)) {
+      lines.map(line -> line.split(",", 2)).distinct().forEach(movie ->
+        writeln(writer, "2" + movie[0] + "," + movie[1] + ",false")
+      );
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the movies.", e);
     }
@@ -236,42 +201,30 @@ public class Main {
   }
 
   private static void createRatings(Stream<String> lines, Path outputPath) {
-    File output = outputPath.toFile();
+    Path output = createOutputFile(outputPath);
 
-    try {
-      if (!output.exists()) {
-        if (!output.createNewFile()) {
-          throw new RuntimeException("Unable to create ratings file.");
-        }
-      }
-
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-        writer.write("userId,movieId,rating,timestamp");
-        writer.newLine();
-
-        lines.forEach(line -> {
-          String[] columns = line.split(",");
-
-          try {
-            writer.write("1" + columns[0] + ",2" + columns[1] + "," + columns[2] + "," + columns[3]);
-            writer.newLine();
-          } catch (IOException e) {
-            throw new RuntimeException("Unable to write ratings.");
-          }
-        });
-      }
+    try (Writer writer = writer(output)) {
+      lines.map(Splitter.comma).forEach(columns ->
+        writeln(writer, "1" + columns[0] + ",2" + columns[1] + "," + columns[2] + "," + columns[3])
+      );
     } catch (IOException e) {
       throw new RuntimeException("Unable to create output file.", e);
     }
   }
 
-  private static String getResource(String name) {
-    URL resource = Main.class.getClassLoader().getResource(name);
+  private static Path createOutputFile(Path path) {
+    File file = path.toFile();
 
-    if (resource == null) {
-      throw new IllegalStateException("Program '" + name + "' not found.");
+    if (!file.exists()) {
+      try {
+        if (!file.createNewFile()) {
+          throw new RuntimeException("Unable to create users file.");
+        }
+      } catch (IOException e) {
+        throw new RuntimeException("Unable to create users file.", e);
+      }
     }
 
-    return resource.getFile();
+    return path;
   }
 }
