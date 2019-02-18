@@ -4,6 +4,7 @@
 package oracle.pgx.algorithms;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -21,6 +22,22 @@ public class Utils {
     }
 
     return resource.getFile();
+  }
+
+  public static Path createOutputFile(Path path) {
+    File file = path.toFile();
+
+    try {
+      if (!file.exists()) {
+        if (!file.createNewFile()) {
+          throw new RuntimeException("Unable to create users file.");
+        }
+      }
+
+      return path;
+    } catch (IOException e) {
+      throw new RuntimeException("Unable to create users file.", e);
+    }
   }
 
   public static Writer writer(Path output) throws IOException {

@@ -1,4 +1,4 @@
-apply plugin: 'application'
+apply plugin: 'java'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -18,6 +18,14 @@ dependencies {
   compile fileTree(dir: embeddedDeps, includes: ['*.jar'])
 }
 
-application {
-  mainClassName = 'oracle.pgx.algorithms.Main'
+task runArticleRanker(dependsOn: 'classes', type: JavaExec) {
+  main = 'oracle.pgx.algorithms.ArticleRanker'
+  classpath = sourceSets.main.runtimeClasspath
+  args project.args
+}
+
+task runMovieRecommender(dependsOn: 'classes', type: JavaExec) {
+  main = 'oracle.pgx.algorithms.MovieRecommender'
+  classpath = sourceSets.main.runtimeClasspath
+  args project.args
 }

@@ -3,40 +3,50 @@
 ## Table of Contents:
 
 1. [Overview](#overview)
-3. [Usage](#usage)
+2. [Article Ranking](#article)
+3. [Movie Recommendation](#movie)
 
 ## Overview <a name="overview"></a>
 
-PGX Algorithm allows you to write your graph algorithm in Java and have it automatically compiled
-to an efficient parallel implementation targeting either the single-machine (shared-memory) or
-distributed runtime.
+This repository contains two examples: _Article Ranking_ and _Movie Recommendation_.
+Both examples use an algorithm that is written in _PGX Algorithm_, a Java-like language that makes it easy to write parallel graph algorithms.
 
-An implementation of the Matrix Factorization Gradient Descent can be found in `src/main/resources/`.
-This project contains a single class `oracle.pgx.algorithms.Main` that takes the path to a graph, compiles the Matrix
-Factorization Gradient Descent algorithm, runs the algorithm on the graph, and reports the precision.
+## Article Ranking <a name="article"></a>
 
-## Usage <a name="usage"></a>
+ArticleRank is an algorithm that has been derived from Google's PageRank algorithm to measure the influence of journal articles.
+PageRank has an inherent bias in that a paper with very few references will make a greater contribution to other papers' PageRank scores than will a paper with many references.
+Specifically, the PageRank algorithm defines the PageRank of a vertex as the sum of the pagerank of its neighboring vertices divided by the neighbor's out-degree.
+With ArticleRank each neighbor's ArticleRank is divided by the out-degree of the neighbor _plus the average out-degree of all vertices_.
+That way a vertex with a low out-degree contributes less to the rank of its neighbors.
 
-0. Download and Install Gradle.
-1. Download `ml-latest-small.zip` from https://grouplens.org/datasets/movielens/, e.g. `wget /tmp/ml-latest-small.zip http://files.grouplens.org/datasets/movielens/ml-latest-small.zip`.
-2. Extract the zip, e.g. `unzip /tmp/ml-latest-small.zip -d /tmp/`.
-3. Run `gradle run --args="<path-to-data>"` where `<path-to-data>` is the path to the directory where you extracted the `ml-latest-small.zip`. This command runs the `oracle.pgx.algorithms.Main` class, which does the following:
-  1. Massage the data.
-   1. Create users.csv from ratings.csv.
-   2. Create a movies.csv with the correct header.
-   3. Prepend a `1` to user identifiers and a `2` to movie identifiers.
-   4. Create `is_left` property. Users are left, movies are not left (right).
-   5. Split the ratings in a training set and test set.
-  2. Initialize PGX.
-  3. Compile the Matrix Factorization Gradient Descent algorithm.
-  4. Load the MovieLens graph.
-  5. Run the compiled algorithm on the MovieLens graph.
-  6. Print the feature vectors for the first 10 vertices.
+The ArticleRank example operates on the [WebGraph](https://snap.stanford.edu/data/web-Google.html) data set.
+To run the example:
 
-## Usage 
+1. Download and install [Gradle](https://gradle.org/install/) (version 5.2.1 or higher).
+2. Download [web-Google.txt.gz](https://snap.stanford.edu/data/web-Google.txt.gz) from the [SNAP  Google web graph](https://snap.stanford.edu/data/web-Google.html) page. <!-- `wget -O /tmp/web-Google.txt.gz https://snap.stanford.edu/data/web-Google.txt.gz` -->
+3. Extract `web-Google.txt.gz` to some writable directory `/tmp/foo/bar`. <!-- `gunzip /tmp/web-Google.txt.gz` -->
+4. Run `gradle runArticleRanker -Pargs="/tmp/foo/bar"`. <!-- `gradle runArticleRanker -Pargs="/tmp/"` -->
 
-1. Download `web-Google.txt.gz` from https://snap.stanford.edu/data/web-Google.html, e.g. `wget /tmp/web-Google.txt.gz https://snap.stanford.edu/data/web-Google.txt.gz`.
-2. Extract the `web-Google.txt.gz` file, e.g. `gunzip web-Google.txt.gz`.
-3. Run `gradle run --args="<path-to-data>"` where `<path-to-data>` is the path to the directory where you extracted `web-Google.txt.gz`.
+This command runs the `oracle.pgx.algorithms.ArticleRanker` class, which:
 
-(TODO: Explain about ArticleRank, link to paper, show modification of algorithm, etc.)
+1. Prepares the graph data.
+2. Loads the graph.
+3. Compiles and runs the ArticleRank algorithm on the graph.
+4. Prints the ArticleRank for the first 10 vertices.
+
+## Movie Recommendation <a name="movie"></a>
+
+The Movie Recommendation example operates on the [MovieLens](https://grouplens.org/datasets/movielens/) data set.
+To run the example:
+
+1. Download and install [Gradle](https://gradle.org/install/) (version 5.2.1 or higher).
+2. Download [ml-latest-small.zip](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip) from the [MovieLens datasets](https://grouplens.org/datasets/movielens/) page. <!-- `wget -O /tmp/ml-latest-small.zip http://files.grouplens.org/datasets/movielens/ml-latest-small.zip` -->
+3. Extract `ml-latest-small.zip` to some writable directory `/tmp/foo/bar`. <!-- `unzip /tmp/ml-latest-small.zip -d /tmp/` -->
+4. Run `gradle runMovieRecommender -Pargs="/tmp/foo/bar"`. <!-- gradle runMovieRecommender -Pargs="/tmp/ml-latest-small"` -->
+
+This command runs the `oracle.pgx.algorithms.MovieRecommender` class, which:
+
+1. Prepares the graph data (e.g. partition in a training- and test set).
+2. Loads the graph.
+3. Compiles and runs the Matrix Factorization Gradient Descent algorithm on the graph.
+4. Prints the Root Mean Squared Error for the test set.

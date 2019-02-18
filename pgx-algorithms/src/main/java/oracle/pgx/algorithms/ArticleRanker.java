@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static java.nio.file.Files.lines;
+import static oracle.pgx.algorithms.Utils.createOutputFile;
 import static oracle.pgx.algorithms.Utils.getResource;
 import static oracle.pgx.algorithms.Utils.limit;
 import static oracle.pgx.algorithms.Utils.writeln;
@@ -40,10 +41,10 @@ public class ArticleRanker {
   public static final int MAX_ITER_COUNT = 1000;
 
   public static void main(String[] args) throws Exception {
-    Path rawData = Paths.get(args[0]);
+    Path inputDir = Paths.get(args[0]);
 
-    if (!Files.exists(rawData)) {
-      throw new IllegalArgumentException("The argument path '" + rawData + "' does not exist.");
+    if (!Files.exists(inputDir)) {
+      throw new IllegalArgumentException("The input directory '" + inputDir + "' does not exist.");
     }
 
     try (PgxSession session = Pgx.createSession("pgx-algorithm-session")) {
@@ -51,7 +52,7 @@ public class ArticleRanker {
       CompiledProgram program = session.compileProgram(code);
       logger.info("Compiled program {}", program);
 
-      GraphConfig config = createGraphConfig(rawData);
+      GraphConfig config = createGraphConfig(inputDir);
       PgxGraph graph = session.readGraphWithProperties(config);
       logger.info("Loaded graph {}", graph);
 
@@ -64,13 +65,13 @@ public class ArticleRanker {
     }
   }
 
-  private static FileGraphConfig createGraphConfig(Path rawDataPath) {
+  private static FileGraphConfig createGraphConfig(Path inputDir) {
     try {
-      Path data = Files.createTempDirectory("pgx-sample-algorithm-articlerank");
-      logger.info("Using temporary directory {}", data);
+      Path tempDir = Files.createTempDirectory("pgx-sample-algorithm-articlerank");
+      logger.info("Using temporary directory {}", tempDir);
 
-      String articlesUri = createArticles(rawDataPath, data);
-      String edgeUri = createCitations(rawDataPath, data);
+      String articlesUri = createArticles(inputDir, tempDir);
+      String edgeUri = createCitations(inputDir, tempDir);
 
       return GraphConfigBuilder
           .forFileFormat(Format.CSV)
@@ -82,9 +83,9 @@ public class ArticleRanker {
     }
   }
 
-  private static String createArticles(Path rawDataPath, Path data) {
-    Path path = rawDataPath.resolve("web-Google.txt");
-    Path output = createOutputFile(data.resolve("articles.csv"));
+  private static String createArticles(Path inputDir, Path tempDir) {
+    Path path = inputDir.resolve("web-Google.txt");
+    Path output = createOutputFile(tempDir.resolve("articles.csv"));
 
     try {
       Set<Integer> seen = new HashSet<>();
@@ -114,9 +115,9 @@ public class ArticleRanker {
     seen.add(article);
   }
 
-  private static String createCitations(Path rawDataPath, Path data) {
-    Path input = rawDataPath.resolve("web-Google.txt");
-    Path output = createOutputFile(data.resolve("citations.csv"));
+  private static String createCitations(Path inputDir, Path tempDir) {
+    Path input = inputDir.resolve("web-Google.txt");
+    Path output = createOutputFile(tempDir.resolve("citations.csv"));
 
     try (Writer writer = writer(output); Stream<String> lines = lines(input).skip(4)) {
       lines.map(Splitter.tab).forEach(columns -> {
@@ -126,21 +127,6 @@ public class ArticleRanker {
       return output.toString();
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the citations.", e);
-    }
-  }
-
-  private static Path createOutputFile(Path path) {
-    File file = path.toFile();
-
-    try {
-      if (!file.exists()) {
-        if (!file.createNewFile()) {
-          throw new RuntimeException("Unable to create users file.");
-        }
-      }
-      return path;
-    } catch (IOException e) {
-      throw new RuntimeException("Unable to create users file.");
     }
   }
 }
