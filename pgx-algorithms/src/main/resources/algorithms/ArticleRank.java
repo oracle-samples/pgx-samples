@@ -29,13 +29,12 @@ public class ArticleRank {
         // Pagerank:
         double in_sum = t.getInNeighbors().sum(w -> rank.get(w) / w.getOutDegree());
         double val = (1 - d) / N + d * in_sum + dangling_factor.get();
-        diff.reduceAdd(abs(val - rank.get(t)));
-        rank.setDeferred(t, val);
         */
 
         // ArticleRank:
         double in_sum = t.getInNeighbors().sum(inNeighbor -> rank.get(inNeighbor) / (avgOutDegree + inNeighbor.getOutDegree()));
         double val = (1 - d) + d * avgOutDegree * in_sum;
+
         diff.reduceAdd(abs(val - rank.get(t)));
         rank.setDeferred(t, val);
       });

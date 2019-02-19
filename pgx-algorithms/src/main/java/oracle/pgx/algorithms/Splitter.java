@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2019 Oracle and/or its affiliates. All rights reserved.
+ */
 package oracle.pgx.algorithms;
 
 import java.util.function.Function;

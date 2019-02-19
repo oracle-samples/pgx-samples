@@ -28,17 +28,21 @@ import oracle.pgx.config.GraphConfigBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.lang.Double.min;
+import static java.lang.Math.max;
+import static java.lang.Math.sqrt;
 import static oracle.pgx.algorithms.Utils.atIndex;
 import static oracle.pgx.algorithms.Utils.createOutputFile;
 import static oracle.pgx.algorithms.Utils.getResource;
 import static oracle.pgx.algorithms.Utils.writeln;
 import static oracle.pgx.algorithms.Utils.writer;
+import static oracle.pgx.common.types.PropertyType.DOUBLE;
 
 public class MovieRecommender {
   public static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
-  public static final int VECTOR_LENGTH = 20;
-  public static final double LEARNING_RATE = 0.32;
-  public static final double CHANGE_PER_STEP = 0.85;
+  public static final int VECTOR_LENGTH = 50;
+  public static final double LEARNING_RATE = 0.05;
+  public static final double CHANGE_PER_STEP = 0.9;
   public static final double LAMBDA = 0.25;
   public static final int MAX_STEP = 100;
 
@@ -62,21 +66,23 @@ public class MovieRecommender {
       FileGraphConfig testConfig = getGraphConfigBuilder(data).addEdgeUri(data.resolve("ratings-test.csv").toString()).build();
       PgxGraph testGraph = session.readGraphWithProperties(testConfig);
       Stream<PgxEdge> testEdges = filterExisting(trainingGraph, testGraph);
-      EdgeProperty<Object> prediction = testGraph.createEdgeProperty(PropertyType.DOUBLE);
+      EdgeProperty<Double> predictions = testGraph.createEdgeProperty(DOUBLE);
       logger.info("Loaded test graph {}", testGraph);
 
       VertexProperty<Object, Boolean> is_left = trainingGraph.getVertexProperty("is_left");
       EdgeProperty<Double> rating = trainingGraph.getEdgeProperty("rating");
-      VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(PropertyType.DOUBLE, VECTOR_LENGTH, "features", false);
+      VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(DOUBLE, VECTOR_LENGTH, "features", false);
       program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, LAMBDA, MAX_STEP, VECTOR_LENGTH, features);
       logger.info("Finished running Matrix Factorization Gradient Descent");
 
       // Predict rating for edges in the test set
-      testEdges.forEach(e -> {
-        Vect<Double> userFeature = features.get(e.getSource());
-        Vect<Double> movieFeature = features.get(e.getDestination());
+      testEdges.forEach(edge -> {
+        Vect<Double> userFeature = features.get(edge.getSource());
+        Vect<Double> movieFeature = features.get(edge.getDestination());
 
-        prediction.set(e, Double.min(dotProduct(userFeature, movieFeature), 5));
+        double predictedRating = dotProduct(userFeature, movieFeature);
+        double normalizedRating = max(min(predictedRating, 5), 1);
+        predictions.set(edge, normalizedRating);
       });
 
       // Compute root mean squared error
@@ -84,8 +90,9 @@ public class MovieRecommender {
       double length = 0;
 
       for (PgxEdge e : testGraph.getEdges()) {
-        double actualRating = rating.get(e.getId());
-        double predictionRating = e.getProperty("rating");
+        double actualRating = rating.get(e);
+        double predictionRating = predictions.get(e);
+
         double error = predictionRating - actualRating;
         double squaredError = Math.pow(error, 2);
 
@@ -94,7 +101,7 @@ public class MovieRecommender {
       }
 
       double meanSquaredError = sumSquaredError / length;
-      double rootMeanSquaredError = Math.sqrt(meanSquaredError);
+      double rootMeanSquaredError = sqrt(meanSquaredError);
 
       System.out.println("RMSE = " + rootMeanSquaredError);
     }
@@ -134,7 +141,7 @@ public class MovieRecommender {
             .addVertexProperty("name", PropertyType.STRING)
             .addVertexProperty("genre", PropertyType.STRING)
             .addVertexProperty("is_left", PropertyType.BOOLEAN)
-            .addEdgeProperty("rating", PropertyType.DOUBLE)
+            .addEdgeProperty("rating", DOUBLE)
             .addEdgeProperty("timestamp", PropertyType.INTEGER);
   }
 
@@ -152,7 +159,7 @@ public class MovieRecommender {
       throw new RuntimeException("Cannot create a temporary directory.", e);
     }
   }
-
+  
   private static void createUsers(Path inputDir, Path tempDir) {
     Path path = inputDir.resolve("ratings.csv");
     Path output = createOutputFile(tempDir.resolve("users.csv"));

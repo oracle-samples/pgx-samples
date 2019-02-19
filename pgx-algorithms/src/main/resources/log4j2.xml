@@ -15,5 +15,8 @@
     <Logger name="oracle.pgx.algorithms.ArticleRanker" level="info">
       <AppenderRef ref="Console"/>
     </Logger>
+    <Logger name="GM_GENERATED" level="info">
+      <AppenderRef ref="Console"/>
+    </Logger>
   </Loggers>
 </Configuration>

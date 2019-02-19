@@ -50,3 +50,5 @@ This command runs the `oracle.pgx.algorithms.MovieRecommender` class, which:
 2. Loads the graph.
 3. Compiles and runs the Matrix Factorization Gradient Descent algorithm on the graph.
 4. Prints the Root Mean Squared Error for the test set.
+
+This computes a RMSE of 2.047, which is on-par with the RMSE that can be obtained with different algorithms.

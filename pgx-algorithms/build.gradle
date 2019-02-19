@@ -21,11 +21,17 @@ dependencies {
 task runArticleRanker(dependsOn: 'classes', type: JavaExec) {
   main = 'oracle.pgx.algorithms.ArticleRanker'
   classpath = sourceSets.main.runtimeClasspath
-  args project.args
+
+  if (project.hasProperty('args')) {
+    args project.args
+  }
 }
 
 task runMovieRecommender(dependsOn: 'classes', type: JavaExec) {
   main = 'oracle.pgx.algorithms.MovieRecommender'
   classpath = sourceSets.main.runtimeClasspath
-  args project.args
+
+  if (project.hasProperty('args')) {
+    args project.args
+  }
 }

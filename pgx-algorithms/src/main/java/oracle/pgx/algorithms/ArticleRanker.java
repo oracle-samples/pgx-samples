@@ -71,12 +71,12 @@ public class ArticleRanker {
       logger.info("Using temporary directory {}", tempDir);
 
       String articlesUri = createArticles(inputDir, tempDir);
-      String edgeUri = createCitations(inputDir, tempDir);
+      String citationsUri = createCitations(inputDir, tempDir);
 
       return GraphConfigBuilder
           .forFileFormat(Format.CSV)
           .addVertexUri(articlesUri)
-          .addEdgeUri(edgeUri)
+          .addEdgeUri(citationsUri)
           .build();
     } catch (IOException e) {
       throw new RuntimeException("Cannot create a temporary directory.", e);
