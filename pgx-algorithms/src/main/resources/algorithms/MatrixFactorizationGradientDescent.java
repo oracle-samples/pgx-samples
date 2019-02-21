@@ -56,9 +56,6 @@ public class MatrixFactorizationGradientDescent {
 
             root_mean_square_error.reduceAdd((weight_1 - weight_2) * (weight_1 - weight_2));
 
-            // use this local procedure instead once GM-12295 get resolved
-            //root_mean_square_error = update_vector(G, curr_node, opposite_node, curr_edge, lambda, max_value,
-            //    min_value, root_mean_square_error, weight, vector_length, Z, dest_property);
           });
           dest_property_next.set(curr_node, dest_property.get(curr_node).add(Z.multiply(rate.get())));
         } else {
@@ -81,9 +78,6 @@ public class MatrixFactorizationGradientDescent {
 
             root_mean_square_error.reduceAdd((weight_1 - weight_2) * (weight_1 - weight_2));
 
-            // use this local procedure instead once GM-12295 get resolved
-            //root_mean_square_error = update_vector(G, curr_node, opposite_node, curr_edge, lambda, max_value,
-            //    min_value, root_mean_square_error, weight, vector_length, Z, dest_property);
           });
 
           dest_property_next.set(curr_node, dest_property.get(curr_node).add(Z.multiply(rate.get())));
@@ -96,25 +90,5 @@ public class MatrixFactorizationGradientDescent {
       counter++;
     }
     return root_mean_square_error.get();
-  }
-
-  private double update_vector(PgxGraph G, PgxVertex curr_node, PgxVertex opposite_node, PgxEdge curr_edge,
-      double lambda, double max_value, double min_value, double root_mean_square_error, EdgeProperty<Double> weight,
-      int vector_length, @Out @Length("vector_length") PgxVect<Double> Z,
-      VertexProperty<@Length("vector_length") PgxVect<Double>> dest_property) {
-
-    double weight_1 = weight.get(curr_edge);
-    double weight_2 = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
-
-    if (weight_2 > max_value) {
-      weight_2 = max_value;
-    } else if (weight_2 < min_value) {
-      weight_2 = min_value;
-    }
-
-    Z.reduceAdd(dest_property.get(opposite_node).multiply(weight_1 - weight_2)
-        .subtract(dest_property.get(curr_node).multiply(lambda)));
-
-    return root_mean_square_error + (weight_1 - weight_2) * (weight_1 - weight_2);
   }
 }
