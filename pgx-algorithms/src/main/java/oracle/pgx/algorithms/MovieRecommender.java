@@ -40,10 +40,10 @@ import static oracle.pgx.common.types.PropertyType.DOUBLE;
 
 public class MovieRecommender {
   public static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
-  public static final int VECTOR_LENGTH = 50;
-  public static final double LEARNING_RATE = 0.05;
-  public static final double CHANGE_PER_STEP = 0.9;
-  public static final double LAMBDA = 0.25;
+  public static final int VECTOR_LENGTH = 100;
+  public static final double LEARNING_RATE = 0.8;
+  public static final double CHANGE_PER_STEP = 1.0;
+  public static final double LAMBDA = 0.5;
   public static final int MAX_STEP = 100;
 
   public static void main(String[] args) throws Exception {
@@ -91,7 +91,7 @@ public class MovieRecommender {
 
       for (PgxEdge e : testGraph.getEdges()) {
         double actualRating = rating.get(e);
-        double predictionRating = predictions.get(e);
+        double predictionRating = Math.round(predictions.get(e));
 
         double error = predictionRating - actualRating;
         double squaredError = Math.pow(error, 2);
