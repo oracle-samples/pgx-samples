@@ -85,25 +85,23 @@ public class MovieRecommender {
         predictions.set(edge, normalizedRating);
       });
 
-      // Compute root mean squared error
-      double sumSquaredError = 0;
+      // Compute mean absolute error
+      double sumAbsoluteError = 0;
       double length = 0;
 
       for (PgxEdge e : testGraph.getEdges()) {
         double actualRating = rating.get(e);
         double predictionRating = Math.round(predictions.get(e));
 
-        double error = predictionRating - actualRating;
-        double squaredError = Math.pow(error, 2);
+        double absoluteError = Math.abs(predictionRating - actualRating);
 
-        sumSquaredError += squaredError;
+        sumAbsoluteError += absoluteError;
         length++;
       }
 
-      double meanSquaredError = sumSquaredError / length;
-      double rootMeanSquaredError = sqrt(meanSquaredError);
+      double meanAbsoluteError = sumAbsoluteError / length;
 
-      System.out.println("RMSE = " + rootMeanSquaredError);
+      System.out.println("MAE = " + meanAbsoluteError);
     }
   }
 
