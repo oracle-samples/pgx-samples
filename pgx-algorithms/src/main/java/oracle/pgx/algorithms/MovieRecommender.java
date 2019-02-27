@@ -40,10 +40,9 @@ import static oracle.pgx.common.types.PropertyType.DOUBLE;
 
 public class MovieRecommender {
   public static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
-  public static final int VECTOR_LENGTH = 100;
-  public static final double LEARNING_RATE = 0.8;
+  public static final int VECTOR_LENGTH = 10;
+  public static final double LEARNING_RATE = 0.00008;
   public static final double CHANGE_PER_STEP = 1.0;
-  public static final double LAMBDA = 0.5;
   public static final int MAX_STEP = 100;
 
   public static void main(String[] args) throws Exception {
@@ -72,7 +71,7 @@ public class MovieRecommender {
       VertexProperty<Object, Boolean> is_left = trainingGraph.getVertexProperty("is_left");
       EdgeProperty<Double> rating = trainingGraph.getEdgeProperty("rating");
       VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(DOUBLE, VECTOR_LENGTH, "features", false);
-      program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, LAMBDA, MAX_STEP, VECTOR_LENGTH, features);
+      program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, MAX_STEP, VECTOR_LENGTH, features);
       logger.info("Finished running Matrix Factorization Gradient Descent");
 
       // Predict rating for edges in the test set
@@ -80,28 +79,30 @@ public class MovieRecommender {
         Vect<Double> userFeature = features.get(edge.getSource());
         Vect<Double> movieFeature = features.get(edge.getDestination());
 
-        double predictedRating = dotProduct(userFeature, movieFeature);
+        double predictedRating = Math.round(dotProduct(userFeature, movieFeature));
         double normalizedRating = max(min(predictedRating, 5), 1);
         predictions.set(edge, normalizedRating);
       });
 
-      // Compute mean absolute error
-      double sumAbsoluteError = 0;
+      // Compute root mean squared error
+      double sumSquaredError = 0;
       double length = 0;
 
       for (PgxEdge e : testGraph.getEdges()) {
         double actualRating = rating.get(e);
-        double predictionRating = Math.round(predictions.get(e));
+        double predictedRating = predictions.get(e);
 
-        double absoluteError = Math.abs(predictionRating - actualRating);
+        double error = predictedRating - actualRating;
+        double squaredError = Math.pow(error, 2);
 
-        sumAbsoluteError += absoluteError;
+        sumSquaredError += squaredError;
         length++;
       }
 
-      double meanAbsoluteError = sumAbsoluteError / length;
+      double meanSquaredError = sumSquaredError / length;
+      double rootMeanSquaredError = Math.sqrt(meanSquaredError);
 
-      System.out.println("MAE = " + meanAbsoluteError);
+      System.out.println("RMSE = " + rootMeanSquaredError);
     }
   }
 

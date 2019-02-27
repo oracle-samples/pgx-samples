@@ -20,7 +20,7 @@ import static oracle.pgx.api.beta.Random.uniformVector;
 @GraphAlgorithm
 public class MatrixFactorizationGradientDescent {
   public double matrix_factorization_gradient_descent(PgxGraph G, VertexProperty<Boolean> is_left,
-      EdgeProperty<Double> weight, double learning_rate, double change_per_step, double lambda, int max_step,
+      EdgeProperty<Double> weight, double learning_rate, double change_per_step, int max_step,
       int vector_length, @Out VertexProperty<@Length("vector_length") PgxVect<Double>> dest_property) {
     VertexProperty<@Length("vector_length") PgxVect<Double>> dest_property_next = VertexProperty.create();
     G.getVertices().forSequential(n -> {
@@ -42,19 +42,18 @@ public class MatrixFactorizationGradientDescent {
           curr_node.getOutEdges().forSequential(curr_edge -> {
             PgxVertex opposite_node = curr_edge.destinationVertex();
 
-            double weight_1 = weight.get(curr_edge);
-            double weight_2 = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
+            double rating = weight.get(curr_edge);
+            double rating_hat = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
 
-            if (weight_2 > max_value) {
-              weight_2 = max_value;
-            } else if (weight_2 < min_value) {
-              weight_2 = min_value;
+            if (rating_hat > max_value) {
+              rating_hat = max_value;
+            } else if (rating_hat < min_value) {
+              rating_hat = min_value;
             }
 
-            Z.reduceAdd(dest_property.get(opposite_node).multiply(weight_1 - weight_2)
-                .subtract(dest_property.get(curr_node).multiply(lambda)));
+            Z.reduceAdd(dest_property.get(opposite_node).multiply(rating - rating_hat).multiply(2));
 
-            root_mean_square_error.reduceAdd((weight_1 - weight_2) * (weight_1 - weight_2));
+            root_mean_square_error.reduceAdd((rating - rating_hat) * (rating - rating_hat));
 
           });
           dest_property_next.set(curr_node, dest_property.get(curr_node).add(Z.multiply(rate.get())));
@@ -64,19 +63,18 @@ public class MatrixFactorizationGradientDescent {
           curr_node.getInEdges().forSequential(curr_edge -> {
             PgxVertex opposite_node = curr_edge.sourceVertex();
 
-            double weight_1 = weight.get(curr_edge);
-            double weight_2 = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
+            double rating = weight.get(curr_edge);
+            double rating_hat = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
 
-            if (weight_2 > max_value) {
-              weight_2 = max_value;
-            } else if (weight_2 < min_value) {
-              weight_2 = min_value;
+            if (rating_hat > max_value) {
+              rating_hat = max_value;
+            } else if (rating_hat < min_value) {
+              rating_hat = min_value;
             }
 
-            Z.reduceAdd((dest_property.get(opposite_node).multiply(weight_1 - weight_2)
-                .subtract(dest_property.get(curr_node).multiply(lambda))));
+            Z.reduceAdd(dest_property.get(opposite_node).multiply(rating - rating_hat).multiply(2));
 
-            root_mean_square_error.reduceAdd((weight_1 - weight_2) * (weight_1 - weight_2));
+            root_mean_square_error.reduceAdd((rating - rating_hat) * (rating - rating_hat));
 
           });
 
@@ -86,6 +84,7 @@ public class MatrixFactorizationGradientDescent {
 
       dest_property.setAll(dest_property_next::get);
       root_mean_square_error.set(sqrt(root_mean_square_error.get() / (G.getNumEdges() * 2.0)));
+      System.out.println(root_mean_square_error);
       rate.reduceMul(change_per_step);
       counter++;
     }
