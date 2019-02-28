@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Streams;
@@ -30,7 +33,6 @@ import org.slf4j.LoggerFactory;
 
 import static java.lang.Double.min;
 import static java.lang.Math.max;
-import static java.lang.Math.sqrt;
 import static oracle.pgx.algorithms.Utils.atIndex;
 import static oracle.pgx.algorithms.Utils.createOutputFile;
 import static oracle.pgx.algorithms.Utils.getResource;
@@ -43,7 +45,7 @@ public class MovieRecommender {
   public static final int VECTOR_LENGTH = 10;
   public static final double LEARNING_RATE = 0.00008;
   public static final double CHANGE_PER_STEP = 1.0;
-  public static final int MAX_STEP = 100;
+  public static final int MAX_STEP = 300;
 
   public static void main(String[] args) throws Exception {
     Path inputDir = Paths.get(args[0]);
@@ -58,16 +60,27 @@ public class MovieRecommender {
       logger.info("Compiled program {}", program);
 
       Path data = prepare(inputDir);
-      FileGraphConfig trainingConfig = getGraphConfigBuilder(data).addEdgeUri(data.resolve("ratings-training.csv").toString()).build();
+
+      FileGraphConfig trainingConfig = getGraphConfigBuilder()
+          .addEdgeUri(data.resolve("ratings-training.csv").toString())
+          .addVertexUri(data.resolve("movies-training.csv").toString())
+          .addVertexUri(data.resolve("users-training.csv").toString())
+          .build();
       PgxGraph trainingGraph = session.readGraphWithProperties(trainingConfig);
       logger.info("Loaded training graph {}", trainingGraph);
 
-      FileGraphConfig testConfig = getGraphConfigBuilder(data).addEdgeUri(data.resolve("ratings-test.csv").toString()).build();
+      FileGraphConfig testConfig = getGraphConfigBuilder()
+          .addEdgeUri(data.resolve("ratings-test.csv").toString())
+          .addVertexUri(data.resolve("movies-test.csv").toString())
+          .addVertexUri(data.resolve("users-test.csv").toString())
+          .build();
       PgxGraph testGraph = session.readGraphWithProperties(testConfig);
-      Stream<PgxEdge> testEdges = filterExisting(trainingGraph, testGraph);
+      logger.info("Test graph edges size = {}", testGraph.getEdges().size());
+      Stream<PgxEdge> testEdgesStream = filterExisting(trainingGraph, testGraph);
+      List<PgxEdge> testEdges = testEdgesStream.collect(Collectors.toList());
+      logger.info("Test graph filtered edges size = {}", testEdges.size());
       EdgeProperty<Double> predictions = testGraph.createEdgeProperty(DOUBLE);
       logger.info("Loaded test graph {}", testGraph);
-
       VertexProperty<Object, Boolean> is_left = trainingGraph.getVertexProperty("is_left");
       EdgeProperty<Double> rating = trainingGraph.getEdgeProperty("rating");
       VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(DOUBLE, VECTOR_LENGTH, "features", false);
@@ -88,9 +101,11 @@ public class MovieRecommender {
       double sumSquaredError = 0;
       double length = 0;
 
-      for (PgxEdge e : testGraph.getEdges()) {
-        double actualRating = rating.get(e);
-        double predictedRating = predictions.get(e);
+      EdgeProperty<Double> testGraphRating = testGraph.getEdgeProperty("rating");
+
+      for (PgxEdge testEdge : testEdges) {
+        double actualRating = testGraphRating.get(testEdge);
+        double predictedRating = predictions.get(testEdge);
 
         double error = predictedRating - actualRating;
         double squaredError = Math.pow(error, 2);
@@ -98,6 +113,9 @@ public class MovieRecommender {
         sumSquaredError += squaredError;
         length++;
       }
+
+      logger.info("sumSquaredError = {}", sumSquaredError);
+      logger.info("length = {}", length);
 
       double meanSquaredError = sumSquaredError / length;
       double rootMeanSquaredError = Math.sqrt(meanSquaredError);
@@ -111,15 +129,7 @@ public class MovieRecommender {
       Object sourceId = e.getSource().getId();
       Object targetId = e.getDestination().getId();
 
-      if (trainingGraph.getVertex(sourceId) == null) {
-        return false;
-      }
-
-      if (trainingGraph.getVertex(targetId) == null) {
-        return false;
-      }
-
-      return true;
+      return trainingGraph.hasVertex(sourceId) && trainingGraph.hasVertex(targetId);
     });
   }
 
@@ -132,13 +142,9 @@ public class MovieRecommender {
         .reduce(0.0, Double::sum);
   }
 
-  private static FileGraphConfigBuilder getGraphConfigBuilder(Path data) {
+  private static FileGraphConfigBuilder getGraphConfigBuilder() {
     return GraphConfigBuilder
             .forFileFormat(Format.CSV)
-            .addVertexUri(data.resolve("movies.csv").toString())
-            .addVertexUri(data.resolve("users.csv").toString())
-            .addVertexProperty("name", PropertyType.STRING)
-            .addVertexProperty("genre", PropertyType.STRING)
             .addVertexProperty("is_left", PropertyType.BOOLEAN)
             .addEdgeProperty("rating", DOUBLE)
             .addEdgeProperty("timestamp", PropertyType.INTEGER);
@@ -149,69 +155,88 @@ public class MovieRecommender {
       Path tempDir = Files.createTempDirectory("pgx-algorithm-sample");
       logger.info("Using temporary directory {}", tempDir);
 
-      createUsers(inputDir, tempDir);
-      createMovies(inputDir, tempDir);
-      splitRatings(inputDir, tempDir);
+      // 0 = training, 1 = test
+      Path[] ratings = splitRatings(inputDir, tempDir);
+      createUsers(ratings[0], tempDir.resolve("users-training.csv"));
+      createUsers(ratings[1], tempDir.resolve("users-test.csv"));
+      createMovies(ratings[0], tempDir.resolve("movies-training.csv"));
+      createMovies(ratings[1], tempDir.resolve("movies-test.csv"));
 
       return tempDir;
     } catch (IOException e) {
       throw new RuntimeException("Cannot create a temporary directory.", e);
     }
   }
-  
-  private static void createUsers(Path inputDir, Path tempDir) {
-    Path path = inputDir.resolve("ratings.csv");
-    Path output = createOutputFile(tempDir.resolve("users.csv"));
 
-    try (Stream<String> lines = Files.lines(path).skip(1); Writer writer = writer(output)) {
-      lines.map(Splitter.comma).map(atIndex(0)).distinct().forEach(user ->
-        writeln(writer, "1" + user + ",,,true")
-      );
-    } catch (IOException e) {
-      throw new RuntimeException("Unable to read the users.", e);
-    }
-  }
-
-  private static void createMovies(Path inputDir, Path tempDir) {
-    Path input = inputDir.resolve("movies.csv");
-    Path output = createOutputFile(tempDir.resolve("movies.csv"));
-
-    try (Stream<String> lines = Files.lines(input).skip(1); Writer writer = writer(output)) {
-      lines.map(line -> line.split(",", 2)).distinct().forEach(movie ->
-        writeln(writer, "2" + movie[0] + "," + movie[1] + ",false")
-      );
-    } catch (IOException e) {
-      throw new RuntimeException("Unable to read the movies.", e);
-    }
-  }
-
-  private static void splitRatings(Path inputDir, Path tempDir) {
+  private static Path[] splitRatings(Path inputDir, Path tempDir) {
     Path path = inputDir.resolve("ratings.csv");
 
     try {
-      long rows = Files.lines(path).count();
+      List<String> lines = Files
+          .lines(path)
+          .skip(1)
+          .collect(Collectors.toList());
+
+      // Shuffle the lines to avoid bias in partitioning
+      Collections.shuffle(lines);
+
+      // Partition on 80%/20% basis
+      long rows = lines.size();
       long testSize = rows / 5;
       long trainingSize = rows - testSize;
+      logger.info("Total ratings = {}, test ratings = {}, training ratings = {}", rows, testSize, trainingSize);
 
-      Stream<String> training = Files.lines(path).skip(1).limit(trainingSize);
-      Stream<String> test = Files.lines(path).skip(1 + trainingSize);
+      Stream<String> training = lines.stream().limit(trainingSize);
+      Stream<String> test = lines.stream().skip(trainingSize);
 
-      createRatings(training, tempDir.resolve("ratings-training.csv"));
-      createRatings(test, tempDir.resolve("ratings-test.csv"));
+      // Create the training- and test files
+      Path ratingsTraining = createRatings(training, tempDir.resolve("ratings-training.csv"));
+      Path ratingsTest = createRatings(test, tempDir.resolve("ratings-test.csv"));
+
+      return new Path[] {
+          ratingsTraining,
+          ratingsTest
+      };
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the ratings.", e);
     }
   }
 
-  private static void createRatings(Stream<String> lines, Path outputPath) {
+  private static Path createRatings(Stream<String> lines, Path outputPath) {
     Path output = createOutputFile(outputPath);
 
     try (Writer writer = writer(output)) {
       lines.map(Splitter.comma).forEach(columns ->
         writeln(writer, "1" + columns[0] + ",2" + columns[1] + "," + columns[2] + "," + columns[3])
       );
+
+      return output;
     } catch (IOException e) {
       throw new RuntimeException("Unable to create output file.", e);
+    }
+  }
+
+  private static void createUsers(Path inputFile, Path outputFile) {
+    Path output = createOutputFile(outputFile);
+
+    try (Stream<String> lines = Files.lines(inputFile); Writer writer = writer(output)) {
+      lines.map(Splitter.comma).map(atIndex(0)).distinct().forEach(user ->
+          writeln(writer, user + ",true")
+      );
+    } catch (IOException e) {
+      throw new RuntimeException("Unable to read the users.", e);
+    }
+  }
+
+  private static void createMovies(Path inputFile, Path outputFile) {
+    Path output = createOutputFile(outputFile);
+
+    try (Stream<String> lines = Files.lines(inputFile); Writer writer = writer(output)) {
+      lines.map(Splitter.comma).map(atIndex(1)).distinct().forEach(movie ->
+          writeln(writer, movie + ",false")
+      );
+    } catch (IOException e) {
+      throw new RuntimeException("Unable to read the movies.", e);
     }
   }
 }

@@ -84,7 +84,6 @@ public class MatrixFactorizationGradientDescent {
 
       dest_property.setAll(dest_property_next::get);
       root_mean_square_error.set(sqrt(root_mean_square_error.get() / (G.getNumEdges() * 2.0)));
-      System.out.println(root_mean_square_error);
       rate.reduceMul(change_per_step);
       counter++;
     }

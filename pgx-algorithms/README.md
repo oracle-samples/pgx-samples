@@ -46,9 +46,13 @@ To run the example:
 
 This command runs the `oracle.pgx.algorithms.MovieRecommender` class, which:
 
-1. Prepares the graph data (e.g. partition in a training- and test set).
-2. Loads the graph.
-3. Compiles and runs the Matrix Factorization Gradient Descent algorithm on the graph.
-4. Prints the Root Mean Squared Error for the test set.
+1. Prepares the graph data
+ 1. Shuffles the ratings. In step (2) the ratings are partitioned; by shuffling we avoid bias in the test graph.
+ 2. Partitions the edges (ratings) in a training- and test set on a 80%/20% basis.
+ 3. Prepends a "1" to user IDs and a "2" to movie IDs to ensure that all vertex IDs are unique.
+ 4. Adds an `is_left` property which is `true` for users and `false` for movies.
+2. Loads the training- and test graph.
+3. Compiles the Matrix Factorization Gradient Descent algorithm and runs it on the training graph.
+4. Computes and prints the Root Mean Squared Error (RMSE) for the test set.
 
-This computes a RMSE of 2.047, which is on-par with the RMSE that can be obtained with different algorithms.
+This computes a RMSE of 0.94, which is on-par with the RMSE that can be obtained with different algorithms.
