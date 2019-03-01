@@ -6,9 +6,17 @@
     </Console>
   </Appenders>
   <Loggers>
+    <Logger name="oracle.pgx.algorithms.MovieRecommender" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="oracle.pgx.algorithms.ArticleRanker" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="GM_GENERATED" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
     <Root level="error">
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>
 </Configuration>
-
