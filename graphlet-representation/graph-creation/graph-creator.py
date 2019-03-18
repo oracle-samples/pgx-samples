@@ -57,3 +57,5 @@ if __name__ == "__main__":
     # Save to file;
     with open(graph_dir+"NCI109.json", "w") as f:
         json.dump(config, f, indent=4)
+
+    print(f"Created the graph representation in {graph_dir} ready to load in PGX")

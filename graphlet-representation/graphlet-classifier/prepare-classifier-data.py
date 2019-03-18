@@ -29,3 +29,5 @@ if __name__ == "__main__":
 
     train.to_csv(data_dir+"NCI09_train.csv",index=False, header=False)
     test.to_csv(data_dir+"NCI09_test.csv",index=False, header=False)
+
+    print(f"Prepared the train and test graphlet representations in {data_dir}")
