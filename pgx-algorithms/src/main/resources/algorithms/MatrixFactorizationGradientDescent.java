@@ -22,73 +22,38 @@ import static oracle.pgx.api.beta.Random.uniformVector;
 @GraphAlgorithm
 public class MatrixFactorizationGradientDescent {
   public double matrix_factorization_gradient_descent(PgxGraph G, VertexProperty<Boolean> is_left,
-      EdgeProperty<Double> weight, double learning_rate, double change_per_step, int max_step,
-      int vector_length, @Out VertexProperty<@Length("vector_length") PgxVect<Double>> dest_property) {
-    VertexProperty<@Length("vector_length") PgxVect<Double>> dest_property_next = VertexProperty.create();
+      EdgeProperty<Double> weight, double learning_rate, double change_per_step, double lambda, int max_step,
+      int vector_length, @Out VertexProperty<@Length("vector_length") PgxVect<Double>> features) {
+
     G.getVertices().forSequential(n -> {
-      dest_property.set(n, uniformVector());
+      features.set(n, uniformVector());
     });
 
-    dest_property_next.setAll(dest_property::get);
-    double max_value = 5.0;
-    double min_value = 1.0;
     Scalar<Double> rate = Scalar.create(learning_rate);
     int counter = 0;
-
     Scalar<Double> root_mean_square_error = Scalar.create(0.0);
+
     while (counter < max_step) {
-      G.getVertices().forEach(curr_node -> {
-        if (is_left.get(curr_node)) {
-          @Length("vector_length") PgxVect<Double> Z = PgxVect.create(0.0);
 
-          curr_node.getOutEdges().forSequential(curr_edge -> {
-            PgxVertex opposite_node = curr_edge.destinationVertex();
+      root_mean_square_error.set(0.0);
+      G.getEdges().forEach(e -> {
 
-            double rating = weight.get(curr_edge);
-            double rating_hat = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
+        PgxVertex src = e.sourceVertex();
+        PgxVertex dst = e.destinationVertex();
 
-            if (rating_hat > max_value) {
-              rating_hat = max_value;
-            } else if (rating_hat < min_value) {
-              rating_hat = min_value;
-            }
+        double rating = weight.get(e);
+        double estimate = features.get(src).multiply(features.get(dst));
 
-            Z.reduceAdd(dest_property.get(opposite_node).multiply(rating - rating_hat).multiply(2));
+        features.set(src, features.get(src).add(features.get(dst).multiply((rating - estimate) * rate.get())
+            .subtract(features.get(src).multiply(lambda * rate.get()))));
+        features.set(dst, features.get(dst).add(features.get(src).multiply((rating - estimate) * rate.get())
+            .subtract(features.get(dst).multiply(lambda * rate.get()))));
 
-            root_mean_square_error.reduceAdd((rating - rating_hat) * (rating - rating_hat));
-
-          });
-          dest_property_next.set(curr_node, dest_property.get(curr_node).add(Z.multiply(rate.get())));
-        } else {
-          @Length("vector_length") PgxVect<Double> Z = PgxVect.create(0.0);
-
-          curr_node.getInEdges().forSequential(curr_edge -> {
-            PgxVertex opposite_node = curr_edge.sourceVertex();
-
-            double rating = weight.get(curr_edge);
-            double rating_hat = dest_property.get(curr_node).multiply(dest_property.get(opposite_node));
-
-            if (rating_hat > max_value) {
-              rating_hat = max_value;
-            } else if (rating_hat < min_value) {
-              rating_hat = min_value;
-            }
-
-            Z.reduceAdd(dest_property.get(opposite_node).multiply(rating - rating_hat).multiply(2));
-
-            root_mean_square_error.reduceAdd((rating - rating_hat) * (rating - rating_hat));
-
-          });
-
-          dest_property_next.set(curr_node, dest_property.get(curr_node).add(Z.multiply(rate.get())));
-        }
+        root_mean_square_error.reduceAdd((rating - estimate) * (rating - estimate));
       });
-
-      dest_property.setAll(dest_property_next::get);
-      root_mean_square_error.set(sqrt(root_mean_square_error.get() / (G.getNumEdges() * 2.0)));
       rate.reduceMul(change_per_step);
       counter++;
     }
-    return root_mean_square_error.get();
+    return sqrt(root_mean_square_error.get() / (G.getNumEdges() * 1.0));
   }
 }
