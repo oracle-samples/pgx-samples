@@ -31,7 +31,15 @@ task runMovieRecommender(dependsOn: 'classes', type: JavaExec) {
   main = 'oracle.pgx.algorithms.MovieRecommender'
   classpath = sourceSets.main.runtimeClasspath
 
-  if (project.hasProperty('args')) {
-    args project.args
+  if (project.hasProperty('data')) {
+    args project.getProperty('data')
+  }
+
+  if (project.hasProperty('userID')) {
+    args project.getProperty('userID')
+  }
+
+  if (project.hasProperty('topK')) {
+    args project.getProperty('topK')
   }
 }

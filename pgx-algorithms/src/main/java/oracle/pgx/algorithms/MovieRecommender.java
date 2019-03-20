@@ -12,18 +12,30 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Streams;
 import oracle.pgx.api.CompiledProgram;
 import oracle.pgx.api.EdgeProperty;
+import oracle.pgx.api.EdgeSet;
+import oracle.pgx.api.PgqlResultSet;
 import oracle.pgx.api.Pgx;
 import oracle.pgx.api.PgxEdge;
 import oracle.pgx.api.PgxGraph;
 import oracle.pgx.api.PgxSession;
+import oracle.pgx.api.PgxVertex;
 import oracle.pgx.api.VertexProperty;
+import oracle.pgx.api.VertexSet;
+import oracle.pgx.api.filter.ResultSetEdgeFilter;
+import oracle.pgx.api.filter.ResultSetVertexFilter;
+import oracle.pgx.api.internal.AnalysisResult;
 import oracle.pgx.common.types.PropertyType;
 import oracle.pgx.common.util.vector.Vect;
 import oracle.pgx.config.FileGraphConfig;
@@ -45,18 +57,29 @@ import static oracle.pgx.common.types.PropertyType.DOUBLE;
 public class MovieRecommender {
   public static Logger logger = LoggerFactory.getLogger(MovieRecommender.class);
   public static final int VECTOR_LENGTH = 10;
-  public static final double LEARNING_RATE = 0.00008;
+  public static final double LAMBDA = 0.15;
+  public static final double LEARNING_RATE = 0.001;
   public static final double CHANGE_PER_STEP = 1.0;
-  public static final int MAX_STEP = 300;
+  public static final int MAX_STEP = 100;
 
   public static void main(String[] args) throws Exception {
     Path inputDir = Paths.get(args[0]);
+    boolean generateRecommendations = false;
+    int uid = 1;
+    int topk = 10;
+
+    if (args.length == 3) {
+      uid = Integer.parseInt(args[1]);
+      topk = Integer.parseInt(args[2]);
+      generateRecommendations = true;
+    }
 
     if (!Files.exists(inputDir)) {
       throw new IllegalArgumentException("The argument path '" + inputDir + "' does not exist.");
     }
 
     try (PgxSession session = Pgx.createSession("pgx-algorithm-session")) {
+      logger.info("SETUP\n");
       String code = getResource("algorithms/MatrixFactorizationGradientDescent.java");
       CompiledProgram program = session.compileProgram(code);
       logger.info("Compiled program {}", program);
@@ -82,20 +105,28 @@ public class MovieRecommender {
       List<PgxEdge> testEdges = testEdgesStream.collect(Collectors.toList());
       logger.info("Test graph filtered edges size = {}", testEdges.size());
       EdgeProperty<Double> predictions = testGraph.createEdgeProperty(DOUBLE);
-      logger.info("Loaded test graph {}", testGraph);
+      logger.info("Loaded test graph {}\n", testGraph);
       VertexProperty<Object, Boolean> is_left = trainingGraph.getVertexProperty("is_left");
       EdgeProperty<Double> rating = trainingGraph.getEdgeProperty("rating");
-      VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(DOUBLE, VECTOR_LENGTH, "features", false);
-      program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, MAX_STEP, VECTOR_LENGTH, features);
-      logger.info("Finished running Matrix Factorization Gradient Descent");
+      VertexProperty<Object, Vect<Double>> features = trainingGraph.createVertexProperty(DOUBLE, VECTOR_LENGTH,
+          "features", false);
+      Map<Integer, String> movieName = createAuxiliarMap(inputDir, 1);
+      Map<Integer, String> movieCategory = createAuxiliarMap(inputDir, 2);
+
+      logger.info("TRAINING\n");
+      AnalysisResult result = program.run(trainingGraph, is_left, rating, LEARNING_RATE, CHANGE_PER_STEP, LAMBDA,
+          MAX_STEP, VECTOR_LENGTH, features);
+      logger.info("RMSE on the TRAINING graph = {}", result.getReturnValue());
+      logger.info("Time for running Matrix Factorization Gradient Descent: {} secs\n",
+          result.getExecutionTimeMs() / 1000.0);
+      logger.info("TESTING\n");
 
       // Predict rating for edges in the test set
       testEdges.forEach(edge -> {
-        Vect<Double> userFeature = features.get(edge.getSource());
-        Vect<Double> movieFeature = features.get(edge.getDestination());
+        Vect<Double> userFeatures = features.get(edge.getSource());
+        Vect<Double> movieFeatures = features.get(edge.getDestination());
 
-        double predictedRating = Math.round(dotProduct(userFeature, movieFeature));
-        double normalizedRating = max(min(predictedRating, 5), 1);
+        double normalizedRating = dotProduct(userFeatures, movieFeatures);
         predictions.set(edge, normalizedRating);
       });
 
@@ -116,14 +147,167 @@ public class MovieRecommender {
         length++;
       }
 
-      logger.info("sumSquaredError = {}", sumSquaredError);
-      logger.info("length = {}", length);
-
       double meanSquaredError = sumSquaredError / length;
       double rootMeanSquaredError = Math.sqrt(meanSquaredError);
 
-      System.out.println("RMSE = " + rootMeanSquaredError);
+      logger.info("RMSE on the TESTING graph = {}", rootMeanSquaredError);
+      logger.info("sumSquaredError = {}\tlength = {}\n", sumSquaredError, length);
+
+      if (generateRecommendations) {
+        logger.info("MOVIE RECOMMENDATIONS!");
+
+        // Movie topK ranked and recommendations
+        String uid_str = "1" + Integer.toString(uid);
+        uid = Integer.parseInt(uid_str.substring(1));
+
+        PgxVertex userVertex = trainingGraph.getVertex(Integer.parseInt(uid_str));
+        int moviesSeen = 0;
+
+        PgqlResultSet resultSet = trainingGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) = " + uid_str);
+        EdgeSet ratingsTrainSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
+        moviesSeen += resultSet.getNumResults();
+
+        resultSet = testGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) =  " + uid_str + "");
+        EdgeSet ratingsTestSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
+        moviesSeen += resultSet.getNumResults();
+
+        resultSet = trainingGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
+        VertexSet trainSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
+
+        resultSet = testGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
+        VertexSet testSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
+
+        int userId = (Integer) userVertex.getId();
+        String idx_str2 = Integer.toString(userId);
+        userId = Integer.parseInt(idx_str2.substring(1));
+        Vect<Double> userIdFeatures = features.get(userVertex);
+
+        Map<Integer, double[]> mapScores = new HashMap<Integer, double[]>();
+        mapScores.put(-1, new double[] {-1});
+        mapScores = topRankedMovies(topk, userIdFeatures, ratingsTrainSet, features, rating, mapScores);
+        mapScores = topRankedMovies(topk, userIdFeatures, ratingsTestSet, features, rating, mapScores);
+        mapScores.remove(-1);
+
+        Map<Integer, double[]> predScores = new HashMap<Integer, double[]>();
+        predScores.put(-1, new double[] {-1});
+        predScores = topRecommendedMovies(topk, userIdFeatures, trainSet, features, predScores, mapScores);
+        predScores = topRecommendedMovies(topk, userIdFeatures, testSet, features, predScores, mapScores);
+        predScores.remove(-1);
+
+        logger.info("Selected user ID: {}, movies seen: {}\n", userId, moviesSeen);
+        logger.info("Top {} rated by the user\n", topk);
+        for (int key : mapScores.keySet()) {
+          logger.info("{}",movieName.get(key));
+          logger.info("ID: {} score: {}\t(computed: {})", key, mapScores.get(key)[0], mapScores.get(key)[1]);
+          logger.info("{}\n", movieCategory.get(key));
+        }
+
+        logger.info("Top {} recommendations\n", topk);
+        for (int key : predScores.keySet()) {
+          logger.info("{}", movieName.get(key));
+          logger.info("ID: {}, predicted score: {}", key, predScores.get(key)[0]);
+          logger.info("{}\n", movieCategory.get(key));
+        }
+      }
     }
+  }
+
+  private static Map<Integer, double[]> topRecommendedMovies(int topk, Vect<Double> userIdFeatures, VertexSet moviesSet,
+      VertexProperty<Object, Vect<Double>> features, Map<Integer, double[]> predScores,
+      Map<Integer, double[]> mapScores) {
+
+    double minScore = predScores.get(-1)[0];
+    predScores.remove(-1);
+    Map<Integer, Double> auxScores = new HashMap<Integer, Double> ();
+    for(int key : predScores.keySet()) {
+      auxScores.put(key, predScores.get(key)[1]);
+    }
+
+    Iterator<PgxVertex> iter = moviesSet.iterator();
+
+    while (iter.hasNext()) {
+
+      PgxVertex movieVertex = iter.next();
+      Vect<Double> movieFeatures = features.get(movieVertex);
+
+      int idx = (Integer) movieVertex.getId();
+      String idx_str = Integer.toString(idx);
+      idx = Integer.parseInt(idx_str.substring(1));
+
+      if (auxScores.get(idx) == null) {
+
+        double r = dotProduct(userIdFeatures, movieFeatures);
+        double e = 0;
+        double roundedScore = 5;
+        if (r < 5) {
+          roundedScore = 0.5 * Math.round(r / 0.5);
+          e = min(Math.abs(r - roundedScore), Math.abs(r - roundedScore - 0.5));
+        } else {
+          e = Math.abs(r - 5);
+        }
+
+        if (mapScores.get(idx) == null && roundedScore - e > minScore) {
+          if (auxScores.size() == topk) {
+            int minKey = getMinKey(auxScores);
+            minScore = auxScores.get(minKey);
+            auxScores.remove(minKey);
+            predScores.remove(minKey);
+
+            minKey = getMinKey(auxScores);
+            minScore = auxScores.get(minKey);
+          }
+          double[] vScores = new double[] {r, roundedScore - e};
+          auxScores.put(idx, roundedScore - e);
+          predScores.put(idx, vScores);
+        }
+      }
+    }
+
+    predScores.put(-1, new double[] {minScore});
+    return predScores;
+  }
+
+  private static Map<Integer, double[]> topRankedMovies(int topk, Vect<Double> userIdFeatures, EdgeSet moviesWatched,
+      VertexProperty<Object, Vect<Double>> features, EdgeProperty<Double> rating, Map<Integer, double[]> mapScores) {
+
+    double minScore = mapScores.get(-1)[0];
+    mapScores.remove(-1);
+    Map<Integer, Double> auxScores = new HashMap<Integer, Double> ();
+    for(int key : mapScores.keySet()) {
+      auxScores.put(key, mapScores.get(key)[2]);
+    }
+
+    for(PgxEdge edge : moviesWatched) {
+
+      PgxVertex movieVertex = edge.getDestination();
+      Vect<Double> movieFeatures = features.get(movieVertex);
+
+      int idx = (Integer) movieVertex.getId();
+      String idx_str = Integer.toString(idx);
+      idx = Integer.parseInt(idx_str.substring(1));
+
+      double realRating = rating.get(edge);
+      double r = dotProduct(userIdFeatures, movieFeatures);
+      double e = Math.abs(realRating - r);
+
+      if (realRating - e > minScore) {
+        if (auxScores.size() == topk) {
+          int minKey = getMinKey(auxScores);
+          minScore = auxScores.get(minKey);
+          auxScores.remove(minKey);
+          mapScores.remove(minKey);
+
+          minKey = getMinKey(auxScores);
+          minScore = auxScores.get(minKey);
+        }
+        double[] vScores = new double[] {realRating, r, realRating - e};
+        auxScores.put(idx, realRating - e);
+        mapScores.put(idx, vScores);
+      }
+    }
+
+    mapScores.put(-1, new double[] {minScore});
+    return mapScores;
   }
 
   private static Stream<PgxEdge> filterExisting(PgxGraph trainingGraph, PgxGraph testGraph) {
@@ -142,6 +326,20 @@ public class MovieRecommender {
     return Streams
         .zip(s1, s2, (i1, i2) -> i1 * i2)
         .reduce(0.0, Double::sum);
+  }
+
+  private static int getMinKey(Map<Integer, Double> bestScores) {
+    int minKey = 0;
+    double min = Double.POSITIVE_INFINITY;
+
+    for (int key : bestScores.keySet()) {
+      double score = bestScores.get(key);
+      if (min > score) {
+        min = score;
+        minKey = key;
+      }
+    }
+    return minKey;
   }
 
   private static FileGraphConfigBuilder getGraphConfigBuilder() {
@@ -237,6 +435,19 @@ public class MovieRecommender {
       lines.map(Splitter.comma).map(atIndex(1)).distinct().forEach(movie ->
           writeln(writer, movie + ",false")
       );
+    } catch (IOException e) {
+      throw new RuntimeException("Unable to read the movies.", e);
+    }
+  }
+
+  private static Map<Integer, String> createAuxiliarMap(Path inputDir, int columnId) {
+    Path movieInfo = inputDir.resolve("movies.csv");
+
+    try {
+      return Files.lines(movieInfo)
+          .skip(1)
+          .map(str -> str.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"))
+          .collect(Collectors.toMap(column -> Integer.parseInt(column[0]), column -> column[columnId]));
     } catch (IOException e) {
       throw new RuntimeException("Unable to read the movies.", e);
     }
