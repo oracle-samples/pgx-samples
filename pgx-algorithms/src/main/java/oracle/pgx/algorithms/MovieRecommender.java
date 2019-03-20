@@ -64,8 +64,15 @@ public class MovieRecommender {
 
   public static void main(String[] args) throws Exception {
     Path inputDir = Paths.get(args[0]);
-    int uid = Integer.parseInt(args[1]);
-    int topk = Integer.parseInt(args[2]);
+    boolean generateRecommendations = false;
+    int uid = 1;
+    int topk = 10;
+
+    if (args.length == 3) {
+      uid = Integer.parseInt(args[1]);
+      topk = Integer.parseInt(args[2]);
+      generateRecommendations = true;
+    }
 
     if (!Files.exists(inputDir)) {
       throw new IllegalArgumentException("The argument path '" + inputDir + "' does not exist.");
@@ -145,59 +152,62 @@ public class MovieRecommender {
 
       logger.info("RMSE on the TESTING graph = {}", rootMeanSquaredError);
       logger.info("sumSquaredError = {}\tlength = {}\n", sumSquaredError, length);
-      logger.info("MOVIE RECOMMENDATIONS!");
 
-      // Movie topK ranked and recommendations
-      String uid_str = "1" + Integer.toString(uid);
-      uid = Integer.parseInt(uid_str.substring(1));
+      if (generateRecommendations) {
+        logger.info("MOVIE RECOMMENDATIONS!");
 
-      PgxVertex userVertex = trainingGraph.getVertex(Integer.parseInt(uid_str));
-      int moviesSeen = 0;
+        // Movie topK ranked and recommendations
+        String uid_str = "1" + Integer.toString(uid);
+        uid = Integer.parseInt(uid_str.substring(1));
 
-      PgqlResultSet resultSet = trainingGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) = " + uid_str);
-      EdgeSet ratingsTrainSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
-      moviesSeen += resultSet.getNumResults();
+        PgxVertex userVertex = trainingGraph.getVertex(Integer.parseInt(uid_str));
+        int moviesSeen = 0;
 
-      resultSet = testGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) =  " + uid_str + "");
-      EdgeSet ratingsTestSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
-      moviesSeen += resultSet.getNumResults();
+        PgqlResultSet resultSet = trainingGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) = " + uid_str);
+        EdgeSet ratingsTrainSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
+        moviesSeen += resultSet.getNumResults();
 
-      resultSet = trainingGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
-      VertexSet trainSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
+        resultSet = testGraph.queryPgql("SELECT e MATCH (u)-[e]->() WHERE ID(u) =  " + uid_str + "");
+        EdgeSet ratingsTestSet = trainingGraph.getEdges(new ResultSetEdgeFilter(resultSet, "e"));
+        moviesSeen += resultSet.getNumResults();
 
-      resultSet = testGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
-      VertexSet testSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
+        resultSet = trainingGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
+        VertexSet trainSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
 
-      int userId = (Integer) userVertex.getId();
-      String idx_str2 = Integer.toString(userId);
-      userId = Integer.parseInt(idx_str2.substring(1));
-      Vect<Double> userIdFeatures = features.get(userVertex);
+        resultSet = testGraph.queryPgql("SELECT x MATCH (u)->(x) WHERE ID(u) !=  " + uid_str + "");
+        VertexSet testSet = trainingGraph.getVertices(new ResultSetVertexFilter(resultSet, "x"));
 
-      Map<Integer, double[]> mapScores = new HashMap<Integer, double[]>();
-      mapScores.put(-1, new double[] {-1});
-      mapScores = topRankedMovies(topk, userIdFeatures, ratingsTrainSet, features, rating, mapScores);
-      mapScores = topRankedMovies(topk, userIdFeatures, ratingsTestSet, features, rating, mapScores);
-      mapScores.remove(-1);
+        int userId = (Integer) userVertex.getId();
+        String idx_str2 = Integer.toString(userId);
+        userId = Integer.parseInt(idx_str2.substring(1));
+        Vect<Double> userIdFeatures = features.get(userVertex);
 
-      Map<Integer, double[]> predScores = new HashMap<Integer, double[]>();
-      predScores.put(-1, new double[] {-1});
-      predScores = topRecommendedMovies(topk, userIdFeatures, trainSet, features, predScores, mapScores);
-      predScores = topRecommendedMovies(topk, userIdFeatures, testSet, features, predScores, mapScores);
-      predScores.remove(-1);
+        Map<Integer, double[]> mapScores = new HashMap<Integer, double[]>();
+        mapScores.put(-1, new double[] {-1});
+        mapScores = topRankedMovies(topk, userIdFeatures, ratingsTrainSet, features, rating, mapScores);
+        mapScores = topRankedMovies(topk, userIdFeatures, ratingsTestSet, features, rating, mapScores);
+        mapScores.remove(-1);
 
-      logger.info("Selected user ID: {}, movies seen: {}\n", userId, moviesSeen);
-      logger.info("Top {} rated by the user\n", topk);
-      for (int key : mapScores.keySet()) {
-        logger.info("{}",movieName.get(key));
-        logger.info("ID: {} score: {}\t(computed: {})", key, mapScores.get(key)[0], mapScores.get(key)[1]);
-        logger.info("{}\n", movieCategory.get(key));
-      }
+        Map<Integer, double[]> predScores = new HashMap<Integer, double[]>();
+        predScores.put(-1, new double[] {-1});
+        predScores = topRecommendedMovies(topk, userIdFeatures, trainSet, features, predScores, mapScores);
+        predScores = topRecommendedMovies(topk, userIdFeatures, testSet, features, predScores, mapScores);
+        predScores.remove(-1);
 
-      logger.info("Top {} recommendations\n", topk);
-      for (int key : predScores.keySet()) {
-        logger.info("{}", movieName.get(key));
-        logger.info("ID: {}, predicted score: {}", key, predScores.get(key)[0]);
-        logger.info("{}\n", movieCategory.get(key));
+        logger.info("Selected user ID: {}, movies seen: {}\n", userId, moviesSeen);
+        logger.info("Top {} rated by the user\n", topk);
+        for (int key : mapScores.keySet()) {
+          logger.info("{}",movieName.get(key));
+          logger.info("ID: {} score: {}\t(computed: {})", key, mapScores.get(key)[0], mapScores.get(key)[1]);
+          logger.info("{}\n", movieCategory.get(key));
+        }
+
+        logger.info("Top {} recommendations\n", topk);
+        for (int key : predScores.keySet()) {
+          logger.info("{}", movieName.get(key));
+          logger.info("ID: {}, predicted score: {}", key, predScores.get(key)[0]);
+          logger.info("{}\n", movieCategory.get(key));
+        }
       }
     }
   }

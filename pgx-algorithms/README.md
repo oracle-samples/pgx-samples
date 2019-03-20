@@ -42,7 +42,7 @@ To run the example:
 1. Download and install [Gradle](https://gradle.org/install/) (version 5.2.1 or higher).
 2. Download [ml-latest-small.zip](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip) from the [MovieLens datasets](https://grouplens.org/datasets/movielens/) page. <!-- `wget -O /tmp/ml-latest-small.zip http://files.grouplens.org/datasets/movielens/ml-latest-small.zip` -->
 3. Extract `ml-latest-small.zip` to some writable directory `/tmp/foo/bar`. <!-- `unzip /tmp/ml-latest-small.zip -d /tmp/` -->
-4. Run `gradle runMovieRecommender -Pdata="/tmp/foo/bar" -PuserID=1 -PtopK=10`. <!-- gradle runMovieRecommender -Pargs="/tmp/ml-latest-small" -PuserID=1 -PtopK=10` -->
+4. Run `gradle runMovieRecommender -Pdata="/tmp/foo/bar"` for training a model and testing it. Or run `gradle runMovieRecommender -Pdata="/tmp/foo/bar" -PuserID=1 -PtopK=10` for training, testing and generate recommendations, where `-PuserID` must be a valid user ID from the `userId` column of the `ratings.csv` file in the dataset, and `-PtopK` is the number of ranked and recommended movies to show as example. <!-- gradle runMovieRecommender -Pargs="/tmp/ml-latest-small" -PuserID=1 -PtopK=10` -->
 
 This command runs the `oracle.pgx.algorithms.MovieRecommender` class, which:
 
