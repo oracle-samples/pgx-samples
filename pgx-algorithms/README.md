@@ -13,7 +13,7 @@ Both examples use an algorithm that is written in _PGX Algorithm_, a Java-like l
 
 ## Article Ranking <a name="article"></a>
 
-ArticleRank is an algorithm that has been derived from Google's PageRank algorithm to measure the influence of journal articles.
+[ArticleRank (Li, Jiang, and Peter Willett)](https://www.emeraldinsight.com/doi/abs/10.1108/00012530911005544) is an algorithm that has been derived from Google's PageRank algorithm to measure the influence of journal articles.
 PageRank has an inherent bias in that a paper with very few references will make a greater contribution to other papers' PageRank scores than will a paper with many references.
 Specifically, the PageRank algorithm defines the PageRank of a vertex as the sum of the pagerank of its neighboring vertices divided by the neighbor's out-degree.
 With ArticleRank each neighbor's ArticleRank is divided by the out-degree of the neighbor _plus the average out-degree of all vertices_.
