@@ -34,7 +34,7 @@ We provide the `graph-creator.py` script for this functionality.
 
 
 ## Generate graphlet vectors using PG2Vec <a name="generate-graphlet-vectors"></a>
-In this phase, we run the PG2Vec algorithm using the provide gradle script by executing `gradle clean run`.
+In this phase, we run the PG2Vec algorithm using the provide gradle script by executing `./gradlew clean run`.
 The output of this step is a `csv` file with the graphlet vectors learnt using PG2Vec algorithm.
 
 

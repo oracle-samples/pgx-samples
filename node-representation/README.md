@@ -22,5 +22,5 @@ The data for the DeepWalk application should be download and placed in the `data
 We provide an example using a sample dataset.
 
 ## Generate node vectors using DeepWalk <a name="generate-node-vectors"></a>
-In this phase, we run the DeepWalk algorithm using the provide gradle script by executing `gradle clean run`.
+In this phase, we run the DeepWalk algorithm using the provide gradle script by executing `./gradlew clean run`.
 The output of this step is a `csv` file with the node vectors learnt using DeepWalk algorithm.
