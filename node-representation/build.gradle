@@ -5,18 +5,25 @@ ext {
   mainClassName = 'DeepWalkApp.GenerateNodeVectors'
 }
 
-def thirdpartyDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/third-party"
-def commonDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/common"
-def clientDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/client"
-def serverDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/server"
-def embeddedDeps = "${project.projectDir}/../libs/pgx-3.2.0/shared-memory/embedded"
+def pgxDir = "$projectDir/../libs/pgx-19.1.0"
+def commonDeps = "$pgxDir/shared-lib/common"
+def embeddedDeps = "$pgxDir/shared-lib/embedded"
+def serverDeps = "$pgxDir/shared-lib/server"
+def thirdPartyDeps = "$pgxDir/shared-lib/third-party"
+def smCommonDeps = "$pgxDir/shared-memory/common"
+def smClientDeps = "$pgxDir/shared-memory/client"
+def smEmbeddedDeps = "$pgxDir/shared-memory/embedded"
+def smThirdPartyDeps = "$pgxDir/shared-memory/third-party"
 
 dependencies {
-  compile fileTree(dir: thirdpartyDeps, includes: ['*.jar'])
   compile fileTree(dir: commonDeps, includes: ['*.jar'])
-  compile fileTree(dir: clientDeps, includes: ['*.jar'])
-  compile fileTree(dir: serverDeps, includes: ['*.jar'])
   compile fileTree(dir: embeddedDeps, includes: ['*.jar'])
+  compile fileTree(dir: serverDeps, includes: ['*.jar'])
+  compile fileTree(dir: thirdPartyDeps, includes: ['*.jar'])
+  compile fileTree(dir: smCommonDeps, includes: ['*.jar'])
+  compile fileTree(dir: smClientDeps, includes: ['*.jar'])
+  compile fileTree(dir: smEmbeddedDeps, includes: ['*.jar'])
+  compile fileTree(dir: smThirdPartyDeps, includes: ['*.jar'])
 }
 
 task run(type: JavaExec, dependsOn: jar) {
