@@ -1,0 +1,18 @@
+/*
+ * Copyright (C) 2013 - 2019 Oracle and/or its affiliates. All rights reserved.
+ */
+/*
+ * Performs a Breadth First Search (BFS) over a graph starting from a source node s,
+ * marking each node with its respective BFS level or -1 if the node is not reachable.
+ */
+
+procedure bfs_reachable(G: graph, s: node, switch_default: nodeProp<bool>; bfs_level: nodeProp<int>, bfs_parent: nodeProp<node>)
+{
+    G.bfs_level = -1;
+
+    inBFS(v: G.nodes from s)[v.switch_default==true]
+    {
+        v.bfs_level = currentBFSLevel();
+        v.bfs_parent = v.BFSParentNode();
+    }
+}
