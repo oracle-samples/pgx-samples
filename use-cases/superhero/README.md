@@ -244,9 +244,8 @@ resultSet = G.queryPgql(" \
            AND id(b) = 'WHITE TIGER/HECTOR A' \
            AND id(c) = 'IRON FIST/DANIEL RAN' \
          ORDER BY id(x)")
-println(resultSet.getNumResults())
-// There 21 results.
-resultSet.print(21)
+println("There are " + resultSet.getNumResults() + " superheros appearing in comics with Shang-chi, White Tiger/Hector A and Iron First/Daniel Ran.")
+resultSet.print(resultSet.getNumResults())
 resultSet.close()
 ```
 
