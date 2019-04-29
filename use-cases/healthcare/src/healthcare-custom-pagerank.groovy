@@ -10,7 +10,7 @@ new File(specialtiesPath).eachLine { line ->
 "Creating the graph config"
 builder = GraphConfigBuilder.forFileFormat(Format.EDGE_LIST)
 builder.setUri(graphFilePath)
-builder.addVertexProperty("specialty", PropertyType.STRING, "")
+builder.addVertexProperty("speciality", PropertyType.STRING, "")
 builder.setVertexIdType(IdType.INTEGER)
 cfg = builder.build()
 
@@ -23,17 +23,19 @@ directedG.destroy()
 pprFromKind = session.compileProgram("./personalized_pagerank_from_kind.gm")
 // We create a VertexProperty that is going to hold the actual pagerank
 pgRank = g.createVertexProperty(PropertyType.DOUBLE, "pgRank")
-"Iterating over all specialities"
-for (item in specialities) {
+"Iterating over all specialties"
+
+for (item in specialties) {
     println (item)
-    // We set the value that we want to filter out
-    // We run the personlized pagerank algorithm
+    // // We set the value that we want to filter out
+    // // We run the personlized pagerank algorithm
     pprFromKind.run(g, item, g.getVertexProperty("speciality"),0.001, 0.85, 1000, pgRank)
-    // We create a subgraph to filter out the nodes that we don't need to evaluate
-    subgraph = g.filter(new NodeFilter("node.speciality != '"+item+"' AND node.speciality != 'HCPCS'"))
-    // We get the top pagerank values from the subgraph
+    // // We create a subgraph to filter out the nodes that we don't need to evaluate
+    subgraph = g.filter(new VertexFilter("vertex.speciality != '"+item+"' AND vertex.speciality != 'HCPCS'"))
+    // // We get the top pagerank values from the subgraph
     resultSet = subgraph.queryPgql("SELECT suspect, suspect.${pgRank.getName()} AS pagerank MATCH (suspect) ORDER BY suspect.${pgRank.getName()} DESC LIMIT 10")
-    resultSet.print();
-    // We clean up the subgraph since we don't need it anymore
+    resultSet.print()
+    resultSet.close()
+    // // We clean up the subgraph since we don't need it anymore
     subgraph.destroy()
 }
