@@ -44,7 +44,7 @@ The configuration file basically points PGX to the datafile and specifies the da
 }
 ```
 
-For more information about the configuration file, please, see the (Graph Config section)[https://docs.oracle.com/cd/E56133_01/latest/reference/loader/graph-config/index.html] of the documentation.
+For more information about the configuration file, please, see the [Graph Config section](https://docs.oracle.com/cd/E56133_01/latest/reference/loader/graph-config/index.html) of the documentation.
 
 ## Superhero Graph Analysis
 
