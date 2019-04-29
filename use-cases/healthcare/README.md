@@ -26,11 +26,8 @@ The output of the script consists of two files:
 2. `specialtiesOutFile` is the file where the distinct specialties are going to be written. We need them later as an additional input for our analysis.
 
 
-!!! bg-warning "JVM Heap size"
 	You may need to increase the JVM default heap memory size. To do so you will need to run the following command:
-    
 	`export JAVA_OPTS="-Xmx2048M"`
-
 	We recommend to increase it at least to 2 GB since the data set requires around 1.2 GB.
 
 Note that the above script converts the data set into a [bipartite graph](https://en.wikipedia.org/wiki/Bipartite_graph), with the left-hand side as health care providers and the right-hand side as health services. The resulting graph would look like this:
@@ -53,24 +50,15 @@ The idea behind the anomaly detection is as follows.
     speciality, it is considered anomalous -- the provider is performing health services typically
     done by providers with a different speciality. 
 
-In order to compute this *closeness* among vertices, we use [Personalized
-Pagerank(PPR)](reference/algorithms/index.html).  Specifically, for each
-specialty, we compute the PPR score of all the providers by setting only vertices
-of the current specialty as starting vertices. The PPR
-score of a given vertex represents the probability that random walks from
-the starting vertices end at this vertex. Consequently, a high PPR score for a vertex
+In order to compute this *closeness* among vertices, we use [Personalized Pagerank(PPR)](https://docs.oracle.com/cd/E56133_01/latest/reference/algorithms/index.html).  Specifically, for each
+specialty, we compute the PPR score of all the providers by setting only vertices of the current specialty as starting vertices. The PPR
+score of a given vertex represents the probability that random walks from the starting vertices end at this vertex. Consequently, a high PPR score for a vertex
 indicates that the vertex is *close* to the starting vertices.
 
-After computing PPR score per specialty, we cross-check the values
-to identify anomalies. That is, we look up highest ranked vertices and see if
-they do belong to the current specialty. If not, the provider is considered
-anomalous.
+After computing PPR score per specialty, we cross-check the values to identify anomalies. That is, we look up highest ranked vertices and see if
+they do belong to the current specialty. If not, the provider is considered anomalous.
 
-We present two implementations of this analysis in the following subsections.
-The first approach makes use of the [built-in Personalized PageRank
-algorithm](reference/algorithms/pagerank.html). The second one improves 
-memory consumption and performance of the analysis by writing
-and compiling a custom graph algorithm with Green-Marl.
+We present two implementations of this analysis in the following subsections. The first approach makes use of the [built-in Personalized PageRank algorithm](https://docs.oracle.com/cd/E56133_01/latest/reference/algorithms/pagerank.html). The second one improves memory consumption and performance of the analysis by writing and compiling a custom graph algorithm with Green-Marl.
 
 
 ### Detect Anomalies Using Personalized PageRank
