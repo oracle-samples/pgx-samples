@@ -7,11 +7,12 @@ This document describes how you can combine computational graph analysis and gra
 In this example, we use a data set which represents a network of fictional characters
 from Marvel Comics. The vertices in the graph are fictional characters. The edges between
 them represent a co-appearance relationship. That is, an edge indicates that two characters
-had appeared in the same issue of a comic. The data is publicly [available](). We have preprocessed the
-dataset to edge-list format, and the data are available in `use-cases/superhero/data/superhero-network-1.0.zip` 
-([download online](data/superhero-network-1.0.zip)).
+had appeared in the same issue of a comic. The data is publicly available dataset -
+[The Marvel Social Network](https://github.com/gephi/gephi/wiki/Datasets). It also availble on [Kaggle](https://www.kaggle.com/csanhueza/the-marvel-universe-social-network). We have preprocessed the
+dataset to edge-list format, and the data are available [for download](data/superhero-network-1.0.zip).
 
 The archive contains the data file and graph configuration files: `hero-network.csv` and `config.json`.
+Please download the archive and extract it to `data` folder.
 
 The data file is a comma-separated text file (CSV) where each line describes an edge of the graph data.
 The following are a few lines excerpted from the data file. 
