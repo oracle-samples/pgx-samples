@@ -9,7 +9,7 @@ from Marvel Comics. The vertices in the graph are fictional characters. The edge
 them represent a co-appearance relationship. That is, an edge indicates that two characters
 had appeared in the same issue of a comic. The data is publicly available dataset -
 [The Marvel Social Network](https://github.com/gephi/gephi/wiki/Datasets). It also availble on [Kaggle](https://www.kaggle.com/csanhueza/the-marvel-universe-social-network). We have preprocessed the
-dataset to edge-list format, and the data are available [for download](data/superhero-network-1.0.zip).
+dataset to edge-list format, and the data are available [for download](https://docs.oracle.com/cd/E56133_01/latest/data/superhero-network-1.0.zip).
 
 The archive contains the data file and graph configuration files: `hero-network.csv` and `config.json`.
 Please download the archive and extract it to `data` folder.
