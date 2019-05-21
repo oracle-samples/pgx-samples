@@ -29,7 +29,7 @@ for (item in specialties) {
     println (item)
     // // We set the value that we want to filter out
     // // We run the personlized pagerank algorithm
-    pprFromKind.run(g, item, g.getVertexProperty("speciality"),0.001, 0.85, 1000, pgRank)
+    pprFromKind.run(g, item, g.getVertexProperty("speciality"), 0.001, 0.85, 1000, pgRank)
     // // We create a subgraph to filter out the nodes that we don't need to evaluate
     subgraph = g.filter(new VertexFilter("vertex.speciality != '"+item+"' AND vertex.speciality != 'HCPCS'"))
     // // We get the top pagerank values from the subgraph

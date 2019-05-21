@@ -24,7 +24,7 @@ PgxML and PGX Algorithm are available as of version 3.2.0 and released under [OT
 Obtain the latest `pgx-x.y.z-server` zip file and unzip it in the `libs` folder. These set of PGX libraries support standalone java applications.
 
 ## Use Cases and Sample <a name="pgx-download"></a>
-We provide a set of extended examples, demonstrating capabilities of PGX. The examples are listed on [separate page](use-cases/README.md).
+We provide a set of extended examples, demonstrating the capabilities of PGX. The examples are listed on a [separate page](use-cases/README.md).
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
 We provide two Graph-based ML applications, namely, `Graphlet representation` and `Node representation`.

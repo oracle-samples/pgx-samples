@@ -21,7 +21,7 @@ procedure personalized_pagerank_from_kind(G: graph, filter: string,
     diff = 0.0;
     foreach (t: G.nodes) {
       double val1 = (t.is_start) ? (1-d) : 0;
-      double val2 = d* sum(w: t.inNbrs) {w.pg_rank / w.outDegree()} ;
+      double val2 = d * sum(w: t.inNbrs) {w.pg_rank / w.outDegree()} ;
       double val = val1 + val2;
       diff += | val - t.pg_rank |;
       t.pg_rank <= val;

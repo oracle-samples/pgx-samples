@@ -14,8 +14,7 @@ dataset to edge-list format, and the data are available [for download](https://d
 The archive contains the data file and graph configuration files: `hero-network.csv` and `config.json`.
 Please download the archive and extract it to `data` folder.
 
-The data file is a comma-separated text file (CSV) where each line describes an edge of the graph data.
-The following are a few lines excerpted from the data file. 
+The data file is a comma-separated text file (CSV) where each line describes an edge of the graph data. The following is a sample excerpted from the data file. 
 
 ```
 "IRON MAN IV/JAMES R.","FORTUNE, DOMINIC"
