@@ -8,9 +8,8 @@
 4. [Graph-based ML applications using PgxML](#pgxml-apps)
     1. [Graphlet representation](#graphlet-representation)
     2. [Node representation](#node-representation)
-5. [PGX Algorithms](#pgx-algorithms)
-    1. [Article Ranking](#article-ranking)
-    2. [Movie Recommendation](#movie-recommender)
+5. [Article Ranking](#article-ranking)
+6. [Movie Recommendation](#movie-recommender)
 
 ****
     
@@ -39,14 +38,11 @@ This application demonstrates how we can extract vector representation for each 
 For this application, we use the [DeepWalk](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/deepwalk.html) algorithm.
 More details regarding this application is available [here](node-representation/README.md).
 
-## PGX Algorithms <a name="pgx-algorithms"></a>
-We provide implementations of two classical graph algorithms, namely, `Article Rank` and `Matrix Factorization`.
-
-### Article Ranking <a name="article-ranking"></a>
+## Article Ranking <a name="article-ranking"></a>
 This application demonstrates how ArticleRank could be employed to measure the influence of journal articles.
-More details regarding this application is available [here](pgx-algorithms/README.md)
+More details regarding this application is available [here](article-ranking/README.md)
 
-### Movie Recommendation <a name="movie-recommender"></a>
+## Movie Recommendation <a name="movie-recommendation"></a>
 This application demonstrates how Matrix Factorization could be employed to recommend movies to users.
-More details regarding this application is available [here](pgx-algorithms/README.md)
+More details regarding this application is available [here](movie-recommendation/README.md)
 
