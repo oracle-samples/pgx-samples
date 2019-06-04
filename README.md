@@ -4,10 +4,11 @@
 
 1. [Overview](#overview)
 2. [Download PGX](#pgx-download)
-3. [Graph-based ML applications using PgxML](#pgxml-apps)
+3. [Use Cases and Samples](#use-cases)
+4. [Graph-based ML applications using PgxML](#pgxml-apps)
     1. [Graphlet representation](#graphlet-representation)
     2. [Node representation](#node-representation)
-4. [PGX Algorithms](#pgx-algorithms)
+5. [PGX Algorithms](#pgx-algorithms)
     1. [Article Ranking](#article-ranking)
     2. [Movie Recommendation](#movie-recommender)
 
@@ -21,6 +22,9 @@ as well as some graph algorithm implementations using [PGX Algorithm](https://do
 PGX can be downloaded from Oracle Technology Network (OTN): [download link](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix/downloads/index.html).
 PgxML and PGX Algorithm are available as of version 3.2.0 and released under [OTN license](https://www.oracle.com/technetwork/licenses/standard-license-152015.html).
 Obtain the latest `pgx-x.y.z-server` zip file and unzip it in the `libs` folder. These set of PGX libraries support standalone java applications.
+
+## Use Cases and Sample <a name="pgx-download"></a>
+We provide a set of extended examples, demonstrating the capabilities of PGX. The examples are listed on a [separate page](use-cases/README.md).
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
 We provide two Graph-based ML applications, namely, `Graphlet representation` and `Node representation`.
