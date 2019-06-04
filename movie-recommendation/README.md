@@ -14,23 +14,21 @@ One such example is exactly that - recommendation engines, using [matrix factori
 
 ## Matrix Factorization for Recommendations <a name="matrix-factorization-for-recommendations"></a>
 
-Matrix factorization is a relatively simple process - say you have a matrix of numbers,
+Matrix factorization is a relatively simple process - say you have a matrix of numbers (with dimensions N x M),
 
 ```
 |---|---|
-| 6 | 8 |
-| 4 | 2 |
+| 3 | 1 |
+| 5 | 7 |
 ```
 
-you could factor that into two matrices
+you could factor that into two matrices, with dimensions F x N and F x M, as follows (here F is the latent feature dimension).
 
 ```
-|---|---|    |---|---|
-| 2 | 2 |    | 3 | 4 |
-| 2 | 1 |    | 2 | 2 |
+|----|----|    |----|----|
+| 1  | -1 |    | -1 | -3 |
+| 2  |  2 |    |  2 |  2 | 
 ```
-
-such that if you multiplied the numbers in one matrix by those in the other, you'd get the original matrix back.
 
 So, say we have a matrix of movies and users, with the values being ratings, and with blanks for movies a user hasn't rated.
 
@@ -87,7 +85,7 @@ To follow along with this tutorial, download [ml-latest-small.zip](http://files.
 
 ### Loading the Movie Data Into PGX
 
-The following code is taken from `MovieRecommendation.java` and is responsible for loading the graph data into PGX.
+The following code is taken from [MovieRecommender.java](src/main/java/oracle/pgx/algorithms/MovieRecommender.java) and is responsible for loading the graph data into PGX.
 The code starts by programmatically creating a PGX session (which implicitly launches PGX in embedded mode).
 The code continues to shuffle the ratings to avoid any bias due to ordering of the data in the input file.
 The code then splits the users and movies into a training- and test graph and loads each graph into PGX.
@@ -238,20 +236,6 @@ This gradient descent operation is repeated for at most `max_step` steps.
 
 ```java
 package oracle.pgx.algorithms;
-
-import oracle.pgx.api.beta.EdgeProperty;
-import oracle.pgx.api.beta.PgxEdge;
-import oracle.pgx.api.beta.PgxGraph;
-import oracle.pgx.api.beta.PgxVect;
-import oracle.pgx.api.beta.PgxVertex;
-import oracle.pgx.api.beta.Scalar;
-import oracle.pgx.api.beta.VertexProperty;
-import oracle.pgx.api.beta.annotations.GraphAlgorithm;
-import oracle.pgx.api.beta.annotations.Length;
-import oracle.pgx.api.beta.annotations.Out;
-
-import static java.lang.Math.sqrt;
-import static oracle.pgx.api.beta.Random.uniformVector;
 
 @GraphAlgorithm
 public class MatrixFactorizationGradientDescent {
