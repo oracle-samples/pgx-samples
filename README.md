@@ -4,8 +4,8 @@
 
 1. [Overview](#overview)
 2. [Download PGX](#pgx-download)
-3. [Healthcare Fraud Detection](#healthcare-fraud-detection)
-4. [Super Hero Network Analysis](#super-hero-network-analysis)
+3. [Healthcare Fraud Detection  Use Case](#healthcare-fraud-detection)
+4. [Super Hero Network Analysis Use Case](#super-hero-network-analysis) use case
 5. [Graph-based ML applications using PgxML](#pgxml-apps)
     1. [Graphlet representation](#graphlet-representation)
     2. [Node representation](#node-representation)
@@ -26,10 +26,10 @@ PGX can be downloaded from Oracle Technology Network (OTN): [download link](http
 PgxML and PGX Algorithm are available as of version 3.2.0 and released under the [OTN license](https://www.oracle.com/technetwork/licenses/standard-license-152015.html).
 Obtain the latest `pgx-x.y.z-server` zip file from the [PGX download page](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix/downloads) and unzip it in the `libs` folder.
 
-## Healthcare Fraud Detection <a name="healthcare-fraud-detection"></a>
+## Healthcare Fraud Detection Use Case <a name="healthcare-fraud-detection"></a>
 The healthcare fraud detection example detects anomalies in medical transactions through a graph analysis procedure implemented in PGX.
 
-## Super Hero Network Analysis <a name="super-hero-network-analysis"></a>
+## Super Hero Network Analysis Use Case <a name="super-hero-network-analysis"></a>
 The Super Hero Network Analysis example describes how to combine computational graph analysis and graph pattern matching with PGX.
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
