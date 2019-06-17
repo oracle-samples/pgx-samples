@@ -14,13 +14,13 @@
 ****
     
 ## Overview <a name="overview"></a>
-This repository contains a set of examples and use cases that illustrate the the capabilities of [PGX](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix).
-The use cases are are included in the [use-cases folder](use-cases) and include:
+This repository contains a set of examples and use cases that illustrate the capabilities of [PGX](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix).
+The use cases are included in the [use-cases folder](use-cases) and include:
 
 * [Healthcare Fraud Detection](healthcare/README.md)
 * [Super Hero Network Analysis](superhero/README.md)
 
-Besides "classic" PGX use cases, we also provide illustrative examples for some advanced funcionalities, such as:
+Besides "classic" PGX use cases, we also provide illustrative examples for some advanced functionalities, such as:
 
 * The [PgxML library](https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/index.html), for Graph-based ML
 * The [PGX Algorithm](https://docs.oracle.com/cd/E56133_01/latest/tutorials/algorithm/index.html) API, a high-level DSL for developing optimized graph algorithms.
@@ -31,8 +31,8 @@ PgxML and PGX Algorithm are available as of version 3.2.0 and released under the
 Obtain the latest `pgx-x.y.z-server` zip file from the [PGX download page](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix/downloads) and unzip it in the `libs` folder.
 
 ## Use Cases and Samples <a name="pgx-use-cases"></a>
-We provide a set of use cases and examples to demonstre the capabilities of PGX.
-The use cases are are included in the [use-cases folder](use-cases) folder.
+We provide a set of use cases and examples to demonstrate the capabilities of PGX.
+The use cases are included in the [use-cases folder](use-cases).
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
 We provide two Graph-based ML applications, namely, `Graphlet representation` and `Node representation`.
