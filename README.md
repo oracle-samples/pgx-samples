@@ -5,7 +5,7 @@
 1. [Overview](#overview)
 2. [Download PGX](#pgx-download)
 3. [Healthcare Fraud Detection  Use Case](#healthcare-fraud-detection)
-4. [Super Hero Network Analysis Use Case](#super-hero-network-analysis) use case
+4. [Super Hero Network Analysis Use Case](#super-hero-network-analysis)
 5. [Graph-based ML applications using PgxML](#pgxml-apps)
     1. [Graphlet representation](#graphlet-representation)
     2. [Node representation](#node-representation)
