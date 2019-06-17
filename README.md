@@ -28,9 +28,11 @@ Obtain the latest `pgx-x.y.z-server` zip file from the [PGX download page](https
 
 ## Healthcare Fraud Detection <a name="healthcare-fraud-detection"></a>
 The healthcare fraud detection example detects anomalies in medical transactions through a graph analysis procedure implemented in PGX.
+More details regarding this use-case are available [here](healthcare/README.md).
 
 ## Super Hero Network Analysis <a name="super-hero-network-analysis"></a>
 The Super Hero Network Analysis example describes how to combine computational graph analysis and graph pattern matching with PGX.
+More details regarding this use-case are available [here](superhero/README.md).
 
 ## Graph-based ML applications using PgxML <a name="pgxml-apps"></a>
 We provide two Graph-based ML applications, namely, `Graphlet representation` and `Node representation`.
