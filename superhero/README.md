@@ -84,7 +84,7 @@ frequently appears in the shortest paths between any pair of other vertices. Rem
 In other words, a vertex is *central*, if it is essential to bridge other
 vertices in between. 
 
-PGX provides [built-in algorithms](https://docs.oracle.com/cd/E56133_01/latest/reference/algorithms/index.html) for computing both of these centrality definitions. The following code snippet
+PGX provides [built-in algorithms](https://docs.oracle.com/cd/E56133_01/latest/reference/analytics/builtins.html) for computing both of these centrality definitions. The following code snippet
 shows how to run them. The first line invokes `PageRank` algorithm
 with termination threshold of 0.0001, damping factor 0.85, and maximum iteration of 100. The second line invokes `vertexBetweenessCentrality` algorithm. Note that the `pagerank` method creates a new vertex property
 of name `pagerank`, and the `vertexBetweenessCentrality` methods create another of name `betweenness`. 

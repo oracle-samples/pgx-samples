@@ -55,6 +55,6 @@ public class GenerateGraphletVectors {
         .store(src_path+"/data/graphlet_vectors.csv");
 
     // Note there are other features also that we did not use in this application but checkout the details
-    // at https://docs.oracle.com/cd/E56133_01/latest/tutorials/mllib/pg2vec.html
+    // at https://docs.oracle.com/cd/E56133_01/latest/prog-guides/mllib/pg2vec.html
   }
 }
