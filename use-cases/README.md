@@ -1,3 +1,6 @@
-The use-cases provided are:
- * [Healthcare Fraud Detection](healthcare/README.md)
- * [Super Hero Network](superhero/README.md)
+# PGX Use Cases and Samples
+
+The use cases and samples are located in subfolders in this directory. The list includes:
+
+* [Healthcare Fraud Detection](healthcare/README.md)
+* [Super Hero Network](superhero/README.md)
