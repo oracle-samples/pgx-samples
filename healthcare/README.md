@@ -45,7 +45,7 @@ The idea behind the anomaly detection is as follows.
   * If there is a medical provider who is exceptionally close to other providers with different 
     speciality, it is considered anomalous -- the provider is performing health services typically done by providers with a different speciality. 
 
-To compute this *closeness* among vertices, we use [Personalized Pagerank(PPR)](https://docs.oracle.com/cd/E56133_01/latest/reference/algorithms/index.html).  Specifically, for each
+To compute this *closeness* among vertices, we use [Personalized Pagerank(PPR)](https://docs.oracle.com/cd/E56133_01/latest/reference/analytics/algorithms/pagerank.html).  Specifically, for each
 speciality, we compute the PPR score of all the providers by setting only vertices of the current speciality as starting vertices. The PPR
 score of a given vertex represents the probability that random walks from the starting vertices end at this vertex. Consequently, a high PPR score for a vertex
 indicates that the vertex is *close* to the starting vertices.
@@ -53,7 +53,7 @@ indicates that the vertex is *close* to the starting vertices.
 After computing PPR score per speciality, we cross-check the values to identify anomalies. That is, we look up highest ranked vertices and see if
 they do belong to the current speciality. If not, the provider is considered anomalous.
 
-We present two implementations of this analysis in the following subsections. The first approach makes use of the [built-in Personalized PageRank algorithm](https://docs.oracle.com/cd/E56133_01/latest/reference/algorithms/pagerank.html). The second one improves memory consumption and performance of the analysis by writing and compiling a custom graph algorithm with Green-Marl.
+We present two implementations of this analysis in the following subsections. The first approach makes use of the [built-in Personalized PageRank algorithm](https://docs.oracle.com/cd/E56133_01/latest/reference/analytics/algorithms/pagerank.html). The second one improves memory consumption and performance of the analysis by writing and compiling a custom graph algorithm with Green-Marl.
 
 
 ### Detect Anomalies Using Personalized PageRank
