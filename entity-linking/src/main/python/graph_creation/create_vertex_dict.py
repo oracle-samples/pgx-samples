@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# Copyright (c) 2019, Oracle and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
 """
 Create a set that contains all the resources on DBPedia, 
 so that they can be used as vertices of the knowledge graph.
 
 Created on Wed Apr 18 14:07:50 2018
 
-@author: aparravi
 """
 
 import time
@@ -43,7 +46,8 @@ def generate_vertex_set(input_file_path, lines_to_read, print_details):
             current_line += 1
 
             if not current_line % 100000 and print_details:
-                print("LINES READ: {} -- ELAPSED TIME: {:.2f} seconds -- VERTICES: {}".format(current_line, time.time() - start_time, len(vertex_set)))
+                print("LINES READ: {} -- ELAPSED TIME: {:.2f} seconds -- VERTICES: {}"\
+.format(current_line, time.time() - start_time, len(vertex_set)))
                  
             # Stop reading if enough lines have been read;
             if lines_to_read > 0 and current_line > lines_to_read:
@@ -81,7 +85,8 @@ def run(input_file_path, set_path, lines_to_read=0, print_details=True):
 if __name__ == "__main__":
     
     # Used to parse the input arguments;
-    parser = argparse.ArgumentParser(description="Generate a set that contains all the vertices of the graph.")
+    parser = argparse.ArgumentParser(description="Generate a set that contains\
+                                     all the vertices of the graph.")
     parser.add_argument("-i", "--input", metavar="<path/to/input/data>",
                         help="Path to the file where the resource list is stored, as a ttl file.")
     parser.add_argument("-o", "--output", metavar="<path/to/output/set>",

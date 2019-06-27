@@ -1,10 +1,13 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# Copyright (c) 2019, Oracle and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
 """
 Utility functions used when loading the graphs.
 
 Created on Thu Jan 18 10:08:12 2018
-
-@author: albyr
 """
 import os
 import urllib.parse as url_parser
@@ -138,6 +141,7 @@ def clean_line(l, ignore_literals=True, obtain_resource_manually=True):
     line = split_triple(l)
 
     # Clean the line;
-    line = [clean_resource(r, ignore_literals=ignore_literals, obtain_resource_manually=obtain_resource_manually) for r in line]
+    line = [clean_resource(r, ignore_literals=ignore_literals,
+                           obtain_resource_manually=obtain_resource_manually) for r in line]
     
     return line

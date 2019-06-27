@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# Copyright (c) 2019, Oracle and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
 """
 Created on Sat Jan 13 14:11:37 2018
 
-@author: albyr
 """
 
 #%%
@@ -29,9 +32,11 @@ def get_instance_type(entity_name, instance_dict=None):
         return instance_dict[entity_name]
 
 
-def write_graph(input_path, output_path_v, output_path_e, instance_dict=None, lines_to_read=0, vertex_dict=None,
+def write_graph(input_path, output_path_v, output_path_e, instance_dict=None,
+                lines_to_read=0, vertex_dict=None,
                 print_details=True, instance_dict_vertices_only=True, ignore_literals=True,
-                add_orphan_vertices=False, add_triples=False, track_vertex_pairs=False, track_all_edges=False, edge_set=None, skip_existing_pairs=False):
+                add_orphan_vertices=False, add_triples=False, track_vertex_pairs=False,
+                track_all_edges=False, edge_set=None, skip_existing_pairs=False):
     """
     :param input_path: a text file containing a list of RDF triples;
     :param output_path_v: the file path where the vertices are written;
@@ -43,9 +48,12 @@ def write_graph(input_path, output_path_v, output_path_e, instance_dict=None, li
         if < 1 read the entire file;
     :param add_orphan_vertices: if True, add to the graph all the vertices in instance dict;
     :param print_details: boolean, if True print details about the state of the processing;
-    :param add_triples: if True, return a dictionary that contains all the triples that have been addded to the graph;
-    :param track_vertex_pairs: if True, store the vertex pairs that are added as edges, in a directed way.
-    :param track_all_edges: if True, store all the vertex pairs, otherwise store only redirects/disambiguations.
+    :param add_triples: if True, return a dictionary that contains all the 
+        triples that have been addded to the graph;
+    :param track_vertex_pairs: if True, store the vertex pairs that are added as edges, 
+        in a directed way.
+    :param track_all_edges: if True, store all the vertex pairs,
+        otherwise store only redirects/disambiguations.
     :param edge_set: if present, add vertex pairs to this set;
     :param skip_existing_pairs: if True, don't add the edges that are present in the edge_set;
     :return: tuple that contains the number of lines that have been read,
@@ -88,7 +96,8 @@ def write_graph(input_path, output_path_v, output_path_e, instance_dict=None, li
                     # Skip the header line, and skip commented-out lines;
                     if current_line != 0 and line[0] != "#":
                         # Create a triple from the given line;
-                        triple = utils.clean_line(line, ignore_literals, obtain_resource_manually=True)
+                        triple = utils.clean_line(
+                                line, ignore_literals, obtain_resource_manually=True)
                         source, relation, destination = triple
                          
                         if source == destination:
@@ -144,8 +153,10 @@ def write_graph(input_path, output_path_v, output_path_e, instance_dict=None, li
                                         triple_dict[source] = [triple]
                                 # Write a new edge;
                                 
-                                if not (skip_existing_pairs and (vertex_dict[source], vertex_dict[destination]) in edge_set):
-                                    outfile_e.write('"{}" "{}" "{}"\n'.format(source, destination, relation))
+                                if not (skip_existing_pairs and (vertex_dict[source],
+                                                                 vertex_dict[destination]) in edge_set):
+                                    outfile_e.write('"{}" "{}" "{}"\n'\
+                                                    .format(source, destination, relation))
                                     edge_count += 1
                                 # Keep track of the pairs (source, destination), after writing the current edge
                                 # (otherwise no edge is added!);
@@ -158,7 +169,8 @@ def write_graph(input_path, output_path_v, output_path_e, instance_dict=None, li
                     current_line += 1
                     
                     if not current_line % 100000 and print_details:
-                        print("\tLINES READ: {} -- TIME: {:.2f} seconds -- TOT. VERTICES: {} -- EDGES ADDED: {}"
+                        print("\tLINES READ: {} -- TIME: {:.2f} seconds \
+                              -- TOT. VERTICES: {} -- EDGES ADDED: {}"
                               .format(current_line, time.time() - start_time, vertex_id, edge_count))
                     
                     # Stop reading if enough lines have been read;
@@ -227,7 +239,8 @@ def run(input_path,
     for input_path_i in input_path:
         print("Processing: {}".format(input_path_i))
 
-        # Check if we are processing a redirects or disambiguations file; if so, track the edges that are added;
+        # Check if we are processing a redirects or disambiguations file; 
+        # if so, track the edges that are added;
         if not track_all_edges:
             track_vertex_pairs = "redirects" in input_path_i or "disambiguations" in input_path_i
         else:
@@ -242,7 +255,8 @@ def run(input_path,
             edge_set_in = None
             skip_existing_pairs = False
 
-        lines_read, triples_dict_temp, edge_set_temp, existing_vertices_dict, edge_count_temp = write_graph(
+        lines_read, triples_dict_temp, edge_set_temp, \
+        existing_vertices_dict, edge_count_temp = write_graph(
             input_path=input_path_i,
             output_path_v=output_path_v,
             output_path_e=output_path_e,
@@ -306,11 +320,13 @@ if __name__ == "__main__":
                         help="Path to an existing pickled dictionary\
                         that contains the instance type of each entity.")
     parser.add_argument("-o", "--instance_dict_vertices_only", action='store_true',
-                        help="If present, add to the graph only the vertices present in the list of resources.")
+                        help="If present, add to the graph only the vertices\
+                        present in the list of resources.")
     parser.add_argument("-r", "--ignore_literals", action='store_true',
                         help="If present, ignore non-resource object triples, such as literals.")
     parser.add_argument("-a", "--add_orphan_vertices", action='store_true',
-                        help="If present, add all the vertices in the instance dict, even if they have no edges.")
+                        help="If present, add all the vertices in the instance dict,\
+                        even if they have no edges.")
     parser.add_argument("-n", "--max_lines", nargs="?", type=int, metavar="N",
                         help="Maximum number of RDF triples to be read")
     parser.add_argument("-p", "--print_details", action='store_true',
@@ -325,7 +341,8 @@ if __name__ == "__main__":
 #                              "../../../graph_data/original/infobox_properties_en.ttl",
 #                              "../../../graph_data/original/page_links_en.ttl",
 #                              "-v", "../../../graph_data/graph_small_v.edgelist",
-#                              "-e", "../../../graph_data/graph_small_e.edgelist", "-j", "../../../graph_data/graph_small.json",
+#                              "-e", "../../../graph_data/graph_small_e.edgelist",
+#                              "-j", "../../../graph_data/graph_small.json",
 #                              "-t", "../../../graph_data/instance_types", "-p", "-o",
 #                              "-n", "100000"])
     args = parser.parse_args()

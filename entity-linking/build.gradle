@@ -3,7 +3,7 @@ plugins {
   id 'scala'
 }
 
-def pgxDir = "$projectDir/../libs/pgx-3.2.0"
+def pgxDir = "$projectDir/../libs/pgx-19.2.0"
 def commonDeps = "$pgxDir/shared-lib/common"
 def embeddedDeps = "$pgxDir/shared-lib/embedded"
 def serverDeps = "$pgxDir/shared-lib/server"

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+#
+# Copyright (c) 2019, Oracle and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+#
 """
 Created on Thu Jan 18 11:00:37 2018
 
@@ -6,8 +10,6 @@ This script is used to build a dictionary that associates each entity in DBPedia
 to its RDF instance-type (e.g. owl#Thing).
 The resulting dictionary is used as input of "rdf_to_edgelist.py", in order to 
 obtain additional information about the vertices.
-
-@author: albyr
 """
 import time
 import pickle
@@ -20,7 +22,8 @@ def generate_inst_dict(instance_file_path, lines_to_read, vertex_set=None, print
     :param instance_file_path: path to the instance file used to generate the dictionary;
     :param lines_to_read: number of lines to read in the file; if <= 0, read the entire file;
     :param print_details: boolean, if True print details about the state of the processing;
-    :param vertex_set: if present, use a set of vertices as starting point, with all the vertices being "owl#Thing";
+    :param vertex_set: if present, use a set of vertices as starting point, 
+        with all the vertices being "owl#Thing";
     :return: dictionary that contains for each entity its instance type;
     """
     
@@ -41,16 +44,19 @@ def generate_inst_dict(instance_file_path, lines_to_read, vertex_set=None, print
                 # Note: data are dirty, some entities appears more than once 
                 # with different types.
                 # As this problem doesn't occur often, the last type that appears is kept.
-                # If the entity is already present, with type "owl#Thing", the type is overwritten with something more specific.
+                # If the entity is already present, with type "owl#Thing",
+                # the type is overwritten with something more specific.
                 if len(entity_name) > 0 and len(entity_type) > 0:
                     if vertex_set is None or entity_name in vertex_set:
-                        if entity_name not in instance_dict or (entity_name in instance_dict and instance_dict[entity_name] == "owl#Thing"):
+                        if entity_name not in instance_dict or\
+                        (entity_name in instance_dict and instance_dict[entity_name] == "owl#Thing"):
                             instance_dict[entity_name] = entity_type
                 
             current_line += 1
 
             if not current_line % 100000 and print_details:
-                print("LINES READ: {} -- ELAPSED TIME: {:.2f} seconds".format(current_line, time.time() - start_time))
+                print("LINES READ: {} -- ELAPSED TIME: {:.2f} seconds"\
+                      .format(current_line, time.time() - start_time))
                  
             # Stop reading if enough lines have been read;
             if lines_to_read > 0 and current_line > lines_to_read:
@@ -80,7 +86,8 @@ def run(instance_file_path, dict_path, lines_to_read=0, vertex_set_path=None, pr
             # Time the execution;
     start_time = time.time()
     # Build the dictionary;
-    instance_dict = generate_inst_dict(instance_file_path, lines_to_read, vertex_set, print_details)
+    instance_dict = generate_inst_dict(
+            instance_file_path, lines_to_read, vertex_set, print_details)
     exec_time = time.time() - start_time
 
     if print_details:
@@ -100,7 +107,8 @@ def run(instance_file_path, dict_path, lines_to_read=0, vertex_set_path=None, pr
 if __name__ == "__main__":
     
     # Used to parse the input arguments;
-    parser = argparse.ArgumentParser(description="Generate a dictionary that contains for each entity its RDF instance type.")
+    parser = argparse.ArgumentParser(description="Generate a dictionary\
+                                     that contains for each entity its RDF instance type.")
     parser.add_argument("-i", "--input", metavar="<path/to/input/data>",
                         help="Path to the file where the instance types are stored, as a text file.")
     parser.add_argument("-o", "--output", metavar="<path/to/output/dictionary>",
