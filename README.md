@@ -11,6 +11,7 @@
     2. [Node representation](#node-representation)
 6. [Article Ranking](#article-ranking)
 7. [Movie Recommendation](#movie-recommender)
+8. [Entity Linking](#entity-linking)
 
 ****
     
@@ -55,3 +56,6 @@ More details regarding this application are available [here](article-ranking/REA
 This application demonstrates how Matrix Factorization could be employed to recommend movies to users.
 More details regarding this application are available [here](movie-recommendation/README.md).
 
+## Entity Linking <a name="entity-linking"></a>
+Entity Linking allows to connect Named Entities (for example, names of famous people) to their Wikipedia/DBpedia page.
+ This application leverages vertex embeddings to provide high-quality results. More details available [here](entity-linking/README.md).
