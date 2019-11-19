@@ -12,6 +12,7 @@
 6. [Article Ranking](#article-ranking)
 7. [Movie Recommendation](#movie-recommender)
 8. [Entity Linking](#entity-linking)
+9. [Research Paper Classification](#paper-classification)
 
 ****
     
@@ -59,3 +60,7 @@ More details regarding this application are available [here](movie-recommendatio
 ## Entity Linking <a name="entity-linking"></a>
 Entity Linking allows to connect Named Entities (for example, names of famous people) to their Wikipedia/DBpedia page.
  This application leverages vertex embeddings to provide high-quality results. More details available [here](entity-linking/README.md) and in our [paper](https://dl.acm.org/citation.cfm?doid=3327964.3328499).
+
+## Research Paper Classification <a name="paper-classification"></a>
+This application demonstrates how graph data can be used to enhance classification performance of a research paper classifier.
+More details regarding this application are available [here](paper-classification/README.md).
