@@ -24,9 +24,10 @@ Some of these use cases act as examples for some advanced functionalities, such 
 * The [PGX Algorithm](https://docs.oracle.com/cd/E56133_01/latest/reference/analytics/pgx-algorithm.html) API, a high-level DSL for developing optimized graph algorithms.
 
 ## Download PGX <a name="pgx-download"></a>
-PGX can be downloaded from Oracle Technology Network (OTN): [download link](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix/downloads).
+PGX is included as part of the Oracle Graph Server and Client product.
+A trial of Oracle Graph Server and Client can be downloaded from the [Oracle Technology Network](https://www.oracle.com/database/technologies/spatialandgraph/property-graph-features/graph-server-and-client/graph-server-and-client-downloads.html).
 PgxML and PGX Algorithm are available as of version 3.2.0 and released under the [OTN license](https://www.oracle.com/technetwork/licenses/standard-license-152015.html).
-Obtain the latest `pgx-x.y.z-server` zip file from the [PGX download page](https://www.oracle.com/technetwork/oracle-labs/parallel-graph-analytix/downloads) and unzip it in the `libs` folder.
+Obtain the latest `pgx-x.y.z-server` zip file from the [Oracle Graph Server and Client Downloads page](https://www.oracle.com/database/technologies/spatialandgraph/property-graph-features/graph-server-and-client/graph-server-and-client-downloads.html) and unzip it in the `libs` folder.
 
 ## Healthcare Fraud Detection <a name="healthcare-fraud-detection"></a>
 The healthcare fraud detection example detects anomalies in medical transactions through a graph analysis procedure implemented in PGX.
