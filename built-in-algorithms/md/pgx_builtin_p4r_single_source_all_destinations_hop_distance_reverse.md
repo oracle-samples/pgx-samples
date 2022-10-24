@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
+  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
 
 The Hop distance of two vertices S and V in a graph is the number of edges that are in a shortest path connecting them. This algorithm will return the distance of each node with respect to the given source node in the input and will also return the parent node and linking edge for each node. The returned information allows to trace back shortest paths from any reachable node to the source node.
 

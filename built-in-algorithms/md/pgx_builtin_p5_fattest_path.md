@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#fattestPath-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#fattestPath-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#fattestPath-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#fattestPath-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
 
 The Fattest path algorithm can be regarded as a variant of Dijkstra's algorithm, it tries to find the fattest path between the given source and all the reachable vertices in the graph. The fatness of a path is equal to the minimum value of the capacity from the edges that take part in the path, thus a fattest path is conformed by the edges with the largest possible capacity.
 

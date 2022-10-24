@@ -5,10 +5,10 @@
 - **Time Complexity:** O(V * k) with V = number of vertices, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#eigenvectorCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-)
-  - [Analyst#eigenvectorCentrality(PgxGraph graph, int max, double maxDiff, boolean useL2Norm, boolean useInEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-int-double-boolean-boolean-)
-  - [Analyst#eigenvectorCentrality(PgxGraph graph, int max, double maxDiff, boolean useL2Norm, boolean useInEdge, VertexProperty<ID,java.lang.Double> ec)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-int-double-boolean-boolean-oracle.pgx.api.VertexProperty-)
-  - [Analyst#eigenvectorCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Double> ec)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#eigenvectorCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-)
+  - [Analyst#eigenvectorCentrality(PgxGraph graph, int max, double maxDiff, boolean useL2Norm, boolean useInEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-int-double-boolean-boolean-)
+  - [Analyst#eigenvectorCentrality(PgxGraph graph, int max, double maxDiff, boolean useL2Norm, boolean useInEdge, VertexProperty<ID,java.lang.Double> ec)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-int-double-boolean-boolean-oracle.pgx.api.VertexProperty-)
+  - [Analyst#eigenvectorCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Double> ec)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#eigenvectorCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 The Eigenvector Centrality determines the centrality of a vertex by adding and weighting the centrality of its neighbors. Using outgoing or incoming edges when computing the eigenvector centrality will be equivalent to do so with the normal or the transpose adjacency matrix, respectively leading to the "right" and "left" eigenvectors.
 

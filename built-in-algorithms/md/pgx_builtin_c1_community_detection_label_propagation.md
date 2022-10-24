@@ -5,10 +5,10 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#communitiesLabelPropagation(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-)
-  - [Analyst#communitiesLabelPropagation(PgxGraph graph, int maxIterations)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-int-)
-  - [Analyst#communitiesLabelPropagation(PgxGraph graph, int maxIterations, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#communitiesLabelPropagation(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#file:///home/hboukham/dev/pgx3/pgx/docs/build/docs/javadocs/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesLabelPropagation(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-)
+  - [Analyst#communitiesLabelPropagation(PgxGraph graph, int maxIterations)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-int-)
+  - [Analyst#communitiesLabelPropagation(PgxGraph graph, int maxIterations, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesLabelPropagation(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesLabelPropagation-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 Label Propagation is an algorithm designed to find community structures in a graph. It assigns a unique community label to each vertex in the graph, which then is updated on each iteration by looking and choosing the most frequent label amongst those from its neighbors. Convergence is achieved once the label of each vertex is the same as the most frequent one amongst its neighbors, i.e. when there are no changes in the communities assigned to the vertices in one iteration.
 

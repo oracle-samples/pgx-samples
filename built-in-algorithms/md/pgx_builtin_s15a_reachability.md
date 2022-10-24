@@ -5,7 +5,7 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(1)
 - **Javadoc:** 
-  - [Analyst#reachability(PgxGraph graph, PgxVertex<ID> source, PgxVertex<ID> dest, int maxHops, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#reachability-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-boolean-)
+  - [Analyst#reachability(PgxGraph graph, PgxVertex<ID> source, PgxVertex<ID> dest, int maxHops, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#reachability-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-boolean-)
 
 This algorithm tries to find if the destination vertex is reachable given the source vertex and the maximum hop distance set by the user. The search can be performed in a directed or undirected way. These options may lead to different hop distances, since an undirected search has less restrictions on the possible paths connecting vertices than the directed option. Hence hop distances from an undirected search can be smaller than the ones from the directed cases.
 

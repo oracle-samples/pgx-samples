@@ -5,9 +5,9 @@
 - **Time Complexity:** O(L) with L = length of the random walk
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#randomWalkWithRestart(PgxGraph graph, ID source, int length, java.math.BigDecimal reset_prob, PgxMap<PgxVertex<ID>,java.lang.Integer> visitCount)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#randomWalkWithRestart-oracle.pgx.api.PgxGraph-ID-int-java.math.BigDecimal-oracle.pgx.api.PgxMap-)
+  - [Analyst#randomWalkWithRestart(PgxGraph graph, ID source, int length, java.math.BigDecimal reset_prob, PgxMap<PgxVertex<ID>,java.lang.Integer> visitCount)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#randomWalkWithRestart-oracle.pgx.api.PgxGraph-ID-int-java.math.BigDecimal-oracle.pgx.api.PgxMap-)
 
-This algorithm performs a random walk over the graph. The walk will start at the given source vertex and will randomly visit neighboring vertices in the graph, with a probability equal to the value of reset_probability of going back to the starting point. The random walk will also go back to the starting point every time it reaches a vertex with no outgoing edges. The algorithm will stop once it reaches the specified walk lenght.
+This algorithm performs a random walk over the graph. The walk will start at the given source vertex and will randomly visit neighboring vertices in the graph, with a probability equal to the value of reset_probability of going back to the starting point. The random walk will also go back to the starting point every time it reaches a vertex with no outgoing edges. The algorithm will stop once it reaches the specified walk length.
 
 
 ## Signature

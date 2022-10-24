@@ -5,7 +5,7 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#enumerateSimplePaths(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k, VertexSet<ID> verticesOnPath, EdgeSet edgesOnPath, PgxMap<PgxVertex<ID>, Integer> dist)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#enumerateSimplePaths-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeSet-oracle.pgx.api.PgxMap)
+  - [Analyst#enumerateSimplePaths(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k, VertexSet<ID> verticesOnPath, EdgeSet edgesOnPath, PgxMap<PgxVertex<ID>, Integer> dist)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#enumerateSimplePaths-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeSet-oracle.pgx.api.PgxMap)
 
 Enumerate all simple paths between the source and destination vertex
 

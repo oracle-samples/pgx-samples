@@ -5,7 +5,7 @@
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#allReachableVerticesEdges(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#allReachableVerticesEdges-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int)
+  - [Analyst#allReachableVerticesEdges(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#allReachableVerticesEdges-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int)
 
 Finds all the vertices and edges on a path between the src and target of length smaller or equal to k.
 

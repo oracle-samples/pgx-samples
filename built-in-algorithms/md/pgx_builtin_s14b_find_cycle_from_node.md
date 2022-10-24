@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V + E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-)
+  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
+  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-)
 
 This implementation tries to find a cycle in a directed graph using the given vertex as starting point for the DFS traversal and will return the first cycle found, if there is one. In such case, the vertices and edges involved in the cycle will be returned in the order of visit. Restricting the DFS traversal to a single starting point means that some parts of the graph may not get explored.
 

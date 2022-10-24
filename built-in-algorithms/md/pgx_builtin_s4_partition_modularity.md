@@ -5,10 +5,10 @@
 - **Time Complexity:** O(E * c) with E = number of edges, c = number of components
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
-  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition, Scalar<java.lang.Double> modularity)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-)
+  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
+  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition, Scalar<java.lang.Double> modularity)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-)
 
-Modularity in a graph is a measure for assessing the quality of the partition induced by the components (or community structures) within the graph found by any clustering algorithm (e.g. label propagation, Infomap, WCC, etc.). It compares the number of the edges between the vertices within a component against the expected number of edges if these were generated at random (assuming a uniform probability distribution). A possitive modularity value means that, on average, there are more edges within the components than the amount expected (meaning stronger components), and viceversa for a negative modularity value. This implementation is intended for directed graphs.
+Modularity in a graph is a measure for assessing the quality of the partition induced by the components (or community structures) within the graph found by any clustering algorithm (e.g. label propagation, Infomap, WCC, etc.). It compares the number of the edges between the vertices within a component against the expected number of edges if these were generated at random (assuming a uniform probability distribution). A positive modularity value means that, on average, there are more edges within the components than the amount expected (meaning stronger components), and vice-versa for a negative modularity value. This implementation is intended for directed graphs.
 
 
 ## Signature

@@ -5,8 +5,8 @@
 - **Time Complexity:** O(N log N) with N = number of vertices
 - **Space Requirement:** O(k) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#computeHighDegreeVertices(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#computeHighDegreeVertices-oracle.pgx.api.PgxGraph-int)
-  - [Analyst#computeHighDegreeVertices(PgxGraph graph, int k, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#computeHighDegreeVertices-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet)
+  - [Analyst#computeHighDegreeVertices(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#computeHighDegreeVertices-oracle.pgx.api.PgxGraph-int)
+  - [Analyst#computeHighDegreeVertices(PgxGraph graph, int k, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#computeHighDegreeVertices-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet)
 
 Computes the k vertices with the highest degrees in the graph. The resulting map will contain a mapping with the sorted index to the high-degree vertex with the index.
 

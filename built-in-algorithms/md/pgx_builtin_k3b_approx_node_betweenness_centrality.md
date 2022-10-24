@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-)
-  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
+  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-)
+  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
 
 This variant of betweenness centrality approximates the centrality of the vertices by just using k random vertices as starting points for the BFS traversals of the graph, instead of computing the exact value by using all the vertices in the graph.
 
@@ -16,7 +16,7 @@ This variant of betweenness centrality approximates the centrality of the vertic
 | Input Argument | Type | Comment |
 | :--- | :--- | :--- |
 | `G` | graph | the graph. |
-| `num_seeds` | int | number of random vertices to be used to compute the approximated betweenness centrality coeficients. |
+| `num_seeds` | int | number of random vertices to be used to compute the approximated betweenness centrality coefficients. |
 
 | Output Argument | Type | Comment |
 | :--- | :--- | :--- |

@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#topologicalSort(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-)
-  - [Analyst#topologicalSort(PgxGraph graph, VertexProperty<ID,java.lang.Integer> topoSort)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#topologicalSort(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-)
+  - [Analyst#topologicalSort(PgxGraph graph, VertexProperty<ID,java.lang.Integer> topoSort)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 Topological sort tries to set an order over the vertices in a graph using the direction of the edges. A directed graph has a topological order if and only if it has no cycles, i.e. it is a directed acyclic graph. The algorithm visits the vertices in a DFS-like fashion to set up their order. The order of the vertices is returned as a vertex property, and the values will be set to -1 if there is a cycle in the graph.
 

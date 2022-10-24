@@ -5,11 +5,11 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(8 * V + E) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-int-)
-  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight, int maxIter, int nbrPass, double tol, VertexProperty<ID,java.lang.Long> community)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-int-int-double-oracle.pgx.api.VertexProperty-)
+  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-int-)
+  - [Analyst#louvain(PgxGraph graph, EdgeProperty<java.lang.Double> weight, int maxIter, int nbrPass, double tol, VertexProperty<ID,java.lang.Long> community)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#louvain-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-int-int-double-oracle.pgx.api.VertexProperty-)
 
-Louvain is an algorithm for community detection in large graphs which uses the graph's modularity. Initially it assigns a different community to each node of the graph. It then iterates over the nodes and evaluates for each node the modularity gain obtained by removing the node from its community and placing it in the community of one of its neigbours. The node is placed in the community for which the modularity gain is maximum. This process is repeated for all nodes until no improvement is possible, i.e until no new assignement of a node to a different community can improve the graph's modularity.
+Louvain is an algorithm for community detection in large graphs which uses the graph's modularity. Initially it assigns a different community to each node of the graph. It then iterates over the nodes and evaluates for each node the modularity gain obtained by removing the node from its community and placing it in the community of one of its neighbours. The node is placed in the community for which the modularity gain is maximum. This process is repeated for all nodes until no improvement is possible, i.e until no new assignment of a node to a different community can improve the graph's modularity.
 
 
 ## Signature

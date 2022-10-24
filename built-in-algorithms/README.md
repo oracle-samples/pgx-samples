@@ -1,7 +1,3 @@
-# Built-In Algorithms
-
-PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
-
 - Classic graph algorithms
   - [Prim's Algorithm](./md/pgx_builtin_a1_prim.md)
 - Community detection
@@ -9,11 +5,12 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Conductance Minimization (Soman and Narang Algorithm)](./md/pgx_builtin_c2_community_detection_conductance_minimization.md)
   - [Infomap](./md/pgx_builtin_c3_infomap.md)
   - [Louvain](./md/pgx_builtin_c4_louvain.md)
+  - [Speaker Listener Label Propagation](./md/pgx_builtin_c5_speaker_listener_label_propagation.md)
 - Connected components
   - [Strongly Connected Components (SCC) via Kosaraju's algorithm](./md/pgx_builtin_g2a_strongly_connected_components_kosaraju.md)
   - [Strongly Connected Components (SCC) via Tarjan's algorithm](./md/pgx_builtin_g2b_strongly_connected_components_tarjan.md)
   - [Weakly Connected Components (WCC)](./md/pgx_builtin_g3_weakly_connected_components.md)
-- Link predition
+- Link prediction
   - [WTF (Whom To Follow) Algorithm](./md/pgx_builtin_l1_whom_to_follow.md)
 - Matrix factorization
   - [Matrix Factorization (Gradient Descent)](./md/pgx_builtin_r2a_matrix_factorization_training.md)
@@ -80,4 +77,3 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Out-Degree Distribution](./md/pgx_builtin_s6_out_degree_distribution.md)
   - [In-Degree Distribution](./md/pgx_builtin_s7_in_degree_distribution.md)
   - [K-Core](./md/pgx_builtin_s9_kcore.md)
-

@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(5 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#sccTarjan(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#sccTarjan-oracle.pgx.api.PgxGraph-)
-  - [Analyst#sccTarjan(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.3/spgjv/oracle/pgx/api/Analyst.html#sccTarjan-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#sccTarjan(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#sccTarjan-oracle.pgx.api.PgxGraph-)
+  - [Analyst#sccTarjan(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#sccTarjan-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 Tarjan's algorithm works on directed graphs for finding strongly connected components (SCC). A SCC is a maximal subset of vertices of the graph with the particular characteristic that every vertex in the SCC can be reachable from any other other vertex in the SCC.
 
