@@ -19,9 +19,6 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
 - Matrix factorization
   - [Matrix Factorization (Gradient Descent)](./md/pgx_builtin_r2a_matrix_factorization_training.md)
   - [Estimate Rating](./md/pgx_builtin_r2b_matrix_factorization_recommendations.md)
-- Other
-  - [Filtered BFS (Breadth-First Search)](./md/pgx_builtin_o1_filtered_bfs.md)
-  - [Filtered DFS (Depth-First Search)](./md/pgx_builtin_o2_filtered_dfs.md)
 - Path finding
   - [All Vertices and Edges on Filtered Path](./md/pgx_builtin_o10_all_reachable_vertices_edges.md)
   - [All Vertices and Edges on Filtered Path](./md/pgx_builtin_o11_all_reachable_vertices_edges_filtered.md)
@@ -81,3 +78,6 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Out-Degree Distribution](./md/pgx_builtin_s6_out_degree_distribution.md)
   - [In-Degree Distribution](./md/pgx_builtin_s7_in_degree_distribution.md)
   - [K-Core](./md/pgx_builtin_s9_kcore.md)
+- Other
+  - [Filtered BFS (Breadth-First Search)](./md/pgx_builtin_o1_filtered_bfs.md)
+  - [Filtered DFS (Depth-First Search)](./md/pgx_builtin_o2_filtered_dfs.md)
