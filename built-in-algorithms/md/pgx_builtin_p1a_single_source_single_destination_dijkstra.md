@@ -42,125 +42,69 @@ import oracle.pgx.algorithm.PgxEdge;
 import oracle.pgx.algorithm.PgxGraph;
 import oracle.pgx.algorithm.PgxMap;
 import oracle.pgx.algorithm.PgxVertex;
-import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
 
-import static oracle.pgx.algorithm.Reduction.updateMinValue;
-import static java.lang.Double.POSITIVE_INFINITY;
-
 @GraphAlgorithm
-public class BidirectionalDijkstra {
-  public boolean bidirectionalDijkstra(PgxGraph g, EdgeProperty<Double> weight, PgxVertex src, PgxVertex dst,
+public class Dijkstra {
+  public boolean dijkstra(PgxGraph g, EdgeProperty<Double> weight, PgxVertex root, PgxVertex dest,
       @Out VertexProperty<PgxVertex> parent, @Out VertexProperty<PgxEdge> parentEdge) {
     if (g.getNumVertices() == 0) {
       return false;
-    } else if (src == dst) {
-      return true;
     }
 
-    // Temporary data structures
-    VertexProperty<PgxVertex> rParent = VertexProperty.create();
-    VertexProperty<PgxEdge> rParentEdge = VertexProperty.create();
-    VertexProperty<Boolean> fFinalized = VertexProperty.create();
-    VertexProperty<Boolean> rFinalized = VertexProperty.create();
-    VertexProperty<Double> fCost = VertexProperty.create();
-    VertexProperty<Double> hCost = VertexProperty.create();
-    PgxMap<PgxVertex, Double> fReachable = PgxMap.create();
-    PgxMap<PgxVertex, Double> rReachable = PgxMap.create();
+    VertexProperty<Boolean> reached = VertexProperty.create();
 
-    // sequentially initialize, otherwise compiler flags this algorithm as parallel in nature
+    // sequentially initialize, otherwise compiler flags this algorithm as
+    //parallel in nature
     g.getVertices().forSequential(n -> {
       parent.set(n, PgxVertex.NONE);
       parentEdge.set(n, PgxEdge.NONE);
-      rParent.set(n, PgxVertex.NONE);
-      fFinalized.set(n, false);
-      rFinalized.set(n, false);
-      fCost.set(n, POSITIVE_INFINITY);
-      hCost.set(n, POSITIVE_INFINITY);
+      reached.set(n, false);
     });
 
-    fReachable.set(src, 0.0);
-    rReachable.set(dst, 0.0);
-    fCost.set(src, 0.0);
-    hCost.set(dst, 0.0);
+    //-------------------------------
+    // look up the vertex
+    //-------------------------------
+    PgxMap<PgxVertex, Double> reachable = PgxMap.create();
+    reachable.set(root, 0d);
 
-    Scalar<Double> curminfCost = Scalar.create(0.0);
-    Scalar<Double> curminhCost = Scalar.create(0.0);
-    double minCost = POSITIVE_INFINITY;
-    double minUnitCost = 0.0; // This value is 1 for int version
-    PgxVertex mid = PgxVertex.NONE;
-    boolean terminate = false;
-    while (!terminate && (fReachable.size() != 0) && (rReachable.size() != 0)) {
-      if (fReachable.size() <= rReachable.size()) {
-        PgxVertex fnext = fReachable.getKeyForMinValue();
-        fReachable.remove(fnext);
-        fFinalized.set(fnext, true);
-        curminfCost.set(fCost.get(fnext));
-        if (curminfCost.get() + curminhCost.get() + minUnitCost >= minCost) {
-          terminate = true;
-        }
+    //-------------------------------
+    // look up the vertex
+    //-------------------------------
+    boolean found = false;
+    boolean failed = false;
 
-        double fdist = fCost.get(fnext);
-        fnext.getNeighbors().filter(v -> !fFinalized.get(v)).forSequential(v -> {
-          PgxEdge e = v.edge();
-          if (fdist + weight.get(e) + curminhCost.get() <= minCost) {
-            if (fCost.get(v) > fdist + weight.get(e)) {
-              fCost.set(v, fdist + weight.get(e));
-              fReachable.set(v, fCost.get(v));
-              parent.set(v, fnext);
-              parentEdge.set(v, e);
-              if (hCost.get(v) != POSITIVE_INFINITY) {
-                double newCost = fCost.get(v) + hCost.get(v);
-                updateMinValue(minCost, newCost).andUpdate(mid, v);
-              }
-            }
-          }
-        });
+    while (!found && !failed) {
+      if (reachable.size() == 0) {
+        failed = true;
       } else {
-        PgxVertex rnext = rReachable.getKeyForMinValue();
-        rReachable.remove(rnext);
-        rFinalized.set(rnext, true);
-        curminhCost.set(hCost.get(rnext));
-        if (curminfCost.get() + curminhCost.get() + minUnitCost >= minCost) {
-          terminate = true;
-        }
-
-        double rdist = hCost.get(rnext);
-        rnext.getInNeighbors().filter(v -> !rFinalized.get(v)).forSequential(v -> {
-          PgxEdge e = v.edge();
-          if (rdist + weight.get(e) + curminfCost.get() <= minCost) {
-            if (hCost.get(v) > rdist + weight.get(e)) {
-              hCost.set(v, rdist + weight.get(e));
-              rReachable.set(v, hCost.get(v));
-              rParent.set(v, rnext);
-              rParentEdge.set(v, e);
-              if (fCost.get(v) != POSITIVE_INFINITY) {
-                double newCost = fCost.get(v) + hCost.get(v);
-                updateMinValue(minCost, newCost).andUpdate(mid, v);
-              }
+        PgxVertex next = reachable.getKeyForMinValue();
+        if (next == dest) {
+          found = true;
+        } else {
+          reached.set(next, true);
+          double dist = reachable.get(next);
+          reachable.remove(next);
+          next.getNeighbors().filter(v -> !reached.get(v)).forSequential(v -> {
+            PgxEdge e = v.edge();
+            if (!reachable.containsKey(v)) {
+              reachable.set(v, dist + weight.get(e));
+              parent.set(v, next);
+              parentEdge.set(v, e);
+            } else if (reachable.get(v) > dist + weight.get(e)) {
+              reachable.set(v, dist + weight.get(e));
+              parent.set(v, next);
+              parentEdge.set(v, e);
             }
-          }
-        });
+          });
+        }
       }
     }
 
-    // if a path was found
-    if (mid != PgxVertex.NONE) {
-      // Update the 'parent' and 'parentEdge' property of all the vertices in the
-      // path from mid to dst
-      PgxVertex cur = mid;
-      while (cur != dst) {
-        PgxVertex prev = rParent.get(cur);
-        parent.set(prev, cur);
-        parentEdge.set(prev, rParentEdge.get(cur));
-        cur = prev;
-      }
-      return true;
-    }
-    // No path was found
-    return false;
+    // return false if not reachable
+    return !failed;
   }
 }
 ```

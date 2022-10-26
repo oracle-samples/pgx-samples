@@ -46,19 +46,17 @@ import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
-import oracle.pgx.algorithm.filter.EdgeFilter;
 
 import static oracle.pgx.algorithm.Reduction.updateMinValue;
 import static java.lang.Double.POSITIVE_INFINITY;
 
 @GraphAlgorithm
-public class BidirectionalDijkstraFilter {
-  public boolean bidirectionalDijkstraFilter(PgxGraph g, EdgeProperty<Double> weight, PgxVertex src, PgxVertex dst,
-      EdgeFilter filter, @Out VertexProperty<PgxVertex> parent, @Out VertexProperty<PgxEdge> parentEdge) {
+public class BidirectionalDijkstra {
+  public boolean bidirectionalDijkstra(PgxGraph g, EdgeProperty<Double> weight, PgxVertex src, PgxVertex dst,
+      @Out VertexProperty<PgxVertex> parent, @Out VertexProperty<PgxEdge> parentEdge) {
     if (g.getNumVertices() == 0) {
       return false;
-    }
-    if (src == dst) {
+    } else if (src == dst) {
       return true;
     }
 
@@ -107,18 +105,15 @@ public class BidirectionalDijkstraFilter {
         double fdist = fCost.get(fnext);
         fnext.getNeighbors().filter(v -> !fFinalized.get(v)).forSequential(v -> {
           PgxEdge e = v.edge();
-
-          if (filter.evaluate(e)) {
-            if (fdist + weight.get(e) + curminhCost.get() <= minCost) {
-              if (fCost.get(v) > fdist + weight.get(e)) {
-                fCost.set(v, fdist + weight.get(e));
-                fReachable.set(v, fCost.get(v));
-                parent.set(v, fnext);
-                parentEdge.set(v, e);
-                if (hCost.get(v) != POSITIVE_INFINITY) {
-                  double newCost = fCost.get(v) + hCost.get(v);
-                  updateMinValue(minCost, newCost).andUpdate(mid, v);
-                }
+          if (fdist + weight.get(e) + curminhCost.get() <= minCost) {
+            if (fCost.get(v) > fdist + weight.get(e)) {
+              fCost.set(v, fdist + weight.get(e));
+              fReachable.set(v, fCost.get(v));
+              parent.set(v, fnext);
+              parentEdge.set(v, e);
+              if (hCost.get(v) != POSITIVE_INFINITY) {
+                double newCost = fCost.get(v) + hCost.get(v);
+                updateMinValue(minCost, newCost).andUpdate(mid, v);
               }
             }
           }
@@ -135,18 +130,15 @@ public class BidirectionalDijkstraFilter {
         double rdist = hCost.get(rnext);
         rnext.getInNeighbors().filter(v -> !rFinalized.get(v)).forSequential(v -> {
           PgxEdge e = v.edge();
-
-          if (filter.evaluate(e)) {
-            if (rdist + weight.get(e) + curminfCost.get() <= minCost) {
-              if (hCost.get(v) > rdist + weight.get(e)) {
-                hCost.set(v, rdist + weight.get(e));
-                rReachable.set(v, hCost.get(v));
-                rParent.set(v, rnext);
-                rParentEdge.set(v, e);
-                if (fCost.get(v) != POSITIVE_INFINITY) {
-                  double newCost = fCost.get(v) + hCost.get(v);
-                  updateMinValue(minCost, newCost).andUpdate(mid, v);
-                }
+          if (rdist + weight.get(e) + curminfCost.get() <= minCost) {
+            if (hCost.get(v) > rdist + weight.get(e)) {
+              hCost.set(v, rdist + weight.get(e));
+              rReachable.set(v, hCost.get(v));
+              rParent.set(v, rnext);
+              rParentEdge.set(v, e);
+              if (fCost.get(v) != POSITIVE_INFINITY) {
+                double newCost = fCost.get(v) + hCost.get(v);
+                updateMinValue(minCost, newCost).andUpdate(mid, v);
               }
             }
           }
