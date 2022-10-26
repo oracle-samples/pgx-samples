@@ -38,3 +38,58 @@ The Personalized Pagerank allows to select a particular vertex or a set of verti
 
 ## Code
 
+```java
+/*
+ * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ */
+package oracle.pgx.algorithms;
+
+import oracle.pgx.algorithm.annotations.GraphAlgorithm;
+import oracle.pgx.algorithm.PgxGraph;
+import oracle.pgx.algorithm.Scalar;
+import oracle.pgx.algorithm.VertexProperty;
+import oracle.pgx.algorithm.VertexSet;
+import oracle.pgx.algorithm.annotations.Out;
+
+import static java.lang.Math.abs;
+
+@GraphAlgorithm
+public class PagerankPersonalizedSet {
+  public void personalizedPagerank(PgxGraph g, VertexSet source, double tol, double damp, int maxIter, boolean norm,
+      @Out VertexProperty<Double> rank) {
+    double numVertices = g.getNumVertices();
+    long m = source.size();
+
+    Scalar<Double> diff = Scalar.create();
+    int cnt = 0;
+
+    VertexProperty<Boolean> isStart = VertexProperty.create(false);
+    rank.setAll(0d);
+
+    source.forEach(n -> {
+      rank.set(n, 1.0 / m);
+      isStart.set(n, true);
+    });
+
+    do {
+      diff.set(0.0);
+      Scalar<Double> danglingFactor = Scalar.create(0d);
+
+      if (norm) {
+        danglingFactor.set(damp / numVertices * g.getVertices().filter(n -> n.getOutDegree() == 0).sum(rank));
+      }
+
+      g.getVertices().forEach(t -> {
+        double val1 = (isStart.get(t)) ? (1 - damp) : 0;
+        double val2 = damp * t.getInNeighbors().sum(w -> rank.get(w) / w.getOutDegree());
+        double val = val1 + val2 + danglingFactor.get();
+        diff.reduceAdd(abs(val - rank.get(t)));
+        rank.setDeferred(t, val);
+      });
+      cnt++;
+    } while (diff.get() > tol && cnt < maxIter);
+
+    g.getVertices().forEach(n -> rank.set(n, rank.get(n) / m));
+  }
+}
+```
