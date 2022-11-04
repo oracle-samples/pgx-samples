@@ -6,6 +6,6 @@ While graphs have become ubiquitous nowadays as the backbone of multiple applica
 
 ## Table of contents:
 
-- [Build-in Algorithms](./built-in-algorithms/README.md)
+- [Buil-in Algorithms](./built-in-algorithms/README.md)
 
 
