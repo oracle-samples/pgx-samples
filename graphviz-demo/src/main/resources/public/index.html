@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<title>Oracle Graph Visualization Example</title>
+
+<link rel="stylesheet" href="/alta.css" />
+<link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="https://static.oracle.com/cdn/fnd/gallery/2210.1.0/images/iconfont/ojuxIconFont.css" />
+
+<script type="module">
+import * as ogvt from '/index.js';
+
+const styles = {
+  edge: {
+    color: 'lightgray'
+  },
+  'edge:hover': {
+    color: 'orange'
+  },
+  vertex: {
+    color: '#195F74',
+    label: '${properties.EMAIL}'
+  }
+};
+
+const expand = async (ids) => {
+  return fetch('/hr/neighbors?ids=' + ids).then((response) => {
+    return response.json();
+  }).then((json) => {
+    return {
+      ...visualization.data,
+      ...json.graph
+    }
+  });
+};
+
+const visualization = new GraphVisualization({
+  target: document.getElementById('graphviz'),
+  props: {
+    data: { vertices: {}, edges: {} },
+    styles,
+    expand,
+    settings: { layout: 'hierarchical' },
+    featureFlags: {
+      exploration: {
+        expand: true,
+        focus: true,
+        group: true,
+        ungroup: true,
+        drop: true,
+        undo: true,
+        redo: true,
+        reset: true
+      },
+      modes: {
+        interaction: true,
+        fitToScreen: true,
+        sticky: true
+      },
+      pagination: false
+    }
+  }
+});
+
+Array.from(document.getElementsByClassName('layout-btn')).forEach((btn) => {
+  btn.onclick = () => {
+    visualization.settings = { layout: btn.id };
+  };
+});
+
+const emailInput = document.getElementById('email');
+const queryBtn = document.getElementById('query');
+const vizSection = document.getElementById('visualization');
+queryBtn.onclick = () => {
+  vizSection.style.display = 'none';
+  queryBtn.disabled = true;
+  fetch('/hr/directs?email=' + emailInput.value).then((response) => {
+    return response.json();
+  }).then((json) => {
+    vizSection.style.display = 'block';
+    queryBtn.disabled = false;
+    visualization.data = json.graph;
+  });
+};
+
+
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="example" style="width: 500px">
+      <h3>Human Resources Visualization</h3>
+      <div id="query-section">
+        <label for="email">Show directs of:</label>
+        <input type="text" id="email" value="SKING" />
+        <button id="query">Query</button>
+      </div>
+      <div id="visualization">
+        <div style="height: 600px" id="graphviz"></div>
+        <label for="layouts">
+          Choose Layout:
+        </label>
+        <div id="layouts" class="buttons" style="padding: 10px">
+          <button class="layout-btn" id="hierarchical">Hierarchical</button>
+          <button class="layout-btn" id="circle">Circle</button>
+          <button class="layout-btn" id="concentric">Concentric</button>
+          <button class="layout-btn" id="grid">Grid</button>
+          <button class="layout-btn" id="force">Force</button>
+          <button class="layout-btn" id="random">Random</button>
+          <button class="layout-btn" id="radial">Radial</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

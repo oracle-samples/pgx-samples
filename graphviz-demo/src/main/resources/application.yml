@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: graphvizDemo
+  http:
+    client:
+      read-timeout: 2m
+  router:
+    static-resources:
+      default:
+        enabled: true
+        paths: classpath:public
+netty:
+  default:
+    allocator:
+      max-order: 3

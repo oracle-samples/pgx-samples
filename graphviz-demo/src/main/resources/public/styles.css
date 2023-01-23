@@ -1,0 +1,27 @@
+html,
+body,
+#graphviz {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 50px;
+}
+
+.example {
+  flex: 1 1 auto;
+}
+
+#visualization {
+  display: none;
+  margin-top: 1em;
+}
