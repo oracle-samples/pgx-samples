@@ -1,0 +1,675 @@
+[
+  {
+    "name" : "Graph Studio-Conda – Graph User",
+    "description" : null,
+    "tags" : null,
+    "version" : "6",
+    "layout" : "zeppelin",
+    "type" : "Default",
+    "readOnly" : false,
+    "snapshot" : false,
+    "template" : "dsrgmn3y",
+    "templateConfig" : "{\"visualization\":{\"filters\":[{\"_id\":1583324064459,\"type\":\"styling\",\"enabled\":true,\"conditions\":{\"operator\":\"and\",\"conditions\":[{\"property\":\"hiddenConnection\",\"operator\":\"*\",\"value\":\"\"}]},\"component\":\"edge\",\"target\":\"edge\",\"properties\":{\"colors\":[\"rgba(0, 0, 0, 0.1)\"],\"style\":[\"dashed\"],\"legendTitle\":[\"Hidden Connection\"]}},{\"_id\":1590499315755,\"type\":\"aggregation\",\"enabled\":true,\"conditions\":{\"operator\":\"and\",\"conditions\":[]},\"component\":\"vertex\",\"target\":\"vertex\",\"properties\":{},\"aggregation\":[{\"source\":\"\",\"type\":\"average\"}]}],\"version\":4}}",
+    "paragraphs" : [
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 0,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "# **Example of Conda Interpreter for Data Science User**",
+          "",
+          "## **Step 1: Download and activate Conda Environment**",
+          "Conda environments must be created by the Admin user."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674238487518,
+          "endTime" : 1674238487586,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h1 id=\"example-of-conda-interpreter-for-data-science-user\"><strong>Example of Conda Interpreter for Data Science User</strong></h1>\n<h2 id=\"step-1-download-and-activate-conda-environment\"><strong>Step 1: Download and activate Conda Environment</strong></h2>\n<p>Conda environments must be created by the Admin user.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 1,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda ",
+          "",
+          "list-saved-envs"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103403990,
+          "endTime" : 1675103406175,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 2,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "download datascience_environment"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103471767,
+          "endTime" : 1675103521186,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 3,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Step 2: Activate the conda environment**",
+          "List the local environments to see what you have downloaded, and then activate the environment. ",
+          "All environments that have been downloaded will be listed when list local environments."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675104411009,
+          "endTime" : 1675104411117,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"step-2-activate-the-conda-environment\"><strong>Step 2: Activate the conda environment</strong></h2>\n<p>List the local environments to see what you have downloaded, and then activate the environment.\nAll environments that have been downloaded will be listed when list local environments.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 4,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "list-local-envs"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103619854,
+          "endTime" : 1675103622085,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 5,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "activate datascience_environment"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103627845,
+          "endTime" : 1675103629068,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 6,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Step 3: Load Graph into Memory**",
+          "We will use the Bank Graph as an example. We can run the following paragraph to load the graph into memory, so we can run graph algorithms on it. "
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675104245773,
+          "endTime" : 1675104245858,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"step-3-load-graph-into-memory\"><strong>Step 3: Load Graph into Memory</strong></h2>\n<p>We will use the Bank Graph as an example. We can run the following paragraph to load the graph into memory, so we can run graph algorithms on it.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 7,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "GRAPH_NAME=\"BANK_GRAPH\";",
+          "# try getting the graph from the in-memory graph server",
+          "graph = session.get_graph(GRAPH_NAME);",
+          "# if it does not exist read it into memory",
+          "if (graph == None) :",
+          "    session.read_graph_by_name(GRAPH_NAME, \"pg_view\")",
+          "    print(\"Graph \"+ GRAPH_NAME + \" successfully loaded\")",
+          "    graph = session.get_graph(GRAPH_NAME);",
+          "else :",
+          "    print(\"Graph '\"+ GRAPH_NAME + \"' already loaded\");"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103666652,
+          "endTime" : 1675103674874,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 8,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Step 4: Run pagerank algorithm on the graph**",
+          "Pagerank measures the importance of each node within the graph, based on the number incoming relationships and the importance of the corresponding source nodes."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675104255567,
+          "endTime" : 1675104255661,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"step-4-run-pagerank-algorithm-on-the-graph\"><strong>Step 4: Run pagerank algorithm on the graph</strong></h2>\n<p>Pagerank measures the importance of each node within the graph, based on the number incoming relationships and the importance of the corresponding source nodes.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 9,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "# This paragraph will run the pagerank algorithm, and add pagerank and pagerank_2 as properties to each node",
+          "graph.get_or_create_vertex_property(\"pagerank\", data_type='double', dim=0)",
+          "analyst = session.create_analyst()",
+          "analyst.pagerank(graph, tol=0.001, damping=0.85, max_iter=100, norm=False, rank='pagerank');"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103715115,
+          "endTime" : 1675103715700,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 10,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Step 5: Query in PGQL**",
+          "",
+          "Run the following paragraph to query the BANK_GRAPH. This will return a result set which we can then print. Later in the notebook, we will use this result set with some common Data Science conda packages."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675104273332,
+          "endTime" : 1675104273416,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"step-5-query-in-pgql\"><strong>Step 5: Query in PGQL</strong></h2>\n<p>Run the following paragraph to query the BANK_GRAPH. This will return a result set which we can then print. Later in the notebook, we will use this result set with some common Data Science conda packages.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 11,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%pgql-pgx",
+          "",
+          "/* We can use the pgql paragraphs in Graph Studio to easily find the query we want to generate a result set for. */",
+          "SELECT a.acct_id, a.pagerank_2 as pagerank FROM MATCH (a) ON bank_graph ORDER BY acct_id asc"
+        ],
+        "selectedVisualization" : "table",
+        "visualizationConfig" : "[{\"table\":{\"version\":1}}]",
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103849247,
+          "endTime" : 1675103849694,
+          "interpreter" : "pgql-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 12,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "# Import pandas, which was initially installed as a part of the conda environment. ",
+          "import pandas",
+          "",
+          "# Generate a result set based on the query we made in the previous paragraph, and convert it to",
+          "rs = graph.execute_pgql(\"SELECT a.acct_id, a.pagerank_2 as pagerank FROM MATCH (a) ON bank_graph ORDER BY acct_id asc\")",
+          "result_df = rs.to_pandas()",
+          "print(result_df)"
+        ],
+        "selectedVisualization" : "table",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675103857431,
+          "endTime" : 1675103858328,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 13,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Step 6: Use result set for analytics use case**",
+          "",
+          "In the following paragraphs, we can use the packages installed by the conda interpreter to gain more insights into our data. ",
+          "Specifically, in this example, we can gather more information on the pagerank values for each account."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : true,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675104290922,
+          "endTime" : 1675104291016,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"step-6-use-result-set-for-analytics-use-case\"><strong>Step 6: Use result set for analytics use case</strong></h2>\n<p>In the following paragraphs, we can use the packages installed by the conda interpreter to gain more insights into our data.\nSpecifically, in this example, we can gather more information on the pagerank values for each account.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 14,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "result_df.describe()"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674236074466,
+          "endTime" : 1674236075117,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 15,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "# Calculate the standard deviation of the given set of numbers, DataFrame, column, and rows",
+          "result_df.std()"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674236099395,
+          "endTime" : 1674236099971,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 16,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "import matplotlib.pyplot as plt",
+          "",
+          "result_df.plot()",
+          "plt.show()"
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674236174724,
+          "endTime" : 1674236175461,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 17,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "rs_df = graph.execute_pgql(\"SELECT a.acct_id, a.pagerank_2 as pagerank FROM MATCH (a) ON bank_graph\").to_pandas()",
+          "df = rs_df.sort_values(by='acct_id', ascending=False)",
+          "accounts = df['acct_id']",
+          "values = df['pagerank']",
+          "plt.bar(accounts, values, color ='maroon', width = 0.4)",
+          "plt.xlabel(\"Account ID\")",
+          "plt.ylabel(\"Page Rank Value\")",
+          "plt.title(\"Page Rank Value by Account ID\")",
+          "plt.show()"
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674236165333,
+          "endTime" : 1674236167934,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      }
+    ]
+  }
+]

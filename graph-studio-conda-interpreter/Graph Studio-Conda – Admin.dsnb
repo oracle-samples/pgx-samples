@@ -1,0 +1,649 @@
+[
+  {
+    "name" : "Graph Studio-Conda – Admin",
+    "description" : "Create conda environment and install common packages",
+    "tags" : null,
+    "version" : "6",
+    "layout" : "zeppelin",
+    "type" : "Default",
+    "readOnly" : false,
+    "snapshot" : false,
+    "template" : "dsrgmn3y",
+    "templateConfig" : "{\"visualization\":{\"filters\":[{\"_id\":1583324064459,\"type\":\"styling\",\"enabled\":true,\"conditions\":{\"operator\":\"and\",\"conditions\":[{\"property\":\"hiddenConnection\",\"operator\":\"*\",\"value\":\"\"}]},\"component\":\"edge\",\"target\":\"edge\",\"properties\":{\"colors\":[\"rgba(0, 0, 0, 0.1)\"],\"style\":[\"dashed\"],\"legendTitle\":[\"Hidden Connection\"]}},{\"_id\":1590499315755,\"type\":\"aggregation\",\"enabled\":true,\"conditions\":{\"operator\":\"and\",\"conditions\":[]},\"component\":\"vertex\",\"target\":\"vertex\",\"properties\":{},\"aggregation\":[{\"source\":\"\",\"type\":\"average\"}]}],\"version\":4}}",
+    "paragraphs" : [
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 0,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "# **Graph Studio-Conda - Admin**",
+          "",
+          "This notebook creates a conda environment, installs pandas and matplotlib packages, verifies that the installation was successful, and uploads the environment to be used by a graph user."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674686171369,
+          "endTime" : 1674686171436,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h1 id=\"graph-studio-conda---admin\"><strong>Graph Studio-Conda - Admin</strong></h1>\n<p>This notebook creates a conda environment, installs pandas and matplotlib packages, verifies that the installation was successful, and uploads the environment to be used by a graph user.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 1,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Create conda environment**",
+          "Run the following paragraph to create a conda environment, named \"datascience_environment\", that duplicates the pre-existing environment for python on Graph Studio. This \"basegraph\" environment contains pypgx, which is necessary to interact with in-memory graphs using Python.",
+          "<br />",
+          "<br />",
+          "Note: Creating a conda environment may take several minutes."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674686172904,
+          "endTime" : 1674686172975,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"create-conda-environment\"><strong>Create conda environment</strong></h2>\n<p>Run the following paragraph to create a conda environment, named &quot;datascience_environment&quot;, that duplicates the pre-existing environment for python on Graph Studio. This &quot;basegraph&quot; environment contains pypgx, which is necessary to interact with in-memory graphs using Python.\n<br />\n<br />\nNote: Creating a conda environment may take several minutes.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 2,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "env create -n datascience_environment --file environments/basegraph.yml"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675101215843,
+          "endTime" : 1675102039082,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 3,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Activate Basegraph**",
+          "Run the following paragraph to activate the basegraph environment. If we skip this step, we will not be able to execute some conda commands."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102774191,
+          "endTime" : 1675102774263,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"activate-basegraph\"><strong>Activate Basegraph</strong></h2>\n<p>Run the following paragraph to activate the basegraph environment. If we skip this step, we will not be able to execute some conda commands.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 4,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "activate basegraph"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102540360,
+          "endTime" : 1675102541601,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 5,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Check the environment was created**",
+          "Run the following paragraph to list all local conda environments (conda environments that were created or downloaded in this session).",
+          "<br/>",
+          "You should see the environment we just created is listed."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674749527776,
+          "endTime" : 1674749528049,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"check-the-environment-was-created\"><strong>Check the environment was created</strong></h2>\n<p>Run the following paragraph to list all local conda environments (conda environments that were created or downloaded in this session).\n<br/>\nYou should see the environment we just created is listed.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 6,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "list-local-envs"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102272829,
+          "endTime" : 1675102275204,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 7,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Activate the conda environment and install Python packages**",
+          "Run the following three paragraphs to activate the conda environment you created, and install the pandas and matplotlib packages."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674750176575,
+          "endTime" : 1674750176643,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"activate-the-conda-environment-and-install-python-packages\"><strong>Activate the conda environment and install Python packages</strong></h2>\n<p>Run the following three paragraphs to activate the conda environment you created, and install the pandas and matplotlib packages.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 8,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "activate datascience_environment"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102281615,
+          "endTime" : 1675102282820,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 9,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "install pandas"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102286256,
+          "endTime" : 1675102347030,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 10,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "install matplotlib"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102398649,
+          "endTime" : 1675102462162,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 11,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Verify package installation**",
+          "Run the following paragraph to verify that pandas and matplotlib have been installed, and that the basegraph environment was copied to this environment. <br/>",
+          "Importing pandas and matplotlib in a *python-pgx* paragraph is sufficient to confirm the packages were installed, and by calling *session*, we can confirm that the environment has pypgx installed."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674750433647,
+          "endTime" : 1674750433715,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"verify-package-installation\"><strong>Verify package installation</strong></h2>\n<p>Run the following paragraph to verify that pandas and matplotlib have been installed, and that the basegraph environment was copied to this environment. <br/>\nImporting pandas and matplotlib in a <em>python-pgx</em> paragraph is sufficient to confirm the packages were installed, and by calling <em>session</em>, we can confirm that the environment has pypgx installed.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 12,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%python-pgx",
+          "",
+          "import pandas",
+          "import matplotlib",
+          "session"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102509608,
+          "endTime" : 1675102511453,
+          "interpreter" : "python-pgx",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 13,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Upload the conda environment to Object Storage so it can be accessed by other users**",
+          "Run the following paragraphs to reactivate the basegraph and upload your environment to object storage with a description attached. This description can be seen when a user lists their available environment, so a meaningful description is helpful when there are multiple environments available."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102728059,
+          "endTime" : 1675102728135,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"upload-the-conda-environment-to-object-storage-so-it-can-be-accessed-by-other-users\"><strong>Upload the conda environment to Object Storage so it can be accessed by other users</strong></h2>\n<p>Run the following paragraphs to reactivate the basegraph and upload your environment to object storage with a description attached. This description can be seen when a user lists their available environment, so a meaningful description is helpful when there are multiple environments available.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 14,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "activate basegraph"
+        ],
+        "selectedVisualization" : null,
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : null,
+        "result" : null,
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 15,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "upload datascience_environment --description 'environment with DS tools' "
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1675102549982,
+          "endTime" : 1675102633595,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 16,
+        "width" : 0,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%md",
+          "## **Optional: Deactivate your conda environment**",
+          "The conda environment expires when your Graph Studio session expires, but you can optionally deactivate it with the following paragraph."
+        ],
+        "selectedVisualization" : "html",
+        "visualizationConfig" : null,
+        "hideCode" : true,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : true,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674750688290,
+          "endTime" : 1674750688361,
+          "interpreter" : "md",
+          "taskStatus" : "SUCCESS",
+          "status" : "SUCCESS",
+          "results" : [
+            {
+              "message" : "<h2 id=\"optional-deactivate-your-conda-environment\"><strong>Optional: Deactivate your conda environment</strong></h2>\n<p>The conda environment expires when your Graph Studio session expires, but you can optionally deactivate it with the following paragraph.</p>\n",
+              "type" : "HTML"
+            }
+          ],
+          "forms" : "[]"
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      },
+      {
+        "row" : 0,
+        "col" : 0,
+        "sizeX" : 0,
+        "order" : 17,
+        "width" : 12,
+        "title" : null,
+        "hasTitle" : false,
+        "message" : [
+          "%conda",
+          "",
+          "deactivate"
+        ],
+        "selectedVisualization" : "raw",
+        "visualizationConfig" : null,
+        "hideCode" : false,
+        "hideResult" : false,
+        "hideGutter" : true,
+        "hideVizConfig" : false,
+        "hideInIFrame" : false,
+        "forms" : "[]",
+        "result" : {
+          "startTime" : 1674232188181,
+          "endTime" : 1674232189502,
+          "interpreter" : "conda",
+          "taskStatus" : null,
+          "status" : null,
+          "results" : null,
+          "forms" : null
+        },
+        "relations" : [ ],
+        "dynamicFormParams" : null
+      }
+    ]
+  }
+]
