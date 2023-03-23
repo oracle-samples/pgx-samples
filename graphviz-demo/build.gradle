@@ -6,8 +6,16 @@ plugins {
 version = "0.1"
 group = "com.oracle.example"
 
+ext {
+    jdbc_url = project.findProperty('jdbc_url')
+    username = project.findProperty('username')
+    password = project.findProperty('password')
+}
+
 repositories {
     mavenCentral()
+    maven { url "https://artifacts.metaborg.org/content/repositories/releases" }
+    maven { url "https://artifacts.metaborg.org/content/repositories/usethesource/" }
 }
 
 dependencies {
@@ -19,9 +27,9 @@ dependencies {
     compileOnly("org.graalvm.nativeimage:svm")
 
     implementation("io.micronaut:micronaut-validation")
-
+    implementation("com.oracle.database.graph:opg-client:23.1.0")
+    implementation("commons-io:commons-io:2.11.0")
 }
-
 
 application {
     mainClass.set("com.oracle.example.Application")
@@ -41,5 +49,20 @@ micronaut {
     }
 }
 
+task createHrDataSetAndPgView(type: JavaExec) {
+    environment("JDBC_URL", jdbc_url)
+    environment("USERNAME", username)
+    environment("PASSWORD", password)
+    mainClass.set("com.oracle.scripts.RunCreateScripts")
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task dropHrDataSetAndPgView(type: JavaExec) {
+    environment("JDBC_URL", jdbc_url)
+    environment("USERNAME", username)
+    environment("PASSWORD", password)
+    mainClass.set("com.oracle.scripts.RunDropScripts")
+    classpath = sourceSets.main.runtimeClasspath
+}
 
 
