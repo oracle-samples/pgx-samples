@@ -17,83 +17,10 @@ The key source files to look at are
 2. A running Oracle Graph Server. Download [from oracle.com](https://www.oracle.com/database/technologies/spatialandgraph/property-graph-features/graph-server-and-client/graph-server-and-client-downloads.html) 
    and install [as per documentation](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgdg/deploying-graph-visualization-application.html).
 3. A running Oracle Database (e.g. [Autonomous Database](https://www.oracle.com/autonomous-database/))
-4. This example uses the [Human Resources sample dataset](https://github.com/oracle-samples/db-sample-schemas).
-   Import this dataset into your database  [as per instructions on github](https://github.com/oracle-samples/db-sample-schemas).
-5. Create a graph out of the dataset using the following statement:
+4. Import the Human Resources dataset and create a PG View by running `./gradlew createHrDatasetAndPgView -Pjdbc_url=<jdbc_url> -Pusername=<username> -Ppassword=<password>`
 
-```
-CREATE PROPERTY GRAPH myhr
-  VERTEX TABLES (
-    hr.countries
-      KEY ( country_id )
-      PROPERTIES ( country_id, country_name, region_id ),
-    hr.departments
-      KEY ( department_id )
-      PROPERTIES ( department_id, department_name, location_id, manager_id ),
-    hr.locations
-      KEY ( location_id )
-      PROPERTIES ( city, country_id, location_id, postal_code, state_province, street_address ),
-    hr.dept
-      KEY ( deptno )
-      PROPERTIES ( deptno, dname, loc ),
-    hr.emp
-      KEY ( empno )
-      PROPERTIES ( comm, deptno, empno, ename, hiredate, job, mgr, sal ),
-    hr.jobs
-      KEY ( job_id )
-      PROPERTIES ( job_id, job_title, max_salary, min_salary ),
-    hr.employees
-      KEY ( employee_id )
-      PROPERTIES ( commission_pct, department_id, email, employee_id, first_name, hire_date, job_id, last_name, manager_id, phone_number, salary ),
-    hr.regions
-      KEY ( region_id )
-      PROPERTIES ( region_id, region_name )
-  )
-  EDGE TABLES (
-    hr.countries AS countries_regions
-      SOURCE KEY ( country_id ) REFERENCES countries
-      DESTINATION KEY ( region_id ) REFERENCES regions
-      NO PROPERTIES,
-    hr.departments AS departments_employees
-      SOURCE KEY ( department_id ) REFERENCES departments
-      DESTINATION KEY ( manager_id ) REFERENCES employees
-      NO PROPERTIES,
-    hr.departments AS departments_locations
-      SOURCE KEY ( department_id ) REFERENCES departments
-      DESTINATION KEY ( location_id ) REFERENCES locations
-      NO PROPERTIES,
-    hr.locations AS locations_countries
-      SOURCE KEY ( location_id ) REFERENCES locations
-      DESTINATION KEY ( country_id ) REFERENCES countries
-      NO PROPERTIES,
-    hr.emp AS emp_emp
-      SOURCE KEY ( empno ) REFERENCES emp
-      DESTINATION KEY ( mgr ) REFERENCES emp
-      NO PROPERTIES,
-    hr.emp AS emp_dept
-      SOURCE KEY ( empno ) REFERENCES emp
-      DESTINATION KEY ( deptno ) REFERENCES dept
-      NO PROPERTIES,
-    hr.employees AS employees_jobs
-      SOURCE KEY ( employee_id ) REFERENCES employees
-      DESTINATION KEY ( job_id ) REFERENCES jobs
-      NO PROPERTIES,
-    hr.employees AS employees_departments
-      SOURCE KEY ( employee_id ) REFERENCES employees
-      DESTINATION KEY ( department_id ) REFERENCES departments
-      NO PROPERTIES,
-    hr.employees AS employees_employees
-      SOURCE KEY ( employee_id ) REFERENCES employees
-      DESTINATION KEY ( manager_id ) REFERENCES employees
-      NO PROPERTIES
-  )
-```
-
-You can run this statement using a PGQL client of your choice. If you're using the Autonomous Database, we recommend
-to use [Graph Studio](https://docs.oracle.com/en/cloud/paas/autonomous-database/csgru/graph-studio-interactive-self-service-user-interface.html).
-
-On premise, we recommend to use the [PGQL Plug-in for SQLcl](https://docs.oracle.com/en/database/oracle/sql-developer-command-line/20.2/sqcug/using-pgql-plug-sqlcl.html)
-or [SQL Developer](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgdg/property-graph-support-sql-developer1.html).
+* Note: The user must have `GRANT CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE grants on the Database`
+* Note 2: You can drop the HR dataset and the created PG View by running the following command: `./gradlew dropHrDatasetAndPgView -Pjdbc_url=<jdbc_url> -Pusername=<username> -Ppassword=<password>`
 
 ## Usage
 
@@ -108,7 +35,7 @@ unzip oracle-graph-visualization-library-23.1.0.zip -d src/main/resources/public
 4. Run the following command to start the example app locally:
 
 ```
-./gradlew run --args='-oracle.graph-server.url=<graph-server-url> -oracle.graph-server.jdbc-url=<jdbc-url> -oracle.graph-server.username=<username> -oracle.graph-server.password=<password'
+./gradlew run --args='-oracle.graph-server.url=<graph-server-url> -oracle.graph-server.jdbc-url=<jdbc-url> -oracle.graph-server.username=<username> -oracle.graph-server.password=<password>'
 ```
 
 with
