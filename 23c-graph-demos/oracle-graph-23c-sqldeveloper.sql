@@ -82,7 +82,7 @@ SELECT account_id1, account_id2
 SELECT acct_id, COUNT(1) AS Num_Triangles 
     FROM graph_table (BANK_GRAPH 
         MATCH (src) - []->{3} (src) 
-        COLUMNS (src.id COUNT acct_id) 
+        COLUMNS (src.id AS acct_id) 
     ) GROUP BY acct_id ORDER BY Num_Triangles DESC;
     
 -- Check if there are any 4-hop transfers that start and end at the same account
