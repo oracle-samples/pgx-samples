@@ -50,6 +50,8 @@ micronaut {
 }
 
 task createHrDataSetAndPgView(type: JavaExec) {
+    outputs.upToDateWhen { false }
+
     environment("JDBC_URL", jdbc_url)
     environment("USERNAME", username)
     environment("PASSWORD", password)
@@ -58,6 +60,8 @@ task createHrDataSetAndPgView(type: JavaExec) {
 }
 
 task dropHrDataSetAndPgView(type: JavaExec) {
+    outputs.upToDateWhen { false }
+
     environment("JDBC_URL", jdbc_url)
     environment("USERNAME", username)
     environment("PASSWORD", password)
