@@ -1,0 +1,69 @@
+DROP PROPERTY GRAPH BANK_GRAPH_PGQL;
+
+CREATE PROPERTY GRAPH BANK_GRAPH_PGQL
+  VERTEX TABLES (
+    BANK_ACCOUNTS
+      KEY ( ID )
+      LABEL accounts PROPERTIES ( ID, name )
+  )
+  EDGE TABLES (
+    BANK_TRANSFERS
+      SOURCE KEY ( src_acct_id ) REFERENCES BANK_ACCOUNTS(ID)
+      DESTINATION KEY ( dst_acct_id ) REFERENCES BANK_ACCOUNTS(ID)
+      LABEL transfers PROPERTIES ( amount, description, src_acct_id, dst_acct_id, txn_id )
+  ) OPTIONS (PG_VIEW);
+
+-- Find the top 10 accounts by incoming transfers 
+SELECT dst.id as acct_id, COUNT(1) AS Num_Transfers 
+    FROM MATCH (src) - [:TRANSFERS] -> (dst) 
+        ON BANK_GRAPH_PGQL 
+    GROUP BY dst.id ORDER BY Num_Transfers DESC FETCH FIRST 10 ROWS ONLY;
+    
+-- Find the top 10 accounts in the middle of a 2-hop chain of transfers
+SELECT via.id AS acct_id, COUNT(1) AS Num_In_Middle 
+    FROM MATCH (src) - [:TRANSFERS] -> (via) - [:TRANSFERS] -> (dst) 
+        ON BANK_GRAPH_PGQL 
+    GROUP BY acct_id 
+    ORDER BY Num_In_Middle DESC 
+    FETCH FIRST 10 ROWS ONLY;
+    
+-- List accounts that received a transfer from account 387 in 1, 2, or 3 hops
+SELECT v1.id AS account_id1, v2.id AS account_id2 
+    FROM MATCH (v1)-[:TRANSFERS]->{1,3}(v2) 
+        ON BANK_GRAPH_PGQL 
+    WHERE v1.id = 387;
+    
+-- Check if there are any 3-hop (triangles) transfers that start and end at the same account
+SELECT src.id AS acct_id, COUNT(1) AS Num_Triangles 
+    FROM MATCH (src) - []->{3} (src) 
+        ON BANK_GRAPH_PGQL
+    GROUP BY acct_id 
+    ORDER BY Num_Triangles DESC;
+    
+-- Check if there are any 4-hop transfers that start and end at the same account
+SELECT src.id AS acct_id, COUNT(1) AS Num_4hop_Chains 
+    FROM MATCH (src) - []->{4} (src)  
+        ON BANK_GRAPH_PGQL
+    GROUP BY acct_id 
+    ORDER BY Num_4hop_Chains DESC;
+
+-- Check if there are any 5-hop transfers that start and end at the same account
+SELECT src.id AS acct_id, COUNT(1) AS Num_5hop_Chains 
+    FROM MATCH (src) - []->{5} (src)  
+        ON BANK_GRAPH_PGQL
+    GROUP BY acct_id 
+    ORDER BY Num_5hop_Chains DESC;
+
+-- List some (any 10) accounts which had a 3 to 5 hop circular payment chain 
+SELECT DISTINCT(v1.id) AS account_id 
+    FROM MATCH (v1)-[:TRANSFERS]->{3,5}(v1)
+        ON BANK_GRAPH_PGQL
+    FETCH FIRST 10 ROWS ONLY;
+
+-- Query accounts by number of 3 to 5 hops cycles in descending order. Show top 10. 
+SELECT DISTINCT(v1.id) AS account_id, COUNT(1) AS Num_Cycles 
+    FROM MATCH (v1)-[:TRANSFERS]->{3, 5}(v1) 
+        ON BANK_GRAPH_PGQL
+    GROUP BY account_id 
+    ORDER BY Num_Cycles DESC 
+    FETCH FIRST 10 ROWS ONLY;
