@@ -1,7 +1,5 @@
 package com.oracle.scripts;
 
-import oracle.pg.rdbms.pgql.PgqlConnection;
-import oracle.pg.rdbms.pgql.PgqlStatement;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +37,13 @@ public class RunCreateScripts {
 
   public static void main(String[] args) throws Exception {
     createHrTables();
-    createHrPgView();
+    createHrPg();
   }
 
   private static void createHrTables() throws Exception  {
     try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
       StringBuilder buffer = new StringBuilder();
-      InputStream is = RunCreateScripts.class.getResourceAsStream("/pgview_dataset/create_hr_dataset.sql");
+      InputStream is = RunCreateScripts.class.getResourceAsStream("/dataset_property_graph/create_hr_dataset.sql");
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
       String line;
       while ((line = bufferedReader.readLine()) != null) {
@@ -67,19 +65,19 @@ public class RunCreateScripts {
     }
   }
 
-  private static void createHrPgView() throws Exception {
+  private static void createHrPg() throws Exception {
     try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-      conn.setAutoCommit(false);
-      PgqlConnection pgqlConnection = PgqlConnection.getConnection(conn);
-      try (PgqlStatement statement = pgqlConnection.createStatement()) {
-        String createPgql = IOUtils.toString(
-                RunCreateScripts.class.getResourceAsStream("/pgview_dataset/create_hr_pgview.pgql"),
-                StandardCharsets.UTF_8
-        );
-        LOG.info("Creating test data || {}", createPgql);
-        statement.execute(createPgql);
-        LOG.info("Creating test data || MYHR PG VIEW Created");
-      }
+      executeSqlScripts(conn, "/dataset_property_graph/create_hr_property_graph.sql");
+    }
+  }
+
+  private static void executeSqlScripts(Connection conn, String sqlFile) throws Exception {
+    String script = IOUtils.toString(RunCreateScripts.class.getResourceAsStream(sqlFile), StandardCharsets.UTF_8);
+    LOG.info("Executing statements {}", script);
+    try {
+      conn.createStatement().execute(script);
+    } catch (SQLException e) {
+      LOG.info(e.getMessage());
     }
   }
 }

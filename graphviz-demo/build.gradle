@@ -49,7 +49,7 @@ micronaut {
     }
 }
 
-task createHrDataSetAndPgView(type: JavaExec) {
+task createHrDataSetAndPropertyGraph(type: JavaExec) {
     outputs.upToDateWhen { false }
 
     environment("JDBC_URL", jdbc_url)
@@ -59,7 +59,7 @@ task createHrDataSetAndPgView(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task dropHrDataSetAndPgView(type: JavaExec) {
+task dropHrDataSetAndPropertyGraph(type: JavaExec) {
     outputs.upToDateWhen { false }
 
     environment("JDBC_URL", jdbc_url)
