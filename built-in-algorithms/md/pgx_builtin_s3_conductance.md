@@ -5,7 +5,7 @@
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(1)
 - **Javadoc:** 
-  - [Analyst#conductance(PgxGraph graph, Partition<ID> partition, long partitionIndex)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#conductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-long-)
+  - [Analyst#conductance(PgxGraph graph, Partition<ID> partition, long partitionIndex)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#conductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-long-)
   - [Analyst#conductance(PgxGraph graph, Partition<ID> partition, long partitionIndex, Scalar<java.lang.Double> conductance)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#conductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-long-oracle.pgx.api.Scalar-)
 
 Conductance in a graph is computed for a specific cut of it. A cut is a partition of the graph into two subsets (components), disconnecting the graph if the edges from the cut are removed. Thus the algorithm requires a labeling for the vertices in the different subsets of the graph, then the conductance is computed by the ratio of the edges belonging to the given cut (i.e. the edges that split the graph into disconnected components) and the edges belonging to each of these subsets. If there is more than one cut (or partition), this implementation will take the given component number as reference to compute the conductance associated with that particular cut.
@@ -27,7 +27,7 @@ Conductance in a graph is computed for a specific cut of it. A cut is a partitio
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -54,7 +54,7 @@ public class Conductance {
     long cross = g
         .getVertices()
         .filter(u -> member.get(u) == num)
-        .sum(u -> u.getNeighbors().filter(j -> member.get(j) != num).size());
+        .sum(u -> u.getOutNeighbors().filter(j -> member.get(j) != num).size());
 
     double m = dIn < dOut ? dIn : dOut;
 

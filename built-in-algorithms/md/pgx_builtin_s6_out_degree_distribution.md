@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#outDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality-oracle.pgx.api.PgxGraph-)
-  - [Analyst#outDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#outDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality-oracle.pgx.api.PgxGraph-)
+  - [Analyst#outDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 This version of the degree distribution will return a map with the distribution of the out-degree (i.e. just outgoing edges) of the graph. For undirected graphs the algorithm will consider all the edges (incoming and outgoing) for the distribution.
 
@@ -29,7 +29,7 @@ This version of the degree distribution will return a map with the distribution 
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

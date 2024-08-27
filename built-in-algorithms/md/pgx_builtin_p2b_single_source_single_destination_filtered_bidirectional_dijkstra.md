@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(10 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-)
-  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-)
+  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
 
 This variant of the Dijkstra's algorithm searches for shortest path in two ways, it does a forward search from the source vertex and a backwards one from the destination vertex, while also adding the corresponding restrictions on the edges given by the filter expression. If the path between the vertices exists, both searches will meet each other at an intermediate point.
 
@@ -34,7 +34,7 @@ This variant of the Dijkstra's algorithm searches for shortest path in two ways,
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -106,21 +106,16 @@ public class BidirectionalDijkstraFilter {
         }
 
         double fdist = fCost.get(fnext);
-        fnext.getNeighbors().filter(v -> !fFinalized.get(v)).forSequential(v -> {
+        fnext.getOutNeighbors().filter(v -> !fFinalized.get(v) && filter.evaluate(v.edge())).forSequential(v -> {
           PgxEdge e = v.edge();
-
-          if (filter.evaluate(e)) {
-            if (fdist + weight.get(e) + curminhCost.get() <= minCost) {
-              if (fCost.get(v) > fdist + weight.get(e)) {
-                fCost.set(v, fdist + weight.get(e));
-                fReachable.set(v, fCost.get(v));
-                parent.set(v, fnext);
-                parentEdge.set(v, e);
-                if (hCost.get(v) != POSITIVE_INFINITY) {
-                  double newCost = fCost.get(v) + hCost.get(v);
-                  updateMinValue(minCost, newCost).andUpdate(mid, v);
-                }
-              }
+          if (fdist + weight.get(e) + curminhCost.get() <= minCost && fCost.get(v) > fdist + weight.get(e)) {
+            fCost.set(v, fdist + weight.get(e));
+            fReachable.set(v, fCost.get(v));
+            parent.set(v, fnext);
+            parentEdge.set(v, e);
+            if (hCost.get(v) != POSITIVE_INFINITY) {
+              double newCost = fCost.get(v) + hCost.get(v);
+              updateMinValue(minCost, newCost).andUpdate(mid, v);
             }
           }
         });
@@ -134,21 +129,16 @@ public class BidirectionalDijkstraFilter {
         }
 
         double rdist = hCost.get(rnext);
-        rnext.getInNeighbors().filter(v -> !rFinalized.get(v)).forSequential(v -> {
+        rnext.getInNeighbors().filter(v -> !rFinalized.get(v) && filter.evaluate(v.edge())).forSequential(v -> {
           PgxEdge e = v.edge();
-
-          if (filter.evaluate(e)) {
-            if (rdist + weight.get(e) + curminfCost.get() <= minCost) {
-              if (hCost.get(v) > rdist + weight.get(e)) {
-                hCost.set(v, rdist + weight.get(e));
-                rReachable.set(v, hCost.get(v));
-                rParent.set(v, rnext);
-                rParentEdge.set(v, e);
-                if (fCost.get(v) != POSITIVE_INFINITY) {
-                  double newCost = fCost.get(v) + hCost.get(v);
-                  updateMinValue(minCost, newCost).andUpdate(mid, v);
-                }
-              }
+          if (rdist + weight.get(e) + curminfCost.get() <= minCost && hCost.get(v) > rdist + weight.get(e)) {
+            hCost.set(v, rdist + weight.get(e));
+            rReachable.set(v, hCost.get(v));
+            rParent.set(v, rnext);
+            rParentEdge.set(v, e);
+            if (fCost.get(v) != POSITIVE_INFINITY) {
+              double newCost = fCost.get(v) + hCost.get(v);
+              updateMinValue(minCost, newCost).andUpdate(mid, v);
             }
           }
         });

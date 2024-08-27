@@ -4,18 +4,17 @@
 - **Algorithm ID:** pgx_builtin_l1_whom_to_follow
 - **Time Complexity:** O(E * (p + s)) with E = number of edges, p <= maximum number of iterations for the Pagerank step, s <= maximum number of iterations for the SALSA step
 - **Space Requirement:** O(5 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, int maxIter, double tol, double dampingFactor, int salsaMaxIter, double salsaTol)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-int-double-double-int-double-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, int maxIter, double tol, double dampingFactor, int salsaMaxIter, double salsaTol, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-int-double-double-int-double-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
-  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
+- **Javadoc:**
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, int maxIter, double tol, double dampingFactor, int salsaMaxIter, double salsaTol)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-int-double-double-int-double-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, int maxIter, double tol, double dampingFactor, int salsaMaxIter, double salsaTol, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-int-double-double-int-double-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, int sizeCircleOfTrust, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-int-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, int topK, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
+  - [Analyst#whomToFollow(PgxGraph graph, PgxVertex<ID> vertex, VertexSequence<ID> hubs, VertexSequence<ID> authorities)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#whomToFollow-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexSequence-oracle.pgx.api.VertexSequence-)
 
 The Whom To Follow algorithm is composed by two main stages: the first one is meant to get the relevant vertices (users) for a given source vertex (particular user), which in this implementation is done with personalized Pagerank for the given source vertex. While the second stage analyzes the relationships between the relevant vertices previously found through the edges linking them with their neighbors. This second stage relies on SALSA algorithm and it assigns a ranking score to all the hubs and authority vertices, so the recommendations can come from this assigned values. Whom To Follow takes the concept of authority and hub vertices, and adapts it to users in social networks. The hub vertices become similar users with respect to the given source vertex (also an user), and the authority vertices are translated into users that might be on the interest of the source vertex, i.e. users to follow.
-
 
 ## Signature
 
@@ -44,7 +43,7 @@ The Whom To Follow algorithm is composed by two main stages: the first one is me
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -93,7 +92,7 @@ public class Wtf {
 
     // creating bipartite graph with vertices from the circle of trust and their neighbors
     copyCircleSet.forSequential(n -> {
-      long localAuth = n.getNeighbors().filter(nbr -> isLeft.get(nbr) != 1 && nbr != source).size();
+      long localAuth = n.getOutNeighbors().filter(nbr -> isLeft.get(nbr) != 1 && nbr != source).size();
 
       if (localAuth == 0) {
         circleSet.remove(n);
@@ -107,7 +106,7 @@ public class Wtf {
 
     circleSet.forEach(n -> {
       Scalar<Double> localAuth = Scalar.create(0d);
-      n.getNeighbors().filter(nbr -> isLeft.get(nbr) != 1 && nbr != source).forEach(nbr -> {
+      n.getOutNeighbors().filter(nbr -> isLeft.get(nbr) != 1 && nbr != source).forEach(nbr -> {
         if (isLeft.get(nbr) == 0) {
           numAuths.increment();
           isLeft.set(nbr, 2);

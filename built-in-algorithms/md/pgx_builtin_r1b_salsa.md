@@ -4,14 +4,13 @@
 - **Algorithm ID:** pgx_builtin_r1b_salsa
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#salsa(BipartiteGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-)
-  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-double-int-)
-  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-double-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#salsa(BipartiteGraph graph, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#salsa(BipartiteGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-)
+  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-double-int-)
+  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-double-int-oracle.pgx.api.VertexProperty-)
+  - [Analyst#salsa(BipartiteGraph graph, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#salsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.VertexProperty-)
 
 The idea of hubs and authorities comes from the web pages: a hub is regarded as a page that is not authoritative in a specific matter, but it has instead links to authority pages, which are regarded as meaningful sources for a particular topic by many hubs. Thus a good hub will point to many authorities, while a good authority will be pointed by many hubs. SALSA is an algorithm that computes authorities and hubs ranking scores for the vertices using the network created by the edges of the [bipartite](prog-guides/mutation-subgraph/subgraph.html#create-a-bipartite-subgraph-based-on-a-vertex-list) graph and assigning weights to the contributions of their 2nd-degree neighbors. This way of computing the scores creates the independence between the authority and hub scores, which are assigned to the vertices depending on the side of the graph they belong (left:hub / right:aut).
-
 
 ## Signature
 
@@ -34,7 +33,7 @@ The idea of hubs and authorities comes from the web pages: a hub is regarded as 
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

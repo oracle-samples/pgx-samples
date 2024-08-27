@@ -10,7 +10,6 @@
 
 Topological schedule sets an order over the vertices in a graph based on the proximity these have to the vertices from the given source. The algorithm does a BFS traversal for each vertex from the source set in order to assign the correct scheduling order to all the reachable, even if the graph is undirected or has cycles. The vertices that are not reachable will be assigned a value of -1.
 
-
 ## Signature
 
 | Input Argument | Type | Comment |
@@ -30,7 +29,7 @@ Topological schedule sets an order over the vertices in a graph based on the pro
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

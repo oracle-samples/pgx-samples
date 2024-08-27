@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_s5_partition_conductance
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(1)
-- **Javadoc:** 
-  - [Analyst#partitionConductance(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
-  - [Analyst#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-)
+- **Javadoc:**
+  - [Analyst#partitionConductance(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
+  - [Analyst#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-)
 
 This variant of the conductance algorithm will compute the conductance for the given number of components, returning an output with the minimum value of conductance found from the corresponding partitions and their average conductance value.
-
 
 ## Signature
 
@@ -31,7 +30,7 @@ This variant of the conductance algorithm will compute the conductance for the g
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -61,7 +60,7 @@ public class PartitionConductance {
 
       long cross = g.getVertices() //
           .filter(u -> member.get(u) == num.get()) //
-          .sum(u -> u.getNeighbors().filter(j -> member.get(j) != num.get()).size());
+          .sum(u -> u.getOutNeighbors().filter(j -> member.get(j) != num.get()).size());
 
       double m = dIn < dOut ? dIn : dOut;
       double cond = m == 0 ? 0.0 : cross / m;

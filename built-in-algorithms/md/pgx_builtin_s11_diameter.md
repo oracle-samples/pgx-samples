@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_s11_diameter
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#radius(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#radius-oracle.pgx.api.PgxGraph-)
-  - [Analyst#radius(PgxGraph graph, Scalar<java.lang.Integer> radius, VertexProperty<ID,java.lang.Integer> eccentricity](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#radius-oracle.pgx.api.PgxGraph-oracle.pgx.api.Scalar-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#radius(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#radius-oracle.pgx.api.PgxGraph-)
+  - [Analyst#radius(PgxGraph graph, Scalar<java.lang.Integer> radius, VertexProperty<ID,java.lang.Integer> eccentricity](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#radius-oracle.pgx.api.PgxGraph-oracle.pgx.api.Scalar-oracle.pgx.api.VertexProperty-)
 
 The diameter of a graph is the maximal value of eccentricity of all the vertices in the graph, while the radius is the minimum graph eccentricity. The eccentricity of a vertex is the maximum distance via shortest paths to any other vertex in the graph. This algorithm will compute the eccentricity of all the vertices and will also return the diameter or radius value depending on the request. The algorithm will return an INF eccentricity and diameter/radius, for graphs with more than one strongly connected component.
-
 
 ## Signature
 
@@ -30,7 +29,7 @@ The diameter of a graph is the maximal value of eccentricity of all the vertices
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

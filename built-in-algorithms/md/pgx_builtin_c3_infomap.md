@@ -5,10 +5,10 @@
 - **Time Complexity:** O((k ^ 2) * E) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(10 * V + 2 * E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, double tau, double tol, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-double-double-int-)
-  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, double tau, double tol, int maxIter, VertexProperty<ID,java.lang.Long> module)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-double-double-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Long> module)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, double tau, double tol, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-double-double-int-)
+  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, double tau, double tol, int maxIter, VertexProperty<ID,java.lang.Long> module)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-double-double-int-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesInfomap(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Long> module)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesInfomap-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
 
 Infomap is a robust algorithm designed to find community structures in a graph that requires some pre-processing steps. This implementation needs a reciprocated or an undirected graph, as well as the ranking score from the normalized weighted version of the Pagerank algorithm. It will assign a unique module (or community) label to each vertex in the graph based on their Pagerank score, edge weights and the labels of their neighbors. It is an iterative algorithm that updates the labels of the vertices in random order on each iteration using the previous factors, converging once there are no further changes in the vertex labels, or once the maximum number of iterations is reached. The algorithm is non-deterministic because of the random order for visiting and updating the vertex labels, thus the communities found might be different each time the algorithm is run.
 
@@ -36,13 +36,14 @@ Infomap is a robust algorithm designed to find community structures in a graph t
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
 import oracle.pgx.algorithm.ControlFlow;
 import oracle.pgx.algorithm.EdgeProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
+import oracle.pgx.algorithm.PgxVertex;
 import oracle.pgx.algorithm.PgxEdge;
 import oracle.pgx.algorithm.PgxGraph;
 import oracle.pgx.algorithm.PgxMap;
@@ -50,6 +51,7 @@ import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.VertexSet;
 import oracle.pgx.algorithm.annotations.Out;
+import oracle.pgx.algorithm.ControlFlow;
 
 import static java.lang.Math.log;
 import static oracle.pgx.algorithm.ControlFlow.exit;
@@ -62,6 +64,10 @@ public class Infomap {
     EdgeProperty<Double> normWeight = EdgeProperty.create();
 
     VertexProperty<PgxVertex> order = VertexProperty.create();
+
+    long numberOfStepsEstimatedForCompletion = 2 * g.getNumVertices()
+        + (g.getNumVertices() / 2 + 3) * maxIter * maxIter;
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
 
     g.getVertices().forEach(n -> {
       order.set(n, n);
@@ -136,7 +142,7 @@ public class Infomap {
     Scalar<Long> l = Scalar.create(-1L);
     Scalar<Long> k = Scalar.create(-1L);
 
-    PgxMap<PgxVertex, Long> modules;
+    PgxMap<PgxVertex, Long> modules = PgxMap.create();
 
     g.getVertices().forSequential(nd -> {
       modules.set(nd, module.get(nd));
@@ -144,12 +150,12 @@ public class Infomap {
 
     while (modules.size() > 0) {
       PgxVertex nd = modules.getKeyForMinValue();
-
-      if (k.get() < module.get(nd)) {
+      long ndModule = module.get(nd);
+      if (k.get() < ndModule) {
         l.increment();
       }
-      if (module.get(nd) >= l.get()) {
-        k.set(module.get(nd));
+      if (ndModule >= l.get()) {
+        k.set(ndModule);
         module.set(nd, l.get());
       }
 
@@ -263,25 +269,26 @@ public class Infomap {
     double initTpWeight = (g.getNumVertices() - 1) / (double) g.getNumVertices();
 
     g.getVertices().forSequential(n -> {
+      long nRank = rank.get(n);
       module.set(n, l.get());
       double sumWeight = n.getOutEdges().sum(weight);
 
       n.getOutNeighbors().forSequential(nNbr -> {
         PgxEdge e = nNbr.edge();
 
-        normWeight.set(e, (1 - tau) * rank.get(n) * weight.get(e) / sumWeight);
+        normWeight.set(e, (1 - tau) * nRank * weight.get(e) / sumWeight);
       });
 
-      double tmpQI = (tau * initTpWeight * rank.get(n)) + ((1 - tau) * rank.get(n));
+      double tmpQI = (tau * initTpWeight * nRank) + ((1 - tau) * nRank);
       qi.set(l.get(), tmpQI);
       exitPr.set(n, tmpQI);
-      modRank.set(l.get(), rank.get(n));
+      modRank.set(l.get(), nRank);
       modSize.set(l.get(), 1L);
 
       sigmaQI.reduceAdd(tmpQI);
       aux2.reduceAdd(plogp(tmpQI));
-      aux3.reduceAdd(plogp(tmpQI + rank.get(n)));
-      aux4.reduceAdd(plogp(rank.get(n)));
+      aux3.reduceAdd(plogp(tmpQI + nRank));
+      aux4.reduceAdd(plogp(nRank));
 
       l.increment();
     });
@@ -302,7 +309,7 @@ public class Infomap {
     auxMap.set(0L, sigmaQI);
     auxMap.set(1L, codeDiff);
 
-    Scalar<Long> nn = g.getNumNodes();
+    Scalar<Long> nn = Scalar.create(g.getNumVertices());
 
     do {
 
@@ -317,8 +324,8 @@ public class Infomap {
         PgxVertex tmp = order.get(p);
         order.set(p, order.get(q));
         order.set(q, tmp);
-        l++;
-      } while (l < nn / 2);
+        l.increment();
+      } while (l.get() < nn.get() / 2);
 
       g.getVertices().forSequential(n -> {
         PgxVertex nd = order.get(n);
@@ -402,19 +409,21 @@ public class Infomap {
 
     Scalar<Integer> cntE = Scalar.create(1);
     g.getVertices().forSequential(n -> {
-      snodes.get(module.get(n)).add(n);
-      snodeMod.set(module.get(n), module.get(n));
-      snodeRank.reduceAdd(module.get(n), rank.get(n));
-      snodeExitPr.set(module.get(n), qi.get(module.get(n)));
-      snode.set(n, module.get(n));
+      long nModule = module.get(n);
+      snodes.get(nModule).add(n);
+      snodeMod.set(nModule, nModule);
+      snodeRank.reduceAdd(nModule, rank.get(n));
+      snodeExitPr.set(nModule, qi.get(nModule));
+      snode.set(n, nModule);
       n.getOutNeighbors().forSequential(nNbr -> {
+        long nNbrModule = module.get(nNbr);
         PgxEdge e = nNbr.edge();
-        if (module.get(n) != module.get(nNbr)) {
-          long idx = (g.getNumVertices() * module.get(n)) + module.get(nNbr);
+        if (nModule != nNbrModule) {
+          long idx = (g.getNumVertices() * nModule) + nNbrModule;
 
           if (!allSuperEdges.containsKey(idx)) {
-            superNbrs.get(module.get(n)).add(nNbr);
-            inSuperNbrs.get(module.get(nNbr)).add(n);
+            superNbrs.get(nModule).add(nNbr);
+            inSuperNbrs.get(nNbrModule).add(n);
           }
           allSuperEdges.reduceAdd(idx, normWeight.get(e));
           cntE.increment();

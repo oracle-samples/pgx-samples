@@ -5,11 +5,10 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(6 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#shortestPathBellmanFord(PgxGraph graph, PgxVertex<ID> src, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#shortestPathBellmanFord(PgxGraph graph, PgxVertex<ID> src, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#shortestPathBellmanFord(PgxGraph graph, PgxVertex<ID> src, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#shortestPathBellmanFord(PgxGraph graph, PgxVertex<ID> src, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
 
 Bellman-Ford algorithm tries to find the shortest path (if there is one) between the given source and destination vertices, while minimizing the distance or cost associated to each edge in the graph.
-
 
 ## Signature
 
@@ -33,7 +32,7 @@ Bellman-Ford algorithm tries to find the shortest path (if there is one) between
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -67,7 +66,7 @@ public class BellmanFord {
 
     while (!done) {
       g.getVertices().filter(updated).forEach(n -> {
-        n.getNeighbors().forEach(s -> {
+        n.getOutNeighbors().forEach(s -> {
           PgxEdge e = s.edge(); // the edge to s
           // updatedNxt becomes true only if distNxt is actually updated
           updateMinValue(s, distNxt, dist.get(n) + len.get(e)).andUpdate(s, updatedNxt, true).andUpdate(s, prev, n)

@@ -5,14 +5,15 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-boolean-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-boolean-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-boolean-oracle.pgx.api.EdgeProperty-](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight))
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-boolean-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-boolean-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-boolean-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-boolean-oracle.pgx.api.EdgeProperty-]https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank(PgxGraph%20graph,%20VertexSet%3CID%3E%20vertices,%20double%20e,%20double%20d,%20int%20max,%20boolean%20norm,%20EdgeProperty%3Cjava.lang.Double%3E%20weight))
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-boolean-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-double-double-int-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#personalizedWeightedPagerank(PgxGraph graph, VertexSet<ID> vertices, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-)
+
 
 The Personalized Weighted Pagerank combines elements from the weighted and the personalized versions in order to make the personalization of the results more unique, since both: the selection of a subset of vertices and the inclusion of specific weights in the edges, will help to set the importance of the ranking scores when these are being computed.
 
@@ -41,7 +42,7 @@ The Personalized Weighted Pagerank combines elements from the weighted and the p
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -53,6 +54,7 @@ import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.VertexSet;
 import oracle.pgx.algorithm.annotations.Out;
+import oracle.pgx.algorithm.ControlFlow;
 
 import static java.lang.Math.abs;
 
@@ -62,6 +64,12 @@ public class PagerankPersonalizedWeightedSet {
       boolean norm, EdgeProperty<Double> weight, @Out VertexProperty<Double> rank) {
     double numVertices = g.getNumVertices();
     double m = source.size();
+
+    long numberOfStepsEstimatedForCompletion = g.getNumVertices() * (maxIter * 2 + 4) + maxIter + source.size();
+    if (norm) {
+      numberOfStepsEstimatedForCompletion += g.getNumVertices() * maxIter;
+    }
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
 
     VertexProperty<Double> weightSum = VertexProperty.create();
     g.getVertices().forEach(n -> weightSum.set(n, n.getOutEdges().sum(weight)));

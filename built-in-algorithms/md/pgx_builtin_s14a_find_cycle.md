@@ -5,11 +5,10 @@
 - **Time Complexity:** O(V * (V + E)) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(5 * V + E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#findCycle(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-)
-  - [Analyst#findCycle(PgxGraph graph, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-)
+  - [Analyst#findCycle(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-)
+  - [Analyst#findCycle(PgxGraph graph, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-)
 
 This algorithm tries to find a cycle in a directed graph using DFS traversals and will return the first cycle found, if there is one. In such case, the vertices and edges involved in the cycle will be returned in the order of visit. The algorithm is expensive because it will perform DFS traversals using different vertices as starting points until it explores the whole graph (worst-case scenario), or until it finds a cycle.
-
 
 ## Signature
 
@@ -30,7 +29,7 @@ This algorithm tries to find a cycle in a directed graph using DFS traversals an
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -69,7 +68,7 @@ public class FindCycle {
               //Adding potential vertices in the cycle path
               inPath.set(v, true);
 
-              v.getNeighbors().forEach(w -> {
+              v.getOutNeighbors().forEach(w -> {
                 source.set(w, v);
                 if (inPath.get(w)) {
                   foundCycle.set(true);
@@ -109,7 +108,7 @@ public class FindCycle {
         cycleNodes.pushFront(pivotNode.get());
 
         PgxVertex pivotNodeGet = pivotNode.get();
-        pivotNodeGet.getNeighbors().filter(inPath).forSequential(v ->
+        pivotNodeGet.getOutNeighbors().filter(inPath).forSequential(v ->
             e.set(v.edge())
         );
 
@@ -121,7 +120,7 @@ public class FindCycle {
       }
       cycleNodes.pushFront(pivotNode.get());
       PgxVertex pivotNodeGet = pivotNode.get();
-      pivotNodeGet.getNeighbors().filter(inPath).forSequential(v ->
+      pivotNodeGet.getOutNeighbors().filter(inPath).forSequential(v ->
           e.set(v.edge())
       );
       cycleEdges.pushFront(e.get());

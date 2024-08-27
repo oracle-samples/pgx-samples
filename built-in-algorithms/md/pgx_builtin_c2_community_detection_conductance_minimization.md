@@ -5,10 +5,10 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(5 * V + 2 * E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#communitiesConductanceMinimization(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-)
-  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, int max)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-int-)
-  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, int max, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesConductanceMinimization(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-)
+  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-int-)
+  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, int max, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
+  - [Analyst#communitiesConductanceMinimization(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitonDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#communitiesConductanceMinimization-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
 
 The algorithm proposed by Soman and Narang to find community structures in a graph can be regarded as a variant of the label propagation algorithm, since it takes into account weights over the edges when looking for the community assignments. This implementation generates the weight of the edges by using the triangles in the graph, and just like label propagation, it assigns a unique community label to each vertex in the graph at the beginning, which is then updated on each iteration by looking and choosing the most frequent label from the labels of their neighbors. Convergence is achieved once the label of each vertex is the same as the most frequent one amongst its neighbors, i.e. when there are no changes in the communities assigned to the vertices in one iteration.
 
@@ -17,7 +17,7 @@ The algorithm proposed by Soman and Narang to find community structures in a gra
 
 | Input Argument | Type | Comment |
 | :--- | :--- | :--- |
-| `G` | graph | the graph. |
+| `G` | graph | |
 | `max_iterations` | int | maximum number of iterations that will be performed. For most graphs, a maximum of 100 iterations should be enough. |
 
 | Output Argument | Type | Comment |
@@ -32,7 +32,7 @@ The algorithm proposed by Soman and Narang to find community structures in a gra
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -43,6 +43,7 @@ import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
+import oracle.pgx.algorithm.ControlFlow;
 
 import static oracle.pgx.algorithm.Reduction.updateMaxValue;
 import static oracle.pgx.algorithm.Traversal.inBFS;
@@ -55,6 +56,10 @@ public class SomanNarang {
 
     //count triangles for edge_weights
     EdgeProperty<Integer> triangles = EdgeProperty.create();
+
+    long numberOfStepsEstimatedForCompletion = g.getNumEdges() + g.getNumVertices() * (3 + maxIterations * 2);
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
+
     g.getEdges().forEach(e -> {
       PgxVertex src = e.sourceVertex();
       PgxVertex dest = e.destinationVertex();
