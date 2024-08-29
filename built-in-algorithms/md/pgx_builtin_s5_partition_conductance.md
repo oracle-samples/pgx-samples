@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(1)
 - **Javadoc:**
-  - [Analyst#partitionConductance(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
-  - [Analyst#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-oracle.pgx.api.Scalar-)
+  - [Analyst#partitionConductance(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance_oracle_pgx_api_PgxGraph_oracle_pgx_api_Partition_)
+  - [Analyst#PgxGraph graph, Partition<ID> partition, Scalar<java.lang.Double> avgConductance, Scalar<java.lang.Double> minConductance](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionConductance_oracle_pgx_api_PgxGraph_oracle_pgx_api_Partition_oracle_pgx_api_Scalar_oracle_pgx_api_Scalar_)
 
 This variant of the conductance algorithm will compute the conductance for the given number of components, returning an output with the minimum value of conductance found from the corresponding partitions and their average conductance value.
 

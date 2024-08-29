@@ -1,15 +1,20 @@
 # Built-In Algorithms
 
-PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
+PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
 
 - Classic graph algorithms
   - [Prim's Algorithm](./md/pgx_builtin_a1_prim.md)
+  - [Prim's Algorithm Undirected](./md/pgx_builtin_a1u_prim.md)
 - Community detection
   - [Label Propagation](./md/pgx_builtin_c1_community_detection_label_propagation.md)
   - [Conductance Minimization (Soman and Narang Algorithm)](./md/pgx_builtin_c2_community_detection_conductance_minimization.md)
   - [Infomap](./md/pgx_builtin_c3_infomap.md)
   - [Louvain](./md/pgx_builtin_c4_louvain.md)
+  - [Louvain Directed](./md/pgx_builtin_c4b_louvain_directed.md)
   - [Speaker Listener Label Propagation](./md/pgx_builtin_c5_speaker_listener_label_propagation.md)
+  - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5b_filtered_speaker_listener_label_propagation.md)
+  - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5c_filtered_weighted_speaker_listener_label_propagation.md)
+  - [Speaker Listener Label Propagation](./md/pgx_builtin_c6_weighted_speaker_listener_label_propagation.md)
 - Connected components
   - [Strongly Connected Components (SCC) via Kosaraju's algorithm](./md/pgx_builtin_g2a_strongly_connected_components_kosaraju.md)
   - [Strongly Connected Components (SCC) via Tarjan's algorithm](./md/pgx_builtin_g2b_strongly_connected_components_tarjan.md)
@@ -28,14 +33,21 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Fast Path Finding](./md/pgx_builtin_o8_limited_path_finding_undirected.md)
   - [Filtered Fast Path Finding](./md/pgx_builtin_o9_limited_path_finding_undirected_filtered.md)
   - [Classic Dijkstra Algorithm](./md/pgx_builtin_p1a_single_source_single_destination_dijkstra.md)
+  - [Classic Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p1au_single_source_single_destination_dijkstra_undirected.md)
   - [Filtered Dijkstra Algorithm](./md/pgx_builtin_p1b_single_source_single_destination_filtered_dijkstra.md)
+  - [Filtered Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p1bu_single_source_destination_filtered_dijkstra_undirected.md)
   - [Bidirectional Dijkstra Algorithm](./md/pgx_builtin_p2_single_source_single_destination_bidirectional_dijkstra.md)
   - [Bidirectional Filtered Dijkstra Algorithm](./md/pgx_builtin_p2b_single_source_single_destination_filtered_bidirectional_dijkstra.md)
+  - [Bidirectional Filtered Dijkstra Algorithm)](./md/pgx_builtin_p2bu_single_source_single_destination_filtered_bidirectional_dijkstra_undirected.md)
+  - [Bidirectional Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p2u_single_source_single_destination_bidirectional_dijkstra_undirected.md)
   - [Classic Bellman-Ford](./md/pgx_builtin_p3_single_source_all_destinations_bellman_ford.md)
   - [(Backwards) Bellman-Ford Algorithm](./md/pgx_builtin_p3r_single_source_all_destinations_bellman_ford_reverse.md)
+  - [Bellman-Ford (Ignoring edge directions)](./md/pgx_builtin_p3u_single_source_all_destinations_bellman_ford.md)
   - [Hop Distance](./md/pgx_builtin_p4_single_source_all_destinations_hop_distance.md)
   - [Hop Distance (Backwards)](./md/pgx_builtin_p4r_single_source_all_destinations_hop_distance_reverse.md)
+  - [Hop Distance (undirected)](./md/pgx_builtin_p4u_single_source_all_destinations_hop_distance_undirected.md)
   - [Fattest Path](./md/pgx_builtin_p5_fattest_path.md)
+  - [Fattest Path (ignoring edge directions)](./md/pgx_builtin_p5u_fattest_path_undirected.md)
 - Ranking and walking
   - [Classic PageRank](./md/pgx_builtin_k1a_pagerank.md)
   - [Approximate PageRank](./md/pgx_builtin_k1b_pagerank_approximate.md)
@@ -55,6 +67,8 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [In-Degree Centrality](./md/pgx_builtin_k7b_indegree_centrality.md)
   - [Degree Centrality](./md/pgx_builtin_k7c_degree_centrality.md)
   - [Random Walk with Restart](./md/pgx_builtin_k8_random_walk_with_restart.md)
+  - [Harmonic Centrality](./md/pgx_builtin_k9_harmonic_centrality.md)
+  - [Article Rank](./md/pgx_builtin_k10_article_rank.md)
   - [Classic SALSA](./md/pgx_builtin_r1b_salsa.md)
   - [Personalized SALSA](./md/pgx_builtin_r2_personalized_salsa.md)
   - [Personalized SALSA (for a set of vertices)](./md/pgx_builtin_r3_personalized_salsa_from_set.md)
@@ -63,9 +77,11 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Diameter / Radius](./md/pgx_builtin_s11_diameter.md)
   - [Periphery / Center](./md/pgx_builtin_s12_periphery.md)
   - [Local Clustering Coefficient (LCC)](./md/pgx_builtin_s13_local_clustering_coefficient.md)
+  - [Local Clustering Coefficient for Directed Graphs (LCC)](./md/pgx_builtin_s13d_local_clustering_coefficient.md)
+  - [Local Clustering Coefficient for ignoring edge directions (LCC)](./md/pgx_builtin_s13u_local_clustering_coefficient.md)
   - [Find Cycle](./md/pgx_builtin_s14a_find_cycle.md)
   - [Find Cycle from Node](./md/pgx_builtin_s14b_find_cycle_from_node.md)
-  - [Reachability](./md/pgx_builtin_s15a_reachability.md)
+  - [Reachability](./md/pgx_builtin_sa_reachability.md)
   - [Reachability (undirected)](./md/pgx_builtin_s15b_reachability_undirected.md)
   - [Topological Sort](./md/pgx_builtin_s16a_topological_sort.md)
   - [Topological Schedule](./md/pgx_builtin_s16b_topological_schedule.md)

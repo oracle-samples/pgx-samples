@@ -4,10 +4,9 @@
 - **Algorithm ID:** pgx_builtin_p1b_single_source_single_destination_filtered_dijkstra
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-)
-  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
-
+- **Javadoc:**
+  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 This variant of the Dijkstra's algorithm tries to find the shortest path while also taking into account a filter expression, which will add restrictions over the potential edges when looking for the shortest path between the source and destination vertices.
 
 ## Signature

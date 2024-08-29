@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_k3c_approx_node_betweenness_centrality_from_seeds
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex...-)
-  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.PgxVertex...-)
+- **Javadoc:**
+  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex____)
+  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_oracle_pgx_api_PgxVertex____)
 
 This variant of betweenness centrality approximates the centrality of the vertices by just using the vertices from the given sequence as starting points for the BFS traversals of the graph, instead of computing the exact value by using all the vertices in the graph.
-
 
 ## Signature
 

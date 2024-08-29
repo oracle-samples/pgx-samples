@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_k3b_approx_node_betweenness_centrality
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-)
-  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality_oracle_pgx_api_PgxGraph_int_)
+  - [Analyst#approximateVertexBetweennessCentrality(PgxGraph graph, int k, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentrality_oracle_pgx_api_PgxGraph_int_oracle_pgx_api_VertexProperty_)
 
 This variant of betweenness centrality approximates the centrality of the vertices by just using k random vertices as starting points for the BFS traversals of the graph, instead of computing the exact value by using all the vertices in the graph.
-
 
 ## Signature
 

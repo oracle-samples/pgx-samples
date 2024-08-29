@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_o9_limited_path_finding_undirected_filtered
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#limitedShortestPathHopDistFiltered(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID, PgxVect<Integer>> index, EdgeFilter filter)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDistFiltered-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet-oracle.pgx.api.VertexProperty-oracle.pgx.api.EdgeFilter)
-  - [Analyst#limitedShortestPathHopDistFiltered(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID, PgxVect<Integer>> index, EdgeFilter filter, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDistFiltered-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-oracle.pgx.api.EdgeFilter)
+- **Javadoc:**
+  - [Analyst#limitedShortestPathHopDistFiltered(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index, EdgeFilter filter)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDistFiltered_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_oracle_pgx_api_filter_EdgeFilter_)
+  - [Analyst#limitedShortestPathHopDistFiltered(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index, EdgeFilter filter, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDistFiltered_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_oracle_pgx_api_filter_EdgeFilter_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
 
 Computes the shortest path between the source and destination vertex. The algorithm only considers paths up to a length of k.
-
 
 ## Signature
 

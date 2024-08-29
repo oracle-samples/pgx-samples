@@ -4,18 +4,16 @@
 - **Algorithm ID:** pgx_builtin_k2_personalized_pagerank
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-boolean-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-boolean-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-double-double-int-boolean-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-double-double-int-boolean-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-double-double-int-boolean-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-double-double-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_boolean_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_boolean_oracle_pgx_api_VertexProperty_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_double_double_int_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_double_double_int_boolean_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_double_double_int_boolean_oracle_pgx_api_VertexProperty_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_double_double_int_oracle_pgx_api_VertexProperty_)
 
 The Personalized Pagerank allows to select a particular vertex or a set of vertices from the given graph in order to give them a greater importance when computing the ranking score, which will have as result a personalized Pagerank score and reveal relevant (or similar) vertices to the ones chosen at the beginning.
-
 
 ## Signature
 

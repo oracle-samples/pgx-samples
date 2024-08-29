@@ -5,7 +5,7 @@
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#bipartiteCheck(PgxGraph graph, VertexProperty<ID,java.lang.Boolean> isLeft)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#bipartiteCheck-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#bipartiteCheck(PgxGraph graph, VertexProperty<ID,java.lang.Boolean> isLeft)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#bipartiteCheck_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 This algorithm checks whether the given directed graph is bipartite. It assumes that all the edges are going in the same direction since the method relies on BFS traversals of the graph. If the graph is bipartite the algorithm will return the side of each vertex in the graph with the is_left vertex property.
 

@@ -4,14 +4,13 @@
 - **Algorithm ID:** pgx_builtin_k5_hits
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#hits(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits-oracle.pgx.api.PgxGraph-)
-  - [Analyst#hits(PgxGraph graph, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits-oracle.pgx.api.PgxGraph-int-)
-  - [Analyst#hits(PgxGraph graph, int max, VertexProperty<ID,java.lang.Double> auth, VertexProperty<ID,java.lang.Double> hubs)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits-oracle.pgx.api.PgxGraph-int-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#hits(PgxGraph graph, VertexProperty<ID,java.lang.Double> auth, VertexProperty<ID,java.lang.Double> hubs)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#hits(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits_oracle_pgx_api_PgxGraph_)
+  - [Analyst#hits(PgxGraph graph, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits_oracle_pgx_api_PgxGraph_int_)
+  - [Analyst#hits(PgxGraph graph, int max, VertexProperty<ID,java.lang.Double> auth, VertexProperty<ID,java.lang.Double> hubs)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits_oracle_pgx_api_PgxGraph_int_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#hits(PgxGraph graph, VertexProperty<ID,java.lang.Double> auth, VertexProperty<ID,java.lang.Double> hubs)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#hits_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 HITS is an algorithm that computes two ranking scores (authority and hub)for each vertex in the graph. The idea of hubs and authorities comes from the web pages: a hub is regarded as a page that is not authoritative in a specific topic, but it has instead links to authority pages, which are regarded as meaningful sources for a particular topic by many hubs. Thus a good hub will point to many authorities, while a good authority will be pointed by many hubs. The authority score of a vertex V is computed by adding all the hub scores of its incoming neighbors (i.e. vertices with edges pointing to V). The hub score is computed in a similar way, using the authority scores instead.
-
 
 ## Signature
 

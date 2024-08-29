@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_k7b_indegree_centrality
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#inDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeCentrality-oracle.pgx.api.PgxGraph-)
-  - [Analyst#inDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#inDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeCentrality_oracle_pgx_api_PgxGraph_)
+  - [Analyst#inDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 In-Degree centrality returns the sum of the number of incoming edges for each vertex in the graph.
-
 
 ## Signature
 

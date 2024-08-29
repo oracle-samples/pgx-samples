@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_p2b_single_source_single_destination_filtered_bidirectional_dijkstra
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(10 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-)
-  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_)
+  - [Analyst#shortestPathFilteredDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Dijkstra's algorithm searches for shortest path in two ways, it does a forward search from the source vertex and a backwards one from the destination vertex, while also adding the corresponding restrictions on the edges given by the filter expression. If the path between the vertices exists, both searches will meet each other at an intermediate point.
-
 
 ## Signature
 

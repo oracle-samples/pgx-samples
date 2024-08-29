@@ -5,8 +5,8 @@
 - **Time Complexity:** O(k * (V + E)) with V = number of vertices, E = number of edges, k = size of the source set
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#topologicalSchedule(PgxGraph graph, VertexSet<ID> source)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSchedule-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-)
-  - [Analyst#topologicalSchedule(PgxGraph graph, VertexSet<ID> source, VertexProperty<ID,java.lang.Integer> topoSched)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSchedule-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexSet-oracle.pgx.api.VertexProperty-)
+  - [Analyst#topologicalSchedule(PgxGraph graph, VertexSet<ID> source)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSchedule_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_)
+  - [Analyst#topologicalSchedule(PgxGraph graph, VertexSet<ID> source, VertexProperty<ID,java.lang.Integer> topoSched)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSchedule_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
 
 Topological schedule sets an order over the vertices in a graph based on the proximity these have to the vertices from the given source. The algorithm does a BFS traversal for each vertex from the source set in order to assign the correct scheduling order to all the reachable, even if the graph is undirected or has cycles. The vertices that are not reachable will be assigned a value of -1.
 

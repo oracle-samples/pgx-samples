@@ -5,7 +5,8 @@
 - **Time Complexity:** O(V * (V + E)) with V = number of vertices, E = number of edgeswalk
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#harmonicCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#harmonicCentrality-oracle.pgx.api.PgxGraph-)  - [Analyst#harmonicCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#harmonicCentrality-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+  - [Analyst#harmonicCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#harmonicCentrality_oracle_pgx_api_PgxGraph_)
+  - [Analyst#harmonicCentrality(PgxGraph graph, VertexProperty<ID,​java.lang.Double> hc](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#harmonicCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 Harmonic centrality computes the centrality of each vertex by taking the reciprocal of the sum of the shortest path distances from that vertex to all other vertices in the graph. This metric highlights the importance of vertices that efficiently connect disparate parts of the network
 

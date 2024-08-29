@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex src, PgxVertex dst, EdgeProperty cost, java.lang.Boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#Analyst.html#shortestPathDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-java.lang.Boolean-)
-  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex src, PgxVertex dst, EdgeProperty cost, VertexProperty> parent, VertexProperty parentEdge, java.lang.Boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_boolean_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_boolean_)
 
 Dijkstra's algorithm tries to find the shortest path (if there is one) between the given source and destination vertices, while minimizing the distance or cost associated to each edge in the graph.
 

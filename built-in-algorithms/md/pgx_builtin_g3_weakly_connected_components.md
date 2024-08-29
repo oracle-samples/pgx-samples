@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_g3_weakly_connected_components
 - **Time Complexity:** O(E * d) with d = diameter of the graph
 - **Space Requirement:** O(2 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#wcc(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#wcc-oracle.pgx.api.PgxGraph-)
-  - [Analyst#wcc(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#wcc-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#wcc(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#wcc_oracle_pgx_api_PgxGraph_)
+  - [Analyst#wcc(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#wcc_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 This algorithm finds weakly connected components (WCC) in a directed graph. A WCC is a maximal subset of vertices of the graph with the particular characteristic that for every pair of vertices U and V in the WCC there must be a path connecting U to V, ignoring the direction of edges. It is a non-deterministic algorithm because of its parallelized implementation.
-
 
 ## Signature
 

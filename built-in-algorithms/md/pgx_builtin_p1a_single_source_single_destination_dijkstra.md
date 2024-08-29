@@ -5,8 +5,10 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEd)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_)
+
 
 Dijkstra's algorithm tries to find the shortest path (if there is one) between the given source and destination vertices, while minimizing the distance or cost associated to each edge in the graph.
 
