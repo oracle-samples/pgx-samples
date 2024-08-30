@@ -1,16 +1,18 @@
 # Built-In Algorithms
 
-PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
+PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/24.3
+
+/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
 
 - Classic graph algorithms
   - [Prim's Algorithm](./md/pgx_builtin_a1_prim.md)
-  - [Prim's Algorithm Undirected](./md/pgx_builtin_a1u_prim.md)
+  - [Prim's Algorithm (undirected)](./md/pgx_builtin_a1u_prim.md)
 - Community detection
   - [Label Propagation](./md/pgx_builtin_c1_community_detection_label_propagation.md)
   - [Conductance Minimization (Soman and Narang Algorithm)](./md/pgx_builtin_c2_community_detection_conductance_minimization.md)
   - [Infomap](./md/pgx_builtin_c3_infomap.md)
   - [Louvain](./md/pgx_builtin_c4_louvain.md)
-  - [Louvain Directed](./md/pgx_builtin_c4b_louvain_directed.md)
+  - [Louvain (directed)](./md/pgx_builtin_c4b_louvain_directed.md)
   - [Speaker Listener Label Propagation](./md/pgx_builtin_c5_speaker_listener_label_propagation.md)
   - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5b_filtered_speaker_listener_label_propagation.md)
   - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5c_filtered_weighted_speaker_listener_label_propagation.md)
@@ -38,7 +40,7 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Filtered Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p1bu_single_source_destination_filtered_dijkstra_undirected.md)
   - [Bidirectional Dijkstra Algorithm](./md/pgx_builtin_p2_single_source_single_destination_bidirectional_dijkstra.md)
   - [Bidirectional Filtered Dijkstra Algorithm](./md/pgx_builtin_p2b_single_source_single_destination_filtered_bidirectional_dijkstra.md)
-  - [Bidirectional Filtered Dijkstra Algorithm)](./md/pgx_builtin_p2bu_single_source_single_destination_filtered_bidirectional_dijkstra_undirected.md)
+  - [Bidirectional Filtered Dijkstra Algorithm](./md/pgx_builtin_p2bu_single_source_single_destination_filtered_bidirectional_dijkstra_undirected.md)
   - [Bidirectional Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p2u_single_source_single_destination_bidirectional_dijkstra_undirected.md)
   - [Classic Bellman-Ford](./md/pgx_builtin_p3_single_source_all_destinations_bellman_ford.md)
   - [(Backwards) Bellman-Ford Algorithm](./md/pgx_builtin_p3r_single_source_all_destinations_bellman_ford_reverse.md)
@@ -81,13 +83,14 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Local Clustering Coefficient for ignoring edge directions (LCC)](./md/pgx_builtin_s13u_local_clustering_coefficient.md)
   - [Find Cycle](./md/pgx_builtin_s14a_find_cycle.md)
   - [Find Cycle from Node](./md/pgx_builtin_s14b_find_cycle_from_node.md)
-  - [Reachability](./md/pgx_builtin_sa_reachability.md)
+  - [Reachability](./md/pgx_builtin_s15a_reachability.md)
   - [Reachability (undirected)](./md/pgx_builtin_s15b_reachability_undirected.md)
   - [Topological Sort](./md/pgx_builtin_s16a_topological_sort.md)
   - [Topological Schedule](./md/pgx_builtin_s16b_topological_schedule.md)
   - [Triangle Counting](./md/pgx_builtin_s1_triangle_counting.md)
   - [Triangle Counting (undirected)](./md/pgx_builtin_s1b_triangle_counting_undirected.md)
   - [Adamic-Adar index](./md/pgx_builtin_s2_adamic_adar_counting.md)
+  - [Adamic-Adar index (Ignoring edge direction)](./md/pgx_builtin_s2d_adamic_adar_counting.md)
   - [Conductance](./md/pgx_builtin_s3_conductance.md)
   - [Modularity](./md/pgx_builtin_s4_partition_modularity.md)
   - [Partition Conductance](./md/pgx_builtin_s5_partition_conductance.md)
