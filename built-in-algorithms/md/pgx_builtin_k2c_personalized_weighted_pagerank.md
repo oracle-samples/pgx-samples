@@ -7,7 +7,6 @@
 - **Javadoc:**
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_boolean_oracle_pgx_api_EdgeProperty_)
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex<ID> v, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_boolean_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
-<!--->  - [Analyst#personalizedWeightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-double-double-int-boolean-oracle.pgx.api.EdgeProperty-](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank(PgxGraph)) --->
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex v, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_ID_java_math_BigDecimal_java_math_BigDecimal_int_boolean_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_ID_java_math_BigDecimal_java_math_BigDecimal_int_oracle_pgx_api_EdgeProperty_)
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex<ID> v, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_ID_java_math_BigDecimal_java_math_BigDecimal_int_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
@@ -15,7 +14,6 @@
   - [Analyst#personalizedWeightedPagerank(PgxGraph graph, PgxVertex<ID> v, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedWeightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
 
 The Personalized Weighted Pagerank combines elements from the weighted and the personalized versions in order to make the personalization of the results more unique, since both: the selection of a subset of vertices and the inclusion of specific weights in the edges, will help to set the importance of the ranking scores when these are being computed.
-
 
 ## Signature
 

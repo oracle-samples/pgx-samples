@@ -14,7 +14,7 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Speaker Listener Label Propagation](./md/pgx_builtin_c5_speaker_listener_label_propagation.md)
   - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5b_filtered_speaker_listener_label_propagation.md)
   - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5c_filtered_weighted_speaker_listener_label_propagation.md)
-  - [Speaker Listener Label Propagation](./md/pgx_builtin_c6_weighted_speaker_listener_label_propagation.md)
+  - [Weighted Speaker Listener Label Propagation](./md/pgx_builtin_c6_weighted_speaker_listener_label_propagation.md)
 - Connected components
   - [Strongly Connected Components (SCC) via Kosaraju's algorithm](./md/pgx_builtin_g2a_strongly_connected_components_kosaraju.md)
   - [Strongly Connected Components (SCC) via Tarjan's algorithm](./md/pgx_builtin_g2b_strongly_connected_components_tarjan.md)

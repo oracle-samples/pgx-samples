@@ -12,10 +12,9 @@
   - [Analyst#personalizedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_double_double_int_boolean_)
   - [Analyst#personalizedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, boolean norm, VertexProperty<ID,​java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_double_double_int_boolean_oracle_pgx_api_VertexProperty_)
   - [Analyst#personalizedPagerank(PgxGraph graph, VertexSet<ID> vertices, double e, double d, int max, VertexProperty<ID,​java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_double_double_int_oracle_pgx_api_VertexProperty_)
-- [Analyst#personalizedPagerank(PgxGraph graph, VertexSet<ID> vertices, VertexProperty<ID,​java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
+  - [Analyst#personalizedPagerank(PgxGraph graph, VertexSet<ID> vertices, VertexProperty<ID,​java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
 
 The Personalized Pagerank allows to select a particular vertex or a set of vertices from the given graph in order to give them a greater importance when computing the ranking score, which will have as result a personalized Pagerank score and reveal relevant (or similar) vertices to the ones chosen at the beginning.
-
 
 ## Signature
 

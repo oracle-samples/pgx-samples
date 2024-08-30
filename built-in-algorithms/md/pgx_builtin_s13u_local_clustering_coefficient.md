@@ -6,7 +6,7 @@
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
   - [Analyst#localClusteringCoefficient(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_)
-  - [Analyst#localClusteringCoefficient(PgxGraph graph, boolean ignoreEdgeDirection)](hhttps://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_boolean_)
+  - [Analyst#localClusteringCoefficient(PgxGraph graph, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_boolean_)
   - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
   - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_boolean_)
 
