@@ -4,18 +4,17 @@
 - **Algorithm ID:** pgx_builtin_k1a_pagerank
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#pagerank(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-)
-  - [Analyst#pagerank(PgxGraph graph, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-boolean-)
-  - [Analyst#pagerank(PgxGraph graph, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-boolean-oracle.pgx.api.VertexProperty-)
-  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-double-double-int-)
-  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-double-double-int-boolean-)
-  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-double-double-int-boolean-oracle.pgx.api.VertexProperty-)
-  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-double-double-int-oracle.pgx.api.VertexProperty-)
-  - [Analyst#pagerank(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#pagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#pagerank(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_)
+  - [Analyst#pagerank(PgxGraph graph, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_boolean_)
+  - [Analyst#pagerank(PgxGraph graph, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_boolean_oracle_pgx_api_VertexProperty_)
+  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_double_double_int_)
+  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_double_double_int_boolean_)
+  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, boolean norm, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_double_double_int_boolean_oracle_pgx_api_VertexProperty_)
+  - [Analyst#pagerank(PgxGraph graph, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_VertexProperty_)
+  - [Analyst#pagerank(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#pagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 PageRank is an algorithm that computes ranking scores for the vertices using the network created by the incoming edges in the graph. Thus it is intended for directed graphs, although undirected graphs can be treated as well by converting them into directed graphs with reciprocated edges (i.e. keeping the original edge and creating a second one going in the opposite direction). The edges on the graph will define the relevance of each vertex in the graph, reflecting this on the scores, meaning that greater scores will correspond to vertices with greater relevance.
-
 
 ## Signature
 
@@ -39,7 +38,7 @@ PageRank is an algorithm that computes ranking scores for the vertices using the
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -48,6 +47,7 @@ import oracle.pgx.algorithm.Scalar;
 import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
+import oracle.pgx.algorithm.ControlFlow;
 
 @GraphAlgorithm
 public class Pagerank {
@@ -56,6 +56,11 @@ public class Pagerank {
     Scalar<Double> diff = Scalar.create();
     int cnt = 0;
     double n = g.getNumVertices();
+    long numberOfStepsEstimatedForCompletion = g.getNumVertices() * (maxIter * 2 + 1) + maxIter;
+    if (norm) {
+      numberOfStepsEstimatedForCompletion += g.getNumVertices() * maxIter;
+    }
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
 
     rank.setAll(1 / n);
     do {

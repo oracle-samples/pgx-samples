@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_s4_partition_modularity
 - **Time Complexity:** O(E * c) with E = number of edges, c = number of components
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-)
-  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition, Scalar<java.lang.Double> modularity)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#partitionModularity-oracle.pgx.api.PgxGraph-oracle.pgx.api.Partition-oracle.pgx.api.Scalar-)
+- **Javadoc:**
+  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionModularity_oracle_pgx_api_PgxGraph_oracle_pgx_api_Partition_)
+  - [Analyst#partitionModularity(PgxGraph graph, Partition<ID> partition, Scalar<java.lang.Double> modularity)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#partitionModularity_oracle_pgx_api_PgxGraph_oracle_pgx_api_Partition_oracle_pgx_api_Scalar_)
 
 Modularity in a graph is a measure for assessing the quality of the partition induced by the components (or community structures) within the graph found by any clustering algorithm (e.g. label propagation, Infomap, WCC, etc.). It compares the number of the edges between the vertices within a component against the expected number of edges if these were generated at random (assuming a uniform probability distribution). A positive modularity value means that, on average, there are more edges within the components than the amount expected (meaning stronger components), and vice-versa for a negative modularity value. This implementation is intended for directed graphs.
-
 
 ## Signature
 
@@ -27,7 +26,7 @@ Modularity in a graph is a measure for assessing the quality of the partition in
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -46,7 +45,7 @@ public class PartitionModularity {
 
     // compute first term: fraction of edges inside community
     g.getVertices().forEach(n -> {
-      n.getNeighbors().forEach(m -> {
+      n.getOutNeighbors().forEach(m -> {
         if (member.get(n) == member.get(m)) {
           firstTerm.increment();
         }

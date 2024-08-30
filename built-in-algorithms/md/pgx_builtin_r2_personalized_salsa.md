@@ -4,14 +4,13 @@
 - **Algorithm ID:** pgx_builtin_r2_personalized_salsa
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, double d, int maxIter, double maxDiff)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.PgxVertex-double-int-double-)
-  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, double d, int maxIter, double maxDiff, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.PgxVertex-double-int-double-oracle.pgx.api.VertexProperty-)
-  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_PgxVertex_)
+  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, double d, int maxIter, double maxDiff)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_PgxVertex_double_int_double_)
+  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, double d, int maxIter, double maxDiff, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_PgxVertex_double_int_double_oracle_pgx_api_VertexProperty_)
+  - [Analyst#personalizedSalsa(BipartiteGraph graph, PgxVertex<ID> v, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#personalizedSalsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexProperty_)
 
 This Personalized version of SALSA allows to select a particular vertex or set of vertices from the given graph in order to give them a greater importance when computing the ranking scores, which will have as result a personalized SALSA score and show relevant (or similar) vertices to the ones chosen for the personalization.
-
 
 ## Signature
 
@@ -36,7 +35,7 @@ This Personalized version of SALSA allows to select a particular vertex or set o
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

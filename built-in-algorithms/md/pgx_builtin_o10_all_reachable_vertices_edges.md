@@ -4,11 +4,10 @@
 - **Algorithm ID:** pgx_builtin_o10_all_reachable_vertices_edges
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#allReachableVerticesEdges(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#allReachableVerticesEdges-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int)
+- **Javadoc:**
+  - [Analyst#allReachableVerticesEdges(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int k)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#allReachableVerticesEdges_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_)
 
 Finds all the vertices and edges on a path between the src and target of length smaller or equal to k.
-
 
 ## Signature
 
@@ -33,7 +32,7 @@ Finds all the vertices and edges on a path between the src and target of length 
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -42,289 +41,158 @@ import oracle.pgx.algorithm.PgxMap;
 import oracle.pgx.algorithm.PgxVertex;
 import oracle.pgx.algorithm.VertexSet;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
+import oracle.pgx.algorithm.PgxEdge;
+import oracle.pgx.algorithm.EdgeSet;
 import oracle.pgx.algorithm.annotations.Out;
 
 @GraphAlgorithm
 public class AllReachableVerticesEdges {
 
-  public void undirectedAllOnPath(PgxGraph g, PgxVertex src, PgxVertex dst, int k, @Out VertexSet verticesOnPath,
-      @Out EdgeSet edgesOnPath, @Out PgxMap<PgxVertex, Integer> fDist) {
+  public boolean undirectedAllOnPath(PgxGraph g, PgxVertex src, PgxVertex dst, int k,
+      @Out VertexSet verticesOnPath, @Out EdgeSet edgesOnPath, @Out PgxMap<PgxVertex, Integer> distances) {
 
-    int parallelThreshold = 1000;
+    // frontiers
+    VertexSet srcFrontier = VertexSet.create();
+    VertexSet dstFrontier = VertexSet.create();
 
-    VertexSet fFrontier = VertexSet.create();
-    fFrontier.add(src);
-    VertexSet fReachables = fFrontier;
+    srcFrontier.add(src);
+    dstFrontier.add(dst);
 
-    VertexSet rFrontier = VertexSet.create();
-    rFrontier.add(dst);
-    VertexSet rReachables = rFrontier;
+    // distances
+    PgxMap<PgxVertex, Integer> dstDistances = PgxMap.create();
 
-    dist.put(src, 0);
-    PgxMap<PgxVertex, Integer> rDist = PgxMap.create();
-    rDist.put(dst, 0);
+    distances.clear();
+    distances.set(src, 0);
+    dstDistances.set(dst, 0);
 
-    long nextFReachableSize = src.getOutDegree() + src.getInDegree();
-    long nextRReachableSize = dst.getOutDegree() + dst.getInDegree();
+    // hop counters
     int hop = 0;
-    int leftHop = 0;
-    int rightHop = 0;
-    while ((hop < k) && (fFrontier.size() != 0) && (rFrontier.size() != 0)) {
-      if (nextFReachableSize <= nextRReachableSize) {
-        leftHop++;
+    int srcHop = 0;
+    int dstHop = 0;
 
-        nextFReachableSize = 0;
-        VertexSet nextFFrontier = VertexSet.create();
+    // frontier sizes for next round
+    long nextSrcFrontierSize = src.getOutDegree() + src.getInDegree();
+    long nextDstFrontierSize = dst.getOutDegree() + dst.getInDegree();
 
-        fFrontier.forSequential(n -> {
-          n.getInOutNeighbors().forSequential(m -> {
-            boolean rReachable = rReachables.contains(m);
-            if (rReachable) {
+    while ((hop < k) && (srcFrontier.size() != 0) && (dstFrontier.size() != 0)) {
+      // explore smaller frontier
+      if (nextSrcFrontierSize <= nextDstFrontierSize) {
+        // explore source frontier
+        srcHop++;
+
+        // next frontier
+        VertexSet nextFrontier = VertexSet.create();
+        nextSrcFrontierSize = 0;
+
+        // explore frontier
+        srcFrontier.forSequential(n -> {
+          n.getNeighbors().forSequential(m -> {
+            if (dstDistances.containsKey(m)) {
+              // neighbor is reachable from dst
               PgxEdge e = m.edge();
               edgesOnPath.add(e);
               verticesOnPath.add(m);
             }
-            boolean fReachable = fReachables.contains(m);
-            if (fReachable == false) {
-              nextFFrontier.add(m);
-              fReachables.add(m);
-              fDist.put(m, leftHop);
-              nextFReachableSize += m.getOutDegree() + m.getInDegree();
+            if (!distances.containsKey(m)) {
+              // neighbor was not reached yet
+              distances.set(m, srcHop);
+              nextFrontier.add(m);
+              nextSrcFrontierSize += m.getOutDegree() + m.getInDegree();
             }
           });
         });
-        fFrontier = nextFFrontier;
+
+        // update source frontier
+        srcFrontier = nextFrontier.clone();
       } else {
-        rightHop++;
+        // explore destination frontier
+        dstHop++;
 
-        nextRReachableSize = 0;
-        VertexSet nextRFrontier = VertexSet.create();
+        // next frontier
+        VertexSet nextFrontier = VertexSet.create();
+        nextDstFrontierSize = 0;
 
-        rFrontier.forSequential(n -> {
-          n.getInOutNeighbors().forSequential(m -> {
-            boolean fReachable = fReachables.contains(m);
-            if (fReachable) {
+        // explore frontier
+        dstFrontier.forSequential(n -> {
+          n.getNeighbors().forSequential(m -> {
+            if (distances.containsKey(m)) {
+              // neighbor is reachable from src
               PgxEdge e = m.edge();
               edgesOnPath.add(e);
-
               verticesOnPath.add(m);
             }
-            boolean rReachable = rReachables.contains(m);
-            if (rReachable == false) {
-              nextRFrontier.add(m);
-              rReachables.add(m);
-              rDist.put(m, rightHop);
-              nextRReachableSize += m.getOutDegree() + m.getInDegree();
+            if (!dstDistances.containsKey(m)) {
+              // neighbor was not reached yet
+              dstDistances.set(m, dstHop);
+              nextFrontier.add(m);
+              nextDstFrontierSize += m.getOutDegree() + m.getInDegree();
             }
           });
         });
-        rFrontier = nextRFrontier;
+        dstFrontier = nextFrontier.clone();
       }
       hop++;
     }
 
-    while ((leftHop < k) && (fFrontier.size() != 0)) {
-      leftHop++;
+    // finish source hops
+    while (srcHop < k && srcFrontier.size() != 0) {
 
-      VertexSet nextFFrontier = VertexSet.create();
+      srcHop++;
 
-      fFrontier.forSequential(n -> {
-        n.inOutNeighbors().forSequential(m -> {
-          boolean rReachable = rReachables.contains(m);
-          if (rReachable && rDist.get(m) <= (k - leftHop)) {
+      // next frontier
+      VertexSet nextFrontier = VertexSet.create();
+
+      // explore frontier
+      srcFrontier.forSequential(n -> {
+        n.getNeighbors().forSequential(m -> {
+          if (dstDistances.containsKey(m) && dstDistances.get(m) <= (k - srcHop)) {
+            // neighbor is reachable from dst so the overall distance is <= k
             PgxEdge e = m.edge();
             edgesOnPath.add(e);
-
             verticesOnPath.add(m);
 
-            boolean fReachable = fReachables.contains(m);
-            if (fReachable == false) {
-              nextFFrontier.add(m);
-              fReachables.add(m);
-              fDist.put(m, leftHop);
+            if (!distances.containsKey(m)) {
+              // neighbor was not reached yet
+              distances.set(m, srcHop);
+              nextFrontier.add(m);
             }
           }
         });
       });
-      fFrontier = nextFFrontier;
+      srcFrontier = nextFrontier.clone();
       hop++;
     }
 
-    while ((rightHop < k) && (rFrontier.size() != 0)) {
-      rightHop++;
+    // finish destination hops
+    while ((dstHop < k) && (dstFrontier.size() != 0)) {
 
-      VertexSet nextRFrontier = VertexSet.create();
-      rFrontier.forSequential(n -> {
-        n.inOutNeighbors().forSequential(m -> {
-          boolean fReachable = fReachables.contains(m);
-          if (fReachable && fDist.get(m) <= (k - rightHop)) {
+      dstHop++;
+
+      // next frontier
+      VertexSet nextFrontier = VertexSet.create();
+
+      // explore frontier
+      dstFrontier.forSequential(n -> {
+        n.getNeighbors().forSequential(m -> {
+          if (distances.containsKey(m) && distances.get(m) <= (k - dstHop)) {
+            // neighbor is reachable from dst so the overall distance is <= k
             PgxEdge e = m.edge();
             edgesOnPath.add(e);
-
             verticesOnPath.add(m);
 
-            boolean rReachable = rReachables.contains(m);
-            if (rReachable == false) {
-              nextRFrontier.add(m);
-              rReachables.add(m);
-              rDist.put(m, rightHop);
+            if (!dstDistances.containsKey(m)) {
+              // neighbor was not reached yet
+              dstDistances.set(m, dstHop);
+              nextFrontier.add(m);
             }
           }
         });
       });
-      rFrontier = nextRFrontier;
+      dstFrontier = nextFrontier.clone();
       hop++;
     }
+
     return verticesOnPath.size() > 0;
   }
 }
-/*
-procedure undirected_all_on_path(graph G, node src, node dst, int k;
-    nodeSet verticesOnPath, edgeSet edgesOnPath, map<node, int> f_dist) : bool {
-
-  int parallel_threshold = 1000;
-
-  nodeSet f_frontier; // at any given iteration, the set of left nodes
-  f_frontier.add(src);
-  nodeSet f_reachables = f_frontier; // the vertices that have been reached from the left
-
-  nodeSet r_frontier; // at any given iteration, the set of right nodes
-  r_frontier.add(dst);
-  nodeSet r_reachables = r_frontier; // the vertices that have been reached from the right
-
-  f_dist[src] = 0;
-  map<node, int> r_dist; // r_dist stores the distance of the vertices reached from the right to dst
-  r_dist[dst] = 0;
-
-  long next_f_reachable_size = (src.outDegree() + src.inDegree());
-  long next_r_reachable_size = (dst.outDegree() + dst.inDegree());
-  int hop = 0;
-  int left_hop = 0;
-  int right_hop = 0;
-  while ((hop < k) && (f_frontier.size() != 0) && (r_frontier.size() != 0) ) {
-
-    if (next_f_reachable_size <= next_r_reachable_size) {
-      left_hop++;
-
-      // scanning neighbors of left frontier is cheaper
-      next_f_reachable_size = 0;
-      nodeSet next_f_frontier;
-
-        for (n : f_frontier.items) {
-          for (m : n.inOutNbrs) {
-            // if m is in the right set, we have a path, we can record it for later
-            bool r_reachable = r_reachables.has(m);
-            if (r_reachable) {
-              edge e = m.edge();
-              edgesOnPath.add(e);
-
-              verticesOnPath.add(m);
-            }
-            bool f_reachable = f_reachables.has(m);
-            if (f_reachable == false) {
-              next_f_frontier.add(m);
-              f_reachables.add(m);
-              f_dist[m] = left_hop;
-              next_f_reachable_size += (m.outDegree() + m.inDegree());
-            }
-          }
-        }
-      f_frontier = next_f_frontier;
-    } else {
-      right_hop++;
-
-      // scanning neighbors of right frontier is cheaper
-      next_r_reachable_size = 0;
-      nodeSet next_r_frontier;
-
-        for (n : r_frontier.items) {
-          for (m : n.inOutNbrs) {
-            // if m is in the left set, we have a path, we can record it for later
-            bool f_reachable = f_reachables.has(m);
-            if (f_reachable) {
-              // the edge is on a contributing path
-              edge e = m.edge();
-              edgesOnPath.add(e);
-
-              // the vertex is on a contributing path
-              verticesOnPath.add(m);
-            }
-            bool r_reachable = r_reachables.has(m);
-            if (r_reachable == false) {
-              next_r_frontier.add(m);
-              r_reachables.add(m);
-              r_dist[m] = right_hop;
-              next_r_reachable_size += (m.outDegree() + m.inDegree());
-            }
-          }
-        }
-
-      r_frontier = next_r_frontier;
-    }
-
-    hop++;
-  }
-
-  while ((left_hop < k) && (f_frontier.size() != 0)) {
-    left_hop++;
-
-    nodeSet next_f_frontier;
-
-
-      for (n : f_frontier.items) {
-        for (m : n.inOutNbrs) {
-          bool r_reachable = r_reachables.has(m);
-          if (r_reachable && r_dist[m] <= (k - left_hop)) {
-            edge e = m.edge();
-            edgesOnPath.add(e);
-
-            verticesOnPath.add(m);
-
-            bool f_reachable = f_reachables.has(m);
-            if (f_reachable == false) {
-              next_f_frontier.add(m);
-              f_reachables.add(m);
-              f_dist[m] = left_hop;
-            }
-          }
-        }
-      }
-    f_frontier = next_f_frontier;
-
-    hop++;
-  }
-
-  while ((right_hop < k) && (r_frontier.size() != 0) ) {
-    right_hop++;
-
-    nodeSet next_r_frontier;
-      for (n : r_frontier.items) {
-        for (m : n.inOutNbrs) {
-          // if m is in the left set, at a distance less than k - left_hops, we have a path, we can record it for later
-          bool f_reachable = f_reachables.has(m);
-          if (f_reachable && f_dist[m] <= (k - right_hop)) {
-            // the edge is on a contributing path
-            edge e = m.edge();
-            edgesOnPath.add(e);
-
-            // the vertex is on a contributing path
-            verticesOnPath.add(m);
-
-            bool r_reachable = r_reachables.has(m);
-            if (r_reachable == false) {
-              next_r_frontier.add(m);
-              r_reachables.add(m);
-              r_dist[m] = right_hop;
-            }
-          }
-        }
-      }
-    r_frontier = next_r_frontier;
-
-    hop++;
-  }
-  return verticesOnPath.size() > 0;
-}
-
-*/
 ```

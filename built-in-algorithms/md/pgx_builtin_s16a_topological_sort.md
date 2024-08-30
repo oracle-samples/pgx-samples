@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_s16a_topological_sort
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(2 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#topologicalSort(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-)
-  - [Analyst#topologicalSort(PgxGraph graph, VertexProperty<ID,java.lang.Integer> topoSort)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#topologicalSort-oracle.pgx.api.PgxGraph-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#topologicalSort(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSort_oracle_pgx_api_PgxGraph_)
+  - [Analyst#topologicalSort(PgxGraph graph, VertexProperty<ID,java.lang.Integer> topoSort)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#topologicalSort_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 Topological sort tries to set an order over the vertices in a graph using the direction of the edges. A directed graph has a topological order if and only if it has no cycles, i.e. it is a directed acyclic graph. The algorithm visits the vertices in a DFS-like fashion to set up their order. The order of the vertices is returned as a vertex property, and the values will be set to -1 if there is a cycle in the graph.
-
 
 ## Signature
 
@@ -29,7 +28,7 @@ Topological sort tries to set an order over the vertices in a graph using the di
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -59,7 +58,7 @@ public class TopologicalSort {
       PgxVertex n = s.front();
       topologicalOrder.set(n, visited);
       visited++;
-      n.getNeighbors().forSequential(nbr -> {
+      n.getOutNeighbors().forSequential(nbr -> {
         deg.set(nbr, deg.get(nbr) - 1);
         e.set(e.get() - 1);
         if (deg.get(nbr) == 0) {

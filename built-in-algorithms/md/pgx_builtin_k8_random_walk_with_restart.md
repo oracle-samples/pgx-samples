@@ -4,11 +4,11 @@
 - **Algorithm ID:** pgx_builtin_k8_random_walk_with_restart
 - **Time Complexity:** O(L) with L = length of the random walk
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#randomWalkWithRestart(PgxGraph graph, ID source, int length, java.math.BigDecimal reset_prob, PgxMap<PgxVertex<ID>,java.lang.Integer> visitCount)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#randomWalkWithRestart-oracle.pgx.api.PgxGraph-ID-int-java.math.BigDecimal-oracle.pgx.api.PgxMap-)
+- **Javadoc:**
+  - [Analyst#randomWalkWithRestart(PgxGraph graph, ID source, int length, java.math.BigDecimal reset_prob, PgxMap<PgxVertex<ID>,java.lang.Integer> visitCount)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#randomWalkWithRestart_oracle_pgx_api_PgxGraph_ID_int_java_math_BigDecimal_oracle_pgx_api_PgxMap_)
+  - [Analyst#randomWalkWithRestart(PgxGraph graph, PgxVertex<ID> source, int length, double resetProb, PgxMap<PgxVertex<ID>,​java.lang.Integer> visitCount)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#randomWalkWithRestart_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_int_double_oracle_pgx_api_PgxMap_)
 
 This algorithm performs a random walk over the graph. The walk will start at the given source vertex and will randomly visit neighboring vertices in the graph, with a probability equal to the value of reset_probability of going back to the starting point. The random walk will also go back to the starting point every time it reaches a vertex with no outgoing edges. The algorithm will stop once it reaches the specified walk length.
-
 
 ## Signature
 
@@ -31,7 +31,7 @@ This algorithm performs a random walk over the graph. The walk will start at the
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

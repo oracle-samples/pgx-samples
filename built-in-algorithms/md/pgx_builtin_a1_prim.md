@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_a1_prim
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(2 * E + V) with V = number of vertices, E = number of edges
-- **Javadoc:** 
-  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#prim-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight, EdgeProperty<java.lang.Boolean> mst)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#prim-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-oracle.pgx.api.EdgeProperty-)
+- **Javadoc:**
+  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight, EdgeProperty<java.lang.Boolean> mst)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_EdgeProperty_)
 
 This implementation of Prim's algorithm works on undirected graphs that are connected and have no multi-edges (i.e. more than one edge connecting the same pair of vertices). The algorithm computes the minimum spanning tree (MST) of the graph using the weights associated to each edge. A minimum spanning tree is a subset of the edges that connects all the vertices in the graph such that it minimizes the total weight associated to the edges.
-
 
 ## Signature
 
@@ -30,7 +29,7 @@ This implementation of Prim's algorithm works on undirected graphs that are conn
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -47,13 +46,13 @@ import oracle.pgx.algorithm.annotations.Out;
 public class Prim {
   public double mst(PgxGraph g, EdgeProperty<Double> weight, @Out EdgeProperty<Boolean> inMst) {
     if (g.getNumVertices() == 0) {
-      return 0.0;
+      return 0.0d;
     }
 
     PgxMap<PgxEdge, Double> q = PgxMap.create();
     PgxVertex root = g.getRandomVertex();
 
-    root.getNeighbors().filter(n -> n != root).forSequential(n -> {
+    root.getOutNeighbors().filter(n -> n != root).forSequential(n -> {
       PgxEdge e = n.edge();
       q.set(e, weight.get(e));
     });
@@ -64,7 +63,7 @@ public class Prim {
     inMst.setAll(false);
 
     int numNodes = 1;
-    double totalWeight = 0.0;
+    double totalWeight = 0.0d;
 
     while (numNodes < g.getNumVertices() && q.size() > 0) {
       PgxEdge newEdge = q.getKeyForMinValue();
@@ -84,7 +83,7 @@ public class Prim {
         processed.set(v, true);
         totalWeight += weight.get(newEdge);
 
-        v.getNeighbors().forEach(n -> {
+        v.getOutNeighbors().forEach(n -> {
           PgxEdge e = n.edge();
           if (processed.get(n)) {
             q.remove(e);

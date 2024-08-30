@@ -5,11 +5,10 @@
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(E) with E = number of edges
 - **Javadoc:** 
-  - [Analyst#adamicAdarCounting(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting-oracle.pgx.api.PgxGraph-)
-  - [Analyst#adamicAdarCounting(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-)
+  - [Analyst#adamicAdarCounting(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_)
+  - [Analyst#adamicAdarCounting(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
 
 The Adamic-Adar index is meant for undirected graphs, since it is computed using the degree of the shared neighbors by two vertices in the graph. This implementation computes the index for every pair of vertices connected by an edge and associates it with that edge.
-
 
 ## Signature
 
@@ -29,7 +28,7 @@ The Adamic-Adar index is meant for undirected graphs, since it is computed using
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -39,7 +38,7 @@ import oracle.pgx.algorithm.PgxGraph;
 import oracle.pgx.algorithm.PgxVertex;
 import oracle.pgx.algorithm.annotations.Out;
 
-import static java.lang.Math.log;
+import static java.lang.Math.log10;
 
 @GraphAlgorithm
 public class AdamicAdar {
@@ -48,12 +47,13 @@ public class AdamicAdar {
       PgxVertex src = e.sourceVertex();
       PgxVertex dst = e.destinationVertex();
 
-      double value = src.getNeighbors()
+      double value = src.getOutNeighbors()
           .filter(n -> n.hasEdgeFrom(dst))
-          .sum(n -> 1 / log(n.getDegree()));
+          .sum(n -> 1 / log10(n.getDegree()));
 
       aa.set(e, value);
     });
   }
 }
+
 ```

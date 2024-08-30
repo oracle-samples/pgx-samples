@@ -4,18 +4,17 @@
 - **Algorithm ID:** pgx_builtin_o2_filtered_dfs
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, int maxDepth)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-int-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator, boolean initWithInf)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-boolean-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator, boolean initWithInf, int maxDepth)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-boolean-int-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator, boolean initWithInf, int maxDepth, VertexProperty<ID,java.lang.Integer> distance, VertexProperty<ID,PgxVertex<ID>> parent)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-boolean-int-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator, boolean initWithInf, VertexProperty<ID,java.lang.Integer> distance, VertexProperty<ID,PgxVertex<ID>> parent)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-boolean-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
-  - [Analyst#filteredDfs-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.filter.VertexFilter-oracle.pgx.api.filter.VertexFilter-int-](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter filter, VertexFilter navigator, int maxDepth))
+- **Javadoc:**
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, int maxDepth)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_int_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator, boolean initWithInf)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_boolean_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator, boolean initWithInf, int maxDepth)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_boolean_int_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator, boolean initWithInf, int maxDepth, VertexProperty<ID,​java.lang.Integer> distance, VertexProperty<ID,​PgxVertex<ID>> parent)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_boolean_int_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator, boolean initWithInf, VertexProperty<ID,​java.lang.Integer> distance, VertexProperty<ID,​PgxVertex<ID>> parent)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_boolean_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#filteredDfs(PgxGraph graph, PgxVertex<ID> root, VertexFilter navigator, int maxDepth)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#filteredDfs_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_filter_VertexFilter_int_)
 
 This filtered version of the DFS algorithm allows to use a filter and a navigator expression to be evaluated over the vertices during the traversal and discriminate them according to the desired criteria. It will return the distance to the source vertex and the corresponding parent vertex for all the filtered vertices.
-
 
 ## Signature
 
@@ -41,7 +40,7 @@ This filtered version of the DFS algorithm allows to use a filter and a navigato
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

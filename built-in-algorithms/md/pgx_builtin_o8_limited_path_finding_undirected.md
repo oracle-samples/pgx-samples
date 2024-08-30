@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_o8_limited_path_finding_undirected
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID, PgxVect<Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet-oracle.pgx.api.VertexProperty)
-  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<Integer, PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID, PgxVect<Integer>> index, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-oracle.pgx.api.PgxMap-oracle.pgx.api.VertexSet-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence)
+- **Javadoc:**
+  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
+  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
 
 Computes the shortest path between the source and destination vertex. The algorithm only considers paths up to a length of k.
-
 
 ## Signature
 
@@ -37,7 +36,7 @@ Computes the shortest path between the source and destination vertex. The algori
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -188,7 +187,7 @@ public class HopDistPathFindingUndirected {
 
         PgxVertex n = frontierForward.popFront();
 
-        n.getNeighbors().filter(v -> parentForward.get(v) == NONE && !superNodes.contains(v)).forSequential(v -> {
+        n.getOutNeighbors().filter(v -> parentForward.get(v) == NONE && !superNodes.contains(v)).forSequential(v -> {
           parentForward.set(v, n);
           if (parentReverse.get(v) != NONE) {
             exit(buildPathBidirectional(g, src, dst, v, parentForward, parentReverse, path));
@@ -208,7 +207,7 @@ public class HopDistPathFindingUndirected {
 
         PgxVertex n = frontierReverse.popFront();
 
-        n.getNeighbors().filter(v -> parentReverse.get(v) == NONE && !superNodes.contains(v)).forSequential(v -> {
+        n.getOutNeighbors().filter(v -> parentReverse.get(v) == NONE && !superNodes.contains(v)).forSequential(v -> {
           parentReverse.set(v, n);
           if (parentForward.get(v) != NONE) {
             exit(buildPathBidirectional(g, src, dst, v, parentForward, parentReverse, path));
@@ -240,7 +239,7 @@ public class HopDistPathFindingUndirected {
 
         PgxVertex n = frontierForward.popFront();
 
-        n.getNeighbors().filter(v -> parentForward.get(v) == NONE).forSequential(v -> {
+        n.getOutNeighbors().filter(v -> parentForward.get(v) == NONE).forSequential(v -> {
           parentForward.set(v, n);
           if (v == dst) {
             exit(buildPath(g, v, src, parentForward, path));

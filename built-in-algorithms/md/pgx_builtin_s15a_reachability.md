@@ -4,11 +4,10 @@
 - **Algorithm ID:** pgx_builtin_s15a_reachability
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(1)
-- **Javadoc:** 
-  - [Analyst#reachability(PgxGraph graph, PgxVertex<ID> source, PgxVertex<ID> dest, int maxHops, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#reachability-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-int-boolean-)
+- **Javadoc:**
+  - [Analyst#reachability(PgxGraph graph, PgxVertex<ID> source, PgxVertex<ID> dest, int maxHops, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#reachability_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_boolean_)
 
 This algorithm tries to find if the destination vertex is reachable given the source vertex and the maximum hop distance set by the user. The search can be performed in a directed or undirected way. These options may lead to different hop distances, since an undirected search has less restrictions on the possible paths connecting vertices than the directed option. Hence hop distances from an undirected search can be smaller than the ones from the directed cases.
-
 
 ## Signature
 
@@ -27,7 +26,7 @@ This algorithm tries to find if the destination vertex is reachable given the so
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -63,12 +62,12 @@ public class Reachability {
 
     Scalar<Integer> s = Scalar.create(0);
     // 2, 3, 4 hop
-    source.getNeighbors().filter(l1 -> !giveup.get()).forSequential(l1 -> {
+    source.getOutNeighbors().filter(l1 -> !giveup.get()).forSequential(l1 -> {
       s.increment();
       if (s.get() >= threshold) {
         giveup.set(true);
       }
-      l1.getNeighbors().filter(l2 -> !giveup.get()).forSequential(l2 -> {
+      l1.getOutNeighbors().filter(l2 -> !giveup.get()).forSequential(l2 -> {
         if (l2 == dest) {
           exit(2);
         }
@@ -77,7 +76,7 @@ public class Reachability {
           giveup.set(true);
         }
         if (!giveup.get() && maxHops >= 3) {
-          l2.getNeighbors().filter(l3 -> !giveup.get()).forSequential(l3 -> {
+          l2.getOutNeighbors().filter(l3 -> !giveup.get()).forSequential(l3 -> {
             if (l3 == dest) {
               exit(3);
             }
@@ -86,7 +85,7 @@ public class Reachability {
               giveup.set(true);
             }
             if (!giveup.get() && maxHops >= 4) {
-              l3.getNeighbors().filter(l4 -> !giveup.get()).forSequential(l4 -> {
+              l3.getOutNeighbors().filter(l4 -> !giveup.get()).forSequential(l4 -> {
                 if (l4 == dest) {
                   exit(4);
                 }

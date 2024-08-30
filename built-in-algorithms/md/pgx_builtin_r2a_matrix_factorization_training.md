@@ -4,21 +4,20 @@
 - **Algorithm ID:** pgx_builtin_r2a_matrix_factorization_training
 - **Time Complexity:** O(E * k * s) with E = number of edges, k = maximum number of iteration, s = size of the feature vectors
 - **Space Requirement:** O(2 * V * s) with V = number of vertices, s = size of the feature vectors
-- **Javadoc:** 
-  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent-oracle.pgx.api.BipartiteGraph-oracle.pgx.api.EdgeProperty-)
+- **Javadoc:**
+  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight, double learningRate, double changePerStep, double lambda, int maxStep, int vectorLength)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_EdgeProperty_double_double_double_int_int_)
+  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight, double learningRate, double changePerStep, double lambda, int maxStep, int vectorLength, VertexProperty<ID,​PgxVect<java.lang.Double>> features)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_EdgeProperty_double_double_double_int_int_oracle_pgx_api_VertexProperty_)
+  - [Analyst#matrixFactorizationGradientDescent(BipartiteGraph graph, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,​PgxVect<java.lang.Double>> features)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#matrixFactorizationGradientDescent_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
 
-This algorithm needs a [bipartite](prog-guides/mutation-subgraph/subgraph.html#create-a-bipartite-subgraph-based-on-a-vertex-list) graph to generate feature vectors that factorize the given set of left vertices (users) and right vertices (items), so that the inner product of such feature vectors can recover the information from the original graph structure, which can be seen as a sparse matrix. The generated feature vectors can be used for making recommendations with the given set of users, where a good recommendation for a given user will be a dot (inner) product between the feature vector of the user and the corresponding feature vector of a vertex from the item set, such that the result of that dot product returns a high score.
-
+This algorithm needs a [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgdg/graph-mutation-and-subgraphs.html) graph to generate feature vectors that factorize the given set of left vertices (users) and right vertices (items), so that the inner product of such feature vectors can recover the information from the original graph structure, which can be seen as a sparse matrix. The generated feature vectors can be used for making recommendations with the given set of users, where a good recommendation for a given user will be a dot (inner) product between the feature vector of the user and the corresponding feature vector of a vertex from the item set, such that the result of that dot product returns a high score.
 
 ## Signature
 
 | Input Argument | Type | Comment |
 | :--- | :--- | :--- |
 | `G` | graph | the graph. |
-| `is_left` | vertexProp<node> | boolean vertex property stating the side of the vertices in the [bipartite](prog-guides/mutation-subgraph/subgraph.html#create-a-bipartite-subgraph-based-on-a-vertex-list) graph (left for users, right for items). |
+| `is_left` | vertexProp<node> | boolean vertex property stating the side of the vertices in the [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgdg/graph-mutation-and-subgraphs.html) graph (left for users, right for items). |
 | `weight` | edgeProp<double> | edge property holding the rating weight of each edge in the graph. The weight needs to be pre-scaled into the range 1-5. If the weight values are not between 1 and 5, the result will become inaccurate. |
 | `learning_rate` | double | learning rate for the optimization process. |
 | `change_per_step` | double | parameter used to modulate the learning rate during the optimization process. |
@@ -38,125 +37,101 @@ This algorithm needs a [bipartite](prog-guides/mutation-subgraph/subgraph.html#c
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
-package oracle.pgx.algorithms;
 
-import oracle.pgx.algorithm.EdgeProperty;
-import oracle.pgx.algorithm.PgxEdge;
-import oracle.pgx.algorithm.PgxGraph;
-import oracle.pgx.algorithm.PgxVect;
-import oracle.pgx.algorithm.PgxVertex;
-import oracle.pgx.algorithm.Scalar;
-import oracle.pgx.algorithm.VertexProperty;
-import oracle.pgx.algorithm.annotations.GraphAlgorithm;
-import oracle.pgx.algorithm.annotations.Length;
-import oracle.pgx.algorithm.annotations.Out;
+procedure matrix_factorization_gradient_descent(graph G, vertexProp<bool> is_left, edgeProp<double> weight,
+    double learning_rate, double change_per_step, double lambda, int max_step, int vector_length;
+    vertexProp<vect<double>[vector_length]> dest_property) : double {
 
-import static java.lang.Math.sqrt;
-import static oracle.pgx.algorithm.Random.uniformVector;
+  vertexProp<vect<double>[vector_length]> dest_property_next;
+  for (n: G.nodes) {
+    n.dest_property = uniform();
+  }
 
-@GraphAlgorithm
-public class MatrixFactorizationGradientDescent {
-  public double matrixFactorizationGradientDescent(PgxGraph g, VertexProperty<Boolean> isLeft,
-      EdgeProperty<Double> weight, double learningRate, double changePerStep, double lambda, int maxStep,
-      int vectorLength, @Out VertexProperty<@Length("vectorLength") PgxVect<Double>> destProperty) {
-    VertexProperty<@Length("vectorLength") PgxVect<Double>> destPropertyNext = VertexProperty.create();
-    g.getVertices().forSequential(n -> {
-      destProperty.set(n, uniformVector());
-    });
+  G.dest_property_next = _.dest_property;
+  double max_value = 5.0;
+  double min_value = 1.0;
+  double rate = learning_rate;
+  int counter = 0;
 
-    destPropertyNext.setAll(destProperty::get);
-    double maxValue = 5.0;
-    double minValue = 1.0;
-    Scalar<Double> rate = Scalar.create(learningRate);
-    int counter = 0;
+  double root_mean_square_error = 0.0;
+  while (counter < max_step) {
 
-    Scalar<Double> rootMeanSquareError = Scalar.create(0.0);
-    while (counter < maxStep) {
-      g.getVertices().forEach(currNode -> {
-        if (isLeft.get(currNode)) {
-          @Length("vectorLength")
-          PgxVect<Double> z = PgxVect.create(0.0);
+    foreach (curr_node: G.nodes) {
+      if (curr_node.is_left) {
+        vect<double>[vector_length] Z = 0.0;
 
-          currNode.getOutEdges().forSequential(currEdge -> {
-            PgxVertex oppositeNode = currEdge.destinationVertex();
+        for (curr_edge: curr_node.outEdges) {
+          node opposite_node = curr_edge.toNode();
 
-            double weight1 = weight.get(currEdge);
-            double weight2 = destProperty.get(currNode).multiply(destProperty.get(oppositeNode));
+          double weight_1 = curr_edge.weight;
+          double weight_2 = curr_node.dest_property * opposite_node.dest_property;
 
-            if (weight2 > maxValue) {
-              weight2 = maxValue;
-            } else if (weight2 < minValue) {
-              weight2 = minValue;
-            }
+          if (weight_2 > max_value) {
+            weight_2 = max_value;
+          } else if (weight_2 < min_value) {
+            weight_2 = min_value;
+          }
 
-            z.reduceAdd(destProperty.get(oppositeNode).multiply(weight1 - weight2)
-                .subtract(destProperty.get(currNode).multiply(lambda)));
+          Z += ((weight_1 - weight_2) * opposite_node.dest_property - lambda * curr_node.dest_property);
 
-            rootMeanSquareError.reduceAdd((weight1 - weight2) * (weight1 - weight2));
+          root_mean_square_error += (weight_1 - weight_2) * (weight_1 - weight_2);
 
-            // use this local procedure instead once GM-12295 get resolved
-            //rootMeanSquareError = updateVector(g, currNode, oppositeNode, currEdge, lambda, maxValue,
-            //    minValue, rootMeanSquareError, weight, vectorLength, z, destProperty);
-          });
-          destPropertyNext.set(currNode, destProperty.get(currNode).add(z.multiply(rate.get())));
-        } else {
-          @Length("vectorLength")
-          PgxVect<Double> z = PgxVect.create(0.0);
-
-          currNode.getInEdges().forSequential(currEdge -> {
-            PgxVertex oppositeNode = currEdge.sourceVertex();
-
-            double weight1 = weight.get(currEdge);
-            double weight2 = destProperty.get(currNode).multiply(destProperty.get(oppositeNode));
-
-            if (weight2 > maxValue) {
-              weight2 = maxValue;
-            } else if (weight2 < minValue) {
-              weight2 = minValue;
-            }
-
-            z.reduceAdd((destProperty.get(oppositeNode).multiply(weight1 - weight2)
-                .subtract(destProperty.get(currNode).multiply(lambda))));
-
-            rootMeanSquareError.reduceAdd((weight1 - weight2) * (weight1 - weight2));
-
-            // use this local procedure instead once GM-12295 get resolved
-            //rootMeanSquareError = updateVector(g, currNode, oppositeNode, currEdge, lambda, maxValue,
-            //    minValue, rootMeanSquareError, weight, vectorLength, Z, destProperty);
-          });
-
-          destPropertyNext.set(currNode, destProperty.get(currNode).add(z.multiply(rate.get())));
+          // use this local procedure instead once GM-12295 get resolved
+          //root_mean_square_error = update_vector(G, curr_node, opposite_node, curr_edge, lambda, max_value,
+          //    min_value, root_mean_square_error, weight, vector_length, Z, dest_property);
         }
-      });
+        curr_node.dest_property_next = curr_node.dest_property + rate * Z;
+      } else {
+        vect<double>[vector_length] Z = 0.0;
 
-      destProperty.setAll(destPropertyNext::get);
-      rootMeanSquareError.set(sqrt(rootMeanSquareError.get() / (g.getNumEdges() * 2.0)));
-      rate.reduceMul(changePerStep);
-      counter++;
+        for (curr_edge: curr_node.inEdges) {
+          node opposite_node = curr_edge.fromNode();
+
+          double weight_1 = curr_edge.weight;
+          double weight_2 = curr_node.dest_property * opposite_node.dest_property;
+
+          if (weight_2 > max_value) {
+            weight_2 = max_value;
+          } else if (weight_2 < min_value) {
+            weight_2 = min_value;
+          }
+
+          Z += ((weight_1 - weight_2) * opposite_node.dest_property - lambda * curr_node.dest_property);
+
+          root_mean_square_error += (weight_1 - weight_2) * (weight_1 - weight_2);
+
+          // use this local procedure instead once GM-12295 get resolved
+          //root_mean_square_error = update_vector(G, curr_node, opposite_node, curr_edge, lambda, max_value,
+          //    min_value, root_mean_square_error, weight, vector_length, Z, dest_property);
+        }
+        curr_node.dest_property_next = curr_node.dest_property + rate * Z;
+      }
     }
-    return rootMeanSquareError.get();
+    G.dest_property = _.dest_property_next;
+    root_mean_square_error = sqrt(root_mean_square_error / (G.numEdges() * 2.0));
+    rate *= change_per_step;
+    counter++;
+  }
+  return root_mean_square_error;
+}
+
+local update_vector(graph G, node curr_node, node opposite_node, edge curr_edge, double lambda, double max_value,
+    double min_value, double root_mean_square_error, edgeProp<double> weight, int vector_length;
+    vect<double>[vector_length] Z, vertexProp<vect<double>[vector_length]> dest_property) : double {
+
+  double weight_1 = curr_edge.weight;
+  double weight_2 = curr_node.dest_property * opposite_node.dest_property;
+
+  if (weight_2 > max_value) {
+    weight_2 = max_value;
+  } else if (weight_2 < min_value) {
+    weight_2 = min_value;
   }
 
-  private double updateVector(PgxGraph g, PgxVertex currNode, PgxVertex oppositeNode, PgxEdge currEdge, double lambda,
-      double maxValue, double minValue, double rootMeanSquareError, EdgeProperty<Double> weight, int vectorLength,
-      @Out @Length("vectorLength") PgxVect<Double> z,
-      VertexProperty<@Length("vectorLength") PgxVect<Double>> destProperty) {
+  Z += (weight_1 - weight_2) * opposite_node.dest_property - lambda * curr_node.dest_property;
 
-    double weight1 = weight.get(currEdge);
-    double weight2 = destProperty.get(currNode).multiply(destProperty.get(oppositeNode));
-
-    if (weight2 > maxValue) {
-      weight2 = maxValue;
-    } else if (weight2 < minValue) {
-      weight2 = minValue;
-    }
-
-    z.reduceAdd(destProperty.get(oppositeNode).multiply(weight1 - weight2)
-        .subtract(destProperty.get(currNode).multiply(lambda)));
-
-    return rootMeanSquareError + (weight1 - weight2) * (weight1 - weight2);
-  }
+  return root_mean_square_error + (weight_1 - weight_2) * (weight_1 - weight_2);
 }
 ```

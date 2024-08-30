@@ -5,11 +5,10 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V + E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-)
-  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#findCycle-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.VertexSequence-oracle.pgx.api.EdgeSequence-)
+  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_)
+  - [Analyst#findCycle(PgxGraph graph, PgxVertex<ID> src, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
 
 This implementation tries to find a cycle in a directed graph using the given vertex as starting point for the DFS traversal and will return the first cycle found, if there is one. In such case, the vertices and edges involved in the cycle will be returned in the order of visit. Restricting the DFS traversal to a single starting point means that some parts of the graph may not get explored.
-
 
 ## Signature
 
@@ -31,7 +30,7 @@ This implementation tries to find a cycle in a directed graph using the given ve
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -62,7 +61,7 @@ public class FindCycleFromNode {
     inDFS(g, s).navigator(v -> !foundCycle.get()).filter(v -> v.getDegree() > 0).forward(v -> {
       inPath.set(v, true);
 
-      v.getNeighbors().forEach(w -> {
+      v.getOutNeighbors().forEach(w -> {
         source.set(w, v);
         if (inPath.get(w)) {
           foundCycle.set(true);

@@ -1,15 +1,14 @@
-# Bidirectional Dijkstra Algorithm
+# Bidirectional Dijkstra Algorithm (ignoring edge directions)
 
 - **Category:** path finding
 - **Algorithm ID:** pgx_builtin_p2_single_source_single_destination_bidirectional_dijkstra
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(10 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-)
-  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Dijkstra's algorithm searches for shortest path in two ways, it does a forward search from the source vertex and a backwards one from the destination vertex. If the path between the vertices exists, both searches will meet each other at an intermediate point.
-
 
 ## Signature
 
@@ -33,7 +32,7 @@ This variant of the Dijkstra's algorithm searches for shortest path in two ways,
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -103,18 +102,16 @@ public class BidirectionalDijkstra {
         }
 
         double fdist = fCost.get(fnext);
-        fnext.getNeighbors().filter(v -> !fFinalized.get(v)).forSequential(v -> {
+        fnext.getOutNeighbors().filter(v -> !fFinalized.get(v)).forSequential(v -> {
           PgxEdge e = v.edge();
-          if (fdist + weight.get(e) + curminhCost.get() <= minCost) {
-            if (fCost.get(v) > fdist + weight.get(e)) {
-              fCost.set(v, fdist + weight.get(e));
-              fReachable.set(v, fCost.get(v));
-              parent.set(v, fnext);
-              parentEdge.set(v, e);
-              if (hCost.get(v) != POSITIVE_INFINITY) {
-                double newCost = fCost.get(v) + hCost.get(v);
-                updateMinValue(minCost, newCost).andUpdate(mid, v);
-              }
+          if (fdist + weight.get(e) + curminhCost.get() <= minCost && fCost.get(v) > fdist + weight.get(e)) {
+            fCost.set(v, fdist + weight.get(e));
+            fReachable.set(v, fCost.get(v));
+            parent.set(v, fnext);
+            parentEdge.set(v, e);
+            if (hCost.get(v) != POSITIVE_INFINITY) {
+              double newCost = fCost.get(v) + hCost.get(v);
+              updateMinValue(minCost, newCost).andUpdate(mid, v);
             }
           }
         });
@@ -130,16 +127,14 @@ public class BidirectionalDijkstra {
         double rdist = hCost.get(rnext);
         rnext.getInNeighbors().filter(v -> !rFinalized.get(v)).forSequential(v -> {
           PgxEdge e = v.edge();
-          if (rdist + weight.get(e) + curminfCost.get() <= minCost) {
-            if (hCost.get(v) > rdist + weight.get(e)) {
-              hCost.set(v, rdist + weight.get(e));
-              rReachable.set(v, hCost.get(v));
-              rParent.set(v, rnext);
-              rParentEdge.set(v, e);
-              if (fCost.get(v) != POSITIVE_INFINITY) {
-                double newCost = fCost.get(v) + hCost.get(v);
-                updateMinValue(minCost, newCost).andUpdate(mid, v);
-              }
+          if (rdist + weight.get(e) + curminfCost.get() <= minCost && hCost.get(v) > rdist + weight.get(e)) {
+            hCost.set(v, rdist + weight.get(e));
+            rReachable.set(v, hCost.get(v));
+            rParent.set(v, rnext);
+            rParentEdge.set(v, e);
+            if (fCost.get(v) != POSITIVE_INFINITY) {
+              double newCost = fCost.get(v) + hCost.get(v);
+              updateMinValue(minCost, newCost).andUpdate(mid, v);
             }
           }
         });

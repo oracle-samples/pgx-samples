@@ -4,12 +4,11 @@
 - **Algorithm ID:** pgx_builtin_p1b_single_source_single_destination_filtered_dijkstra
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-)
-  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/22.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra-oracle.pgx.api.PgxGraph-oracle.pgx.api.PgxVertex-oracle.pgx.api.PgxVertex-oracle.pgx.api.EdgeProperty-oracle.pgx.api.filter.GraphFilter-oracle.pgx.api.VertexProperty-oracle.pgx.api.VertexProperty-)
+- **Javadoc:**
+  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Dijkstra's algorithm tries to find the shortest path while also taking into account a filter expression, which will add restrictions over the potential edges when looking for the shortest path between the source and destination vertices.
-
 
 ## Signature
 
@@ -34,7 +33,7 @@ This variant of the Dijkstra's algorithm tries to find the shortest path while a
 
 ```java
 /*
- * Copyright (C) 2013 - 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
@@ -76,41 +75,28 @@ public class DijkstraFiltered {
     // look up the vertex
     //-------------------------------
     boolean found = false;
-    boolean failed = false;
 
-    while (!found && !failed) {
-      if (reachable.size() == 0) {
-        failed = true;
+    while (!found && reachable.size() > 0) {
+      PgxVertex next = reachable.getKeyForMinValue();
+      if (next == dest) {
+        found = true;
       } else {
-        PgxVertex next = reachable.getKeyForMinValue();
-        if (next == dest) {
-          found = true;
-        } else {
-          reached.set(next, true);
-          double dist = reachable.get(next);
-          reachable.remove(next);
-
-          next.getNeighbors().filter(v -> !reached.get(v)).forSequential(v -> {
-            PgxEdge e = v.edge();
-
-            if (filter.evaluate(e)) {
-              if (!reachable.containsKey(v)) {
-                reachable.set(v, dist + weight.get(e));
-                parent.set(v, next);
-                parentEdge.set(v, e);
-              } else if (reachable.get(v) > dist + weight.get(e)) {
-                reachable.set(v, dist + weight.get(e));
-                parent.set(v, next);
-                parentEdge.set(v, e);
-              }
-            }
-          });
-        }
+        reached.set(next, true);
+        double dist = reachable.get(next);
+        reachable.remove(next);
+        next.getOutNeighbors().filter(v -> !reached.get(v) && filter.evaluate(v.edge())).forSequential(v -> {
+          PgxEdge e = v.edge();
+          if (!reachable.containsKey(v) || reachable.get(v) > dist + weight.get(e)) {
+            reachable.set(v, dist + weight.get(e));
+            parent.set(v, next);
+            parentEdge.set(v, e);
+          }
+        });
       }
     }
 
     // return false if not reachable
-    return !failed;
+    return found;
   }
 }
 ```
