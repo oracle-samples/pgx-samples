@@ -27,12 +27,13 @@ const styles = {
 };
 
 const expand = async (ids) => {
+  ids = encodeURI(ids)
   return fetch('/hr/neighbors?ids=' + ids).then((response) => {
     return response.json();
   }).then((json) => {
     return {
       ...visualization.data,
-      ...json.graph
+      ...json
     }
   });
 };
@@ -82,7 +83,7 @@ queryBtn.onclick = () => {
   }).then((json) => {
     vizSection.style.display = 'block';
     queryBtn.disabled = false;
-    visualization.data = json.graph;
+    visualization.data = json;
   });
 };
 

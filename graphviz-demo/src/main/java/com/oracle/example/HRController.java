@@ -1,7 +1,5 @@
 package com.oracle.example;
 
-import javax.security.auth.login.LoginException;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -32,19 +30,26 @@ public class HRController {
 
   @Get("/directs")
   @Produces(MediaType.APPLICATION_JSON)
-  public String getDirects(@QueryValue String email) throws LoginException {
-    String pgql = "select e from match ()-[e]->(x:employees) on MYHR where x.email = '" + email + "'";
-    log.info("running {}", pgql);
-    return graphClient.query(pgql);
+  public String getDirects(@QueryValue String email) throws Exception {
+    String query = "SELECT * FROM GRAPH_TABLE(\n"
+        + "MYHR\n"
+        + "MATCH (m)-[e]->(n IS employees WHERE n.email =''' || ? ||''')\n"
+        + "COLUMNS (vertex_id(m) as m_id, edge_id(e) as e_id, vertex_id(n) as n_id)\n"
+        + ")";
+    return graphClient.query(query, email);
   }
 
   @Get("/neighbors")
   @Produces(MediaType.APPLICATION_JSON)
-  public String getNeighbors(@QueryValue String ids) throws LoginException {
+  public String getNeighbors(@QueryValue String ids) throws Exception {
     ids = Arrays.stream(ids.split(",")).map(String::trim).collect(Collectors.joining("','"));
-    String pgql = "select e from match (x) -[e]-> () on MYHR where id(x) in ('" + ids + "')";
-    log.info("running {}", pgql);
-    return graphClient.query(pgql);
+    String query = "SELECT * FROM GRAPH_TABLE(\n"
+        + "MYHR\n"
+        + "MATCH (m)-[e]->(n)\n"
+        + "WHERE JSON_value(vertex_id(m), ''$.ELEM_TABLE'') || json_query(vertex_id(m), ''$.KEY_VALUE'' returning varchar2) in (''' || ? || ''') \n"
+        + "COLUMNS (vertex_id(m) as m_id, edge_id(e) as e_id, vertex_id(n) as n_id)\n"
+        + ")";
+    return graphClient.query(query, ids);
   }
 
   @Error(global = true)

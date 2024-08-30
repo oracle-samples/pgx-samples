@@ -1,9 +1,5 @@
 package com.oracle.scripts;
 
-import oracle.pg.rdbms.pgql.PgqlConnection;
-import oracle.pg.rdbms.pgql.PgqlStatement;
-import oracle.pg.rdbms.pgql.PgqlToSqlException;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,15 +34,15 @@ public class RunDropScripts {
     return property;
   }
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception { 
+    dropHrPg();
     dropHrTables();
-    dropHrPgView();
   }
 
   private static void dropHrTables() throws Exception  {
     try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
       StringBuilder buffer = new StringBuilder();
-      InputStream is = RunDropScripts.class.getResourceAsStream("/pgview_dataset/drop_hr.sql");
+      InputStream is = RunDropScripts.class.getResourceAsStream("/dataset_property_graph/drop_hr.sql");
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
       String line;
       while ((line = bufferedReader.readLine()) != null) {
@@ -68,20 +64,14 @@ public class RunDropScripts {
     }
   }
 
-  private static void dropHrPgView() throws Exception {
+  private static void dropHrPg() throws Exception {
     try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD)) {
-      conn.setAutoCommit(false);
-      PgqlConnection pgqlConnection = PgqlConnection.getConnection(conn);
-      try (PgqlStatement statement = pgqlConnection.createStatement()) {
-        String dropPgql = "DROP PROPERTY GRAPH MYHR";
-        statement.execute(dropPgql);
-        LOG.info("Dropping test data || {}", dropPgql);
-      } catch (PgqlToSqlException e) {
-        if (e.getMessage().contains("does not exist")) {
-          LOG.info("MYHR Graph does not exists.");
-        } else {
-          throw e;
-        }
+      String dropPg = "DROP PROPERTY GRAPH MYHR";
+      LOG.info("Dropping test data || {}", dropPg);
+      try {
+        conn.createStatement().execute(dropPg);
+      } catch (SQLException e) {
+        LOG.info(e.getMessage());
       }
     }
   }
