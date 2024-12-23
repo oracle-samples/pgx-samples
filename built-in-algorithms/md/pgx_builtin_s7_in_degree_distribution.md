@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#inDegreeDistribution(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeDistribution_oracle_pgx_api_PgxGraph_)
-  - [Analyst#inDegreeDistribution(PgxGraph graph, PgxMap<java.lang.Integer,java.lang.Long> distribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#inDegreeDistribution_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_)
+  - [Analyst#inDegreeDistribution(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#inDegreeDistribution_oracle_pgx_api_PgxGraph_)
+  - [Analyst#inDegreeDistribution(PgxGraph graph, PgxMap<java.lang.Integer,java.lang.Long> distribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#inDegreeDistribution_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_)
 
 This version of the degree distribution will return a map with the distribution of the in-degree (i.e. just incoming edges) of the graph. For undirected graphs the algorithm will consider all the edges (incoming and outgoing) for the distribution.
 

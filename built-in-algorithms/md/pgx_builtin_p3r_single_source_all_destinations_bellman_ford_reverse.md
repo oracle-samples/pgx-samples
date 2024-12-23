@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(6 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathBellmanFordReverse(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFordReverse_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#shortestPathBellmanFordReverse(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​java.lang.Double> distance, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFordReverse_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathBellmanFordReverse(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFordReverse_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#shortestPathBellmanFordReverse(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​java.lang.Double> distance, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFordReverse_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Bellman-Ford algorithm tries to find the shortest path (if there is one) between the given source and destination vertices in a reversed fashion using the incoming edges instead of the outgoing, while minimizing the distance or cost associated to each edge in the graph.
 

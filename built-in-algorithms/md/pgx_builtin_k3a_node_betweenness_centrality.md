@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#vertexBetweennessCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#vertexBetweennessCentrality_oracle_pgx_api_PgxGraph_)
-  - [Analyst#vertexBetweennessCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#vertexBetweennessCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#vertexBetweennessCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#vertexBetweennessCentrality_oracle_pgx_api_PgxGraph_)
+  - [Analyst#vertexBetweennessCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#vertexBetweennessCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 The Betweenness Centrality of a vertex V in a graph is the sum of the fraction of shortest paths that pass through V from all the possible shortest paths connecting every possible pair of vertices S, T in the graph, such that V is different from S and T. Because of its definition, the algorithm is meant for connected graphs.
 

@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(10 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#shortestPathDijkstraBidirectional(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstraBidirectional_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Dijkstra's algorithm searches for shortest path in two ways, it does a forward search from the source vertex and a backwards one from the destination vertex. If the path between the vertices exists, both searches will meet each other at an intermediate point.
 
@@ -48,6 +48,7 @@ import oracle.pgx.algorithm.annotations.Out;
 
 import static oracle.pgx.algorithm.Reduction.updateMinValue;
 import static java.lang.Double.POSITIVE_INFINITY;
+import oracle.pgx.algorithm.ControlFlow;
 
 @GraphAlgorithm
 public class BidirectionalDijkstra {
@@ -58,6 +59,11 @@ public class BidirectionalDijkstra {
     } else if (src == dst) {
       return true;
     }
+
+    long bidirectionalSearchLoop = g.getNumVertices();
+    long updatePathLoop = g.getNumVertices();
+    long numberOfStepsEstimatedForCompletion = bidirectionalSearchLoop + UpdatePathLoop;
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
 
     // Temporary data structures
     VertexProperty<PgxVertex> rParent = VertexProperty.create();
@@ -91,6 +97,8 @@ public class BidirectionalDijkstra {
     double minUnitCost = 0.0; // This value is 1 for int version
     PgxVertex mid = PgxVertex.NONE;
     boolean terminate = false;
+
+    // Bidirectional search loop
     while (!terminate && (fReachable.size() != 0) && (rReachable.size() != 0)) {
       if (fReachable.size() <= rReachable.size()) {
         PgxVertex fnext = fReachable.getKeyForMinValue();

@@ -1,6 +1,6 @@
 # Built-In Algorithms
 
-PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
+PGX includes a wide selection of optimized graph algorithms that can be invoked through the [Analyst](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html). The following list provides the links to the detail pages of the available algorithms, grouped by category.
 
 - Classic graph algorithms
   - [Prim's Algorithm](./md/pgx_builtin_a1_prim.md)

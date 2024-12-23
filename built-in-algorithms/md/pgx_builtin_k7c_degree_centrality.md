@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#degreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#degreeCentrality_oracle_pgx_api_PgxGraph_)
-  - [Analyst#degreeCentrality(PgxGraph graph, VertexProperty<ID,​java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#degreeCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#degreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#degreeCentrality_oracle_pgx_api_PgxGraph_)
+  - [Analyst#degreeCentrality(PgxGraph graph, VertexProperty<ID,​java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#degreeCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 Degree centrality counts the number of outgoing and incoming edges for each vertex in the graph.
 

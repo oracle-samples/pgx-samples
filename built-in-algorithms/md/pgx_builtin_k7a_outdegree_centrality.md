@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#outDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality_oracle_pgx_api_PgxGraph_)
-  - [Analyst#outDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#outDegreeCentrality(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality_oracle_pgx_api_PgxGraph_)
+  - [Analyst#outDegreeCentrality(PgxGraph graph, VertexProperty<ID,java.lang.Integer> dc)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#outDegreeCentrality_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 Out-Degree centrality returns the sum of the number of outgoing edges for each vertex in the graph.
 

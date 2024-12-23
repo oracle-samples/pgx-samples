@@ -4,14 +4,13 @@
 - **Algorithm ID:** pgx_builtin_s9_kcore
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(3 * V) with V = number of vertices
-- **Javadoc:** 
-  - [Analyst#kcore(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_)
-  - [Analyst#kcore(PgxGraph graph, int minCore, int maxCore)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_int_int_)
-  - [Analyst#kcore(PgxGraph graph, int minCore, int maxCore, Scalar<java.lang.Long> maxKCore, VertexProperty<ID,java.lang.Long> kcore)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_int_int_oracle_pgx_api_Scalar_oracle_pgx_api_VertexProperty_)
-  - [Analyst#kcore(PgxGraph graph, Scalar<java.lang.Long> maxKCore, VertexProperty<ID,java.lang.Long> kcore)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_oracle_pgx_api_Scalar_oracle_pgx_api_VertexProperty_)
+- **Javadoc:**
+  - [Analyst#kcore(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_)
+  - [Analyst#kcore(PgxGraph graph, int minCore, int maxCore)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_int_int_)
+  - [Analyst#kcore(PgxGraph graph, int minCore, int maxCore, Scalar<java.lang.Long> maxKCore, VertexProperty<ID,java.lang.Long> kcore)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_int_int_oracle_pgx_api_Scalar_oracle_pgx_api_VertexProperty_)
+  - [Analyst#kcore(PgxGraph graph, Scalar<java.lang.Long> maxKCore, VertexProperty<ID,java.lang.Long> kcore)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#kcore_oracle_pgx_api_PgxGraph_oracle_pgx_api_Scalar_oracle_pgx_api_VertexProperty_)
 
 A k-core is a maximal subgraph in which all of its vertices are connected and have the property that all of them have a degree of at least k. The k-cores can be regarded as layers in a graph, since a (k+1)-core will always be a subgraph of a k-core. This means that the larger k becomes, the smaller its k-core (i.e. its corresponding subgraph) will be. The k-core value (or coreness) assigned to a vertex will correspond to the core with the greatest degree from all the cores where it belongs. This implementation of k-core will look for cores lying within the interval set by the min_core and max_core input variables.
-
 
 ## Signature
 

@@ -4,9 +4,9 @@
 - **Algorithm ID:** pgx_builtin_s2_adamic_adar_counting
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(E) with E = number of edges
-- **Javadoc:** 
-  - [Analyst#adamicAdarCounting(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_)
-  - [Analyst#adamicAdarCounting(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
+- **Javadoc:**
+  - [Analyst#adamicAdarCounting(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_)
+  - [Analyst#adamicAdarCounting(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCounting_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
 
 The Adamic-Adar index is meant for undirected graphs, since it is computed using the degree of the shared neighbors by two vertices in the graph. This implementation computes the index for every pair of vertices connected by an edge and associates it with that edge.
 
