@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_)
-  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathFilteredDijkstra(PgxGraph graph, ID srcId, ID dstId, EdgeProperty<java.lang.Double> cost, GraphFilter filterExpr)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathFilteredDijkstra_oracle_pgx_api_PgxGraph_ID_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_filter_GraphFilter_)
+  - [Analyst#shortestPathDijkstra(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathDijkstra_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 This variant of the Dijkstra's algorithm tries to find the shortest path while also taking into account a filter expression, which will add restrictions over the potential edges when looking for the shortest path between the source and destination vertices.
 
@@ -46,6 +46,7 @@ import oracle.pgx.algorithm.VertexProperty;
 import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
 import oracle.pgx.algorithm.filter.EdgeFilter;
+import oracle.pgx.algorithm.ControlFlow;
 
 @GraphAlgorithm
 public class DijkstraFiltered {
@@ -54,6 +55,9 @@ public class DijkstraFiltered {
     if (g.getNumVertices() == 0) {
       return false;
     }
+
+    long searchAndUpdateLoop = g.getNumVertices();
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(searchAndUpdateLoop);
 
     VertexProperty<Boolean> reached = VertexProperty.create();
 
@@ -76,6 +80,7 @@ public class DijkstraFiltered {
     //-------------------------------
     boolean found = false;
 
+    // Search and updating loop
     while (!found && reachable.size() > 0) {
       PgxVertex next = reachable.getKeyForMinValue();
       if (next == dest) {

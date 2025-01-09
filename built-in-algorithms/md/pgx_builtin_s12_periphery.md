@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#periphery(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#periphery_oracle_pgx_api_PgxGraph_)
-  - [Analyst#periphery(PgxGraph graph, VertexSet<ID> periphery)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#periphery_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_)
+  - [Analyst#periphery(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#periphery_oracle_pgx_api_PgxGraph_)
+  - [Analyst#periphery(PgxGraph graph, VertexSet<ID> periphery)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#periphery_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexSet_)
 
 The periphery of a graph is the set of vertices that have an eccentricity value equal to the diameter of the graph. Similarly, the center is comprised by the set of vertices with eccentricity equal to the radius of the graph. The diameter of a graph is the maximal value of eccentricity of all the vertices in the graph, while the radius is the minimum graph eccentricity. The eccentricity of a vertex is the maximum distance via shortest paths to any other vertex in the graph. This algorithm will return the set of vertices from the periphery or the center of the graph, depending on the request. The algorithm will return a set with all the vertices for graphs with more than one strongly connected component.
 

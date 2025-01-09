@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_)
-  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_)
+  - [Analyst#shortestPathHopDistReverse(PgxGraph graph, PgxVertex<ID> src, VertexProperty<ID,java.lang.Double> distance, VertexProperty<ID,PgxVertex<ID>> parent, VertexProperty<ID,PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#shortestPathHopDistReverse_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 The Hop distance of two vertices S and V in a graph is the number of edges that are in a shortest path connecting them. This algorithm will return the distance of each node with respect to the given source node in the input and will also return the parent node and linking edge for each node. The returned information allows to trace back shortest paths from any reachable node to the source node.
 
@@ -45,6 +45,7 @@ import oracle.pgx.algorithm.annotations.Out;
 import static oracle.pgx.algorithm.Traversal.Direction.IN_EDGES;
 import static oracle.pgx.algorithm.Traversal.currentLevel;
 import static oracle.pgx.algorithm.Traversal.inBFS;
+import oracle.pgx.algorithm.ControlFlow;
 
 @GraphAlgorithm
 public class HopDistanceBackward {
@@ -54,6 +55,10 @@ public class HopDistanceBackward {
       return;
     }
 
+    long initializations = 3 * g.getNumVertices();
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(initializations);
+
+    // Initializations
     dist.setAll(Double.POSITIVE_INFINITY);
     prev.setAll(PgxVertex.NONE);
     prevEdge.setAll(PgxEdge.NONE);

@@ -5,7 +5,7 @@
 - **Time Complexity:** O(E ^ 1.5) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#countTrianglesAsync(PgxGraph graph, boolean sortVerticesByDegree)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#countTrianglesAsync_oracle_pgx_api_PgxGraph_boolean_)
+  - [Analyst#countTrianglesAsync(PgxGraph graph, boolean sortVerticesByDegree)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#countTrianglesAsync_oracle_pgx_api_PgxGraph_boolean_)
 
 This algorithm is intended for undirected graphs and will count all the existing triangles on it. If the graph is a directed one, the algorithm will not count correctly the triangles in it.
 

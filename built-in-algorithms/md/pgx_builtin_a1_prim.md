@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(2 * E + V) with V = number of vertices, E = number of edges
 - **Javadoc:**
-  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight, EdgeProperty<java.lang.Boolean> mst)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#prim(PgxGraph graph, EdgeProperty<java.lang.Double> weight, EdgeProperty<java.lang.Boolean> mst)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#prim_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_EdgeProperty_)
 
 This implementation of Prim's algorithm works on undirected graphs that are connected and have no multi-edges (i.e. more than one edge connecting the same pair of vertices). The algorithm computes the minimum spanning tree (MST) of the graph using the weights associated to each edge. A minimum spanning tree is a subset of the edges that connects all the vertices in the graph such that it minimizes the total weight associated to the edges.
 

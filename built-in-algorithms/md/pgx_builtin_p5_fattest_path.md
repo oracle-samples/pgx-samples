@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E + V log V) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(4 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#fattestPath_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_)
-  - [PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity, VertexProperty<ID,​java.lang.Double> distance, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#fattestPath_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#fattestPath(PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#fattestPath_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_)
+  - [PgxGraph graph, PgxVertex<ID> root, EdgeProperty<java.lang.Double> capacity, VertexProperty<ID,​java.lang.Double> distance, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#fattestPath_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
 
 The Fattest path algorithm can be regarded as a variant of Dijkstra's algorithm, it tries to find the fattest path between the given source and all the reachable vertices in the graph. The fatness of a path is equal to the minimum value of the capacity from the edges that take part in the path, thus a fattest path is conformed by the edges with the largest possible capacity.
 
@@ -46,6 +46,7 @@ import oracle.pgx.algorithm.annotations.GraphAlgorithm;
 import oracle.pgx.algorithm.annotations.Out;
 
 import static java.lang.Double.POSITIVE_INFINITY;
+import oracle.pgx.algorithm.ControlFlow;
 
 @GraphAlgorithm
 public class FattestPath {
@@ -55,6 +56,9 @@ public class FattestPath {
     if (g.getNumVertices() == 0) {
       return;
     }
+
+    long updatingLoop = g.getNumVertices();
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(updatingLoop);
 
     // sequentially initialize, otherwise compiler flags this algorithm as parallel in nature
     g.getVertices().forSequential(n -> {
@@ -69,6 +73,7 @@ public class FattestPath {
     PgxMap<PgxVertex, Double> q = PgxMap.create();
     q.set(root, POSITIVE_INFINITY);
 
+    // Updating loop
     while (q.size() > 0) {
       PgxVertex u = q.getKeyForMaxValue();
       q.remove(u);

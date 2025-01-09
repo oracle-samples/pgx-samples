@@ -5,12 +5,12 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#articleRank(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_)
-  - [Analyst#articleRank(PgxGraph graph, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_boolean_)
-  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_)
-  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_boolean_)
-  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, boolean norm, VertexProperty rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_boolean_oracle_pgx_api_VertexProperty_)
-  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, VertexProperty rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_VertexProperty_)
+  - [Analyst#articleRank(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_)
+  - [Analyst#articleRank(PgxGraph graph, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_boolean_)
+  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_)
+  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, boolean norm)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_boolean_)
+  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, boolean norm, VertexProperty rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_boolean_oracle_pgx_api_VertexProperty_)
+  - [Analyst#articleRank(PgxGraph graph, double e, double d, int max, VertexProperty rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#articleRank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_VertexProperty_)
 
 ArticleRank is a variant of the PageRank algorithm and operates in a similar way. It computes the ranking score for the vertices by analyzing the incoming edges, while reducing the assumption that relationships with nodes that have a low out-degree are of higher importance.
 

@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#closenessCentralityUnitLength(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#closenessCentralityUnitLength_oracle_pgx_api_PgxGraph_)
-  - [Analyst#closenessCentralityUnitLength(PgxGraph graph, VertexProperty<ID,java.lang.Double> cc)](https://docs.oracle.com/en/database/oracle/property-graph/24.3/spgjv/oracle/pgx/api/Analyst.html#closenessCentralityUnitLength_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#closenessCentralityUnitLength(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#closenessCentralityUnitLength_oracle_pgx_api_PgxGraph_)
+  - [Analyst#closenessCentralityUnitLength(PgxGraph graph, VertexProperty<ID,java.lang.Double> cc)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#closenessCentralityUnitLength_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 The Closeness Centrality of a node V is the reciprocal of the sum of all the distances from the possible shortest paths starting from V. Thus the higher the centrality value of V, the closer it is to all the other vertices in the graph.
 
