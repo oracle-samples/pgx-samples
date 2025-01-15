@@ -5,10 +5,10 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#pagerankApproximate(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_)
-  - [Analyst#pagerankApproximate(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_double_double_int_)
-  - [Analyst#pagerankApproximate(PgxGraph graph, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_VertexProperty_)
-  - [Analyst#pagerankApproximate(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#pagerankApproximate(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_)
+  - [Analyst#pagerankApproximate(PgxGraph graph, double e, double d, int max)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_double_double_int_)
+  - [Analyst#pagerankApproximate(PgxGraph graph, double e, double d, int max, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_VertexProperty_)
+  - [Analyst#pagerankApproximate(PgxGraph graph, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#pagerankApproximate_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 This variant of the PageRank algorithm computes the ranking scores for the vertices in similar way to the classic algorithm without normalization and with a more relaxed convergence criteria, since the tolerated error value is compared against each single vertex in the graph, instead of looking at the cumulative vertex error. Thus this variant will converge faster than the classic algorithm, but the ranking values might not be as accurate as in the classic implementation.
 
@@ -33,7 +33,7 @@ This variant of the PageRank algorithm computes the ranking scores for the verti
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

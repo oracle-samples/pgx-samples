@@ -4,9 +4,9 @@
 - **Algorithm ID:** pgx_builtin_s2d_adamic_adar_counting
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(E) with E = number of edges
-- **Javadoc:** 
-  - [Analyst#adamicAdarCountingAsync(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCountingAsync_oracle_pgx_api_PgxGraph_)
-  - [Analyst#adamicAdarCountingAsync(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCountingAsync_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
+- **Javadoc:**
+  - [Analyst#adamicAdarCountingAsync(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCountingAsync_oracle_pgx_api_PgxGraph_)
+  - [Analyst#adamicAdarCountingAsync(PgxGraph graph, EdgeProperty<java.lang.Double> aa)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#adamicAdarCountingAsync_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
 
 The Adamic-Adar index is meant for undirected graphs, since it is computed using the degree of the shared neighbors by two vertices in the graph. This implementation is intended for directed graphs but ignores edge direction to interpret the graph as undirected. It computes the index for every pair of vertices connected by an edge and associates it with that edge.
 
@@ -28,7 +28,7 @@ The Adamic-Adar index is meant for undirected graphs, since it is computed using
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
