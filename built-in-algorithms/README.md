@@ -13,7 +13,7 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Louvain (directed)](./md/pgx_builtin_c4b_louvain_directed.md)
   - [Speaker Listener Label Propagation](./md/pgx_builtin_c5_speaker_listener_label_propagation.md)
   - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5b_filtered_speaker_listener_label_propagation.md)
-  - [Filtered Speaker Listener Label Propagation](./md/pgx_builtin_c5c_filtered_weighted_speaker_listener_label_propagation.md)
+  - [Filtered Weighted Speaker Listener Label Propagation](./md/pgx_builtin_c5c_filtered_weighted_speaker_listener_label_propagation.md)
   - [Weighted Speaker Listener Label Propagation](./md/pgx_builtin_c6_weighted_speaker_listener_label_propagation.md)
 - Connected components
   - [Strongly Connected Components (SCC) via Kosaraju's algorithm](./md/pgx_builtin_g2a_strongly_connected_components_kosaraju.md)
@@ -26,7 +26,6 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Estimate Rating](./md/pgx_builtin_r2b_matrix_factorization_recommendations.md)
 - Path finding
   - [All Vertices and Edges on Filtered Path](./md/pgx_builtin_o10_all_reachable_vertices_edges.md)
-  - [All Vertices and Edges on Filtered Path](./md/pgx_builtin_o11_all_reachable_vertices_edges_filtered.md)
   - [Enumerate Simple Paths](./md/pgx_builtin_o12_enumerate_simple_paths.md)
   - [Compute High-Degree Vertices](./md/pgx_builtin_o6_compute_supernodes.md)
   - [Compute Distance Index](./md/pgx_builtin_o7_compute_distance_index.md)
@@ -36,6 +35,7 @@ PGX includes a wide selection of optimized graph algorithms that can be invoked 
   - [Classic Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p1au_single_source_single_destination_dijkstra_undirected.md)
   - [Filtered Dijkstra Algorithm](./md/pgx_builtin_p1b_single_source_single_destination_filtered_dijkstra.md)
   - [Filtered Dijkstra Algorithm (ignoring edge directions)](./md/pgx_builtin_p1bu_single_source_destination_filtered_dijkstra_undirected.md)
+  - [Dijkstra Multi-Destination Algorithm](/.md/pgx_builtin_p1c_single_source_all_destinations_dijkstra.md)
   - [Bidirectional Dijkstra Algorithm](./md/pgx_builtin_p2_single_source_single_destination_bidirectional_dijkstra.md)
   - [Bidirectional Filtered Dijkstra Algorithm](./md/pgx_builtin_p2b_single_source_single_destination_filtered_bidirectional_dijkstra.md)
   - [Bidirectional Filtered Dijkstra Algorithm](./md/pgx_builtin_p2bu_single_source_single_destination_filtered_bidirectional_dijkstra_undirected.md)
