@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * (V + E)) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(5 * V + E) with V = number of vertices, E = number of edges
 - **Javadoc:** 
-  - [Analyst#findCycle(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_)
-  - [Analyst#findCycle(PgxGraph graph, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
+  - [Analyst#findCycle(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_)
+  - [Analyst#findCycle(PgxGraph graph, VertexSequence<ID> nodeSeq, EdgeSequence edgeSeq)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#findCycle_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
 
 This algorithm tries to find a cycle in a directed graph using DFS traversals and will return the first cycle found, if there is one. In such case, the vertices and edges involved in the cycle will be returned in the order of visit. The algorithm is expensive because it will perform DFS traversals using different vertices as starting points until it explores the whole graph (worst-case scenario), or until it finds a cycle.
 
@@ -29,7 +29,7 @@ This algorithm tries to find a cycle in a directed graph using DFS traversals an
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

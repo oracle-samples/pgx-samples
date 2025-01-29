@@ -1,12 +1,12 @@
-# Classic Bellman-Ford
+# Bellman-Ford Single Destination Algorithm
 
 - **Category:** path finding
-- **Algorithm ID:** pgx_builtin_p3_single_source_all_destinations_bellman_ford
+- **Algorithm ID:** pgx_builtin_p3a_single_source_single_destination_bellman_ford
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(6 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#shortestPathBellmanFord(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#shortestPathBellmanFord(PgxGraph graph, ID srcId, EdgeProperty<java.lang.Double> cost, VertexProperty<ID,​java.lang.Double> distance, VertexProperty<ID,​PgxVertex<ID>> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord_oracle_pgx_api_PgxGraph_ID_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#shortestPathBellmanFordSingleDestination(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFordReverse_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#shortestPathBellmanFordSingleDestination(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, EdgeProperty<java.lang.Double> cost, VertexProperty> parent, VertexProperty<ID,​PgxEdge> parentEdge)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#shortestPathBellmanFord_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexProperty_boolean_)
 
 Bellman-Ford algorithm tries to find the shortest path (if there is one) between the given source and destination vertices, while minimizing the distance or cost associated to each edge in the graph.
 
@@ -17,10 +17,10 @@ Bellman-Ford algorithm tries to find the shortest path (if there is one) between
 | `G` | graph | the graph. |
 | `len` | edgeProp<double> | edge property holding the weight of each edge in the graph. |
 | `root` | node | the source vertex from the graph for the path. |
+| `dest` | node | the destination vertex from the graph for the path. |
 
 | Output Argument | Type | Comment |
 | :--- | :--- | :--- |
-| `dist` | vertexProp<double> | vertex property holding the distance to the source vertex for each vertex in the graph. |
 | `prev` | vertexProp<node> | vertex property holding the parent vertex of the each vertex in the shortest path. |
 | `prev_edge` | vertexProp<edge> | vertex property holding the edge ID linking the current vertex in the path with the previous vertex in the path. |
 
@@ -50,15 +50,29 @@ import static oracle.pgx.algorithm.Reduction.updateMinValue;
 import static java.lang.Double.POSITIVE_INFINITY;
 
 @GraphAlgorithm
-public class BellmanFord {
-  public void bellmanFord(PgxGraph g, EdgeProperty<Double> len, PgxVertex root, @Out VertexProperty<Double> dist,
+public class BellmanFordSingleDestination {
+  public boolean bellmanFordSingleDestination(PgxGraph g, EdgeProperty<Double> len, PgxVertex root, PgxVertex dest,
       @Out VertexProperty<PgxVertex> prev, @Out VertexProperty<PgxEdge> prevEdge) {
+
+    // Temporary properties to track updates and next iteration values
     VertexProperty<Boolean> updated = VertexProperty.create();
     VertexProperty<Boolean> updatedNxt = VertexProperty.create();
+    VertexProperty<Double> dist = VertexProperty.create();
     VertexProperty<Double> distNxt = VertexProperty.create();
     boolean done = false;
+    boolean foundDest = false;
 
-    // initializations
+    long counter = 0;
+
+    long numVertices = g.getNumVertices();
+    long initializations = 6 * numVertices;
+    long searchingStep = numVertices - 1;
+    long updatingStep = 5 * numVertices;
+    long numberOfStepsEstimatedForCompletion = initializations + (searchingStep * updatingStep);
+
+    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
+
+    // Initializations
     dist.setAll(v -> v == root ? 0.0 : POSITIVE_INFINITY);
     updated.setAll(v -> v == root);
     distNxt.setAll(dist::get);
@@ -66,34 +80,29 @@ public class BellmanFord {
     prev.setAll(NONE);
     prevEdge.setAll(PgxEdge.NONE);
 
-    long counter = 0;
-    long numVertices = g.getNumVertices();
-
-    long initializations = 6 * numVertices;
-    long searchLoop = numVertices - 1;
-    long updateStep = 5 * numVertices;
-    long numberOfStepsEstimatedForCompletion = initializations + (searchLoop * updateStep);
-    ControlFlow.setNumberOfStepsEstimatedForCompletion(numberOfStepsEstimatedForCompletion);
-
-    // Search loop
+    // Search Loop
     while (!done && counter < numVertices - 1) {
       g.getVertices().filter(updated).forEach(n -> {
         n.getOutNeighbors().forEach(s -> {
           PgxEdge e = s.edge(); // the edge to s
-          // updatedNxt becomes true only if distNxt is actually updated
-          updateMinValue(s, distNxt, dist.get(n) + len.get(e)).andUpdate(s, updatedNxt, true).andUpdate(s, prev, n)
-              .andUpdate(s, prevEdge, e);
+          updateMinValue(s, distNxt, dist.get(n) + len.get(e))
+            .andUpdate(s, updatedNxt, true)
+            .andUpdate(s, prev, n)
+            .andUpdate(s, prevEdge, e);
         });
       });
-
-      // Update step
       dist.setAll(distNxt::get);
       updated.setAll(updatedNxt::get);
       updatedNxt.setAll(false);
 
+      // Check if any vertices were updated in this iteration
       done = !g.getVertices().anyMatch(updated::get);
       counter++;
     }
+
+    foundDest = dist.get(dest) != POSITIVE_INFINITY;
+
+    return foundDest;
   }
 }
 ```

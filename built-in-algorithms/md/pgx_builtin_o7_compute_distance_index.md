@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= number of high-degree vertices
 - **Space Requirement:** O(V * k) with V = number of vertices
 - **Javadoc:** 
-  - [Analyst#createDistanceIndex(PgxGraph graph, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#createDistanceIndex_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_)
-  - [Analyst#createDistanceIndex(PgxGraph graph, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#createDistanceIndex_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
+  - [Analyst#createDistanceIndex(PgxGraph graph, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#createDistanceIndex_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_)
+  - [Analyst#createDistanceIndex(PgxGraph graph, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#createDistanceIndex_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
 
 Computes an index which contains the distance to the given high-degree vertices for every node in the graph.
 
@@ -31,7 +31,7 @@ Computes an index which contains the distance to the given high-degree vertices 
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

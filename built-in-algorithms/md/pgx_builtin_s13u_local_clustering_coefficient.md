@@ -5,10 +5,10 @@
 - **Time Complexity:** O(V ^ 2) with V = number of vertices
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#localClusteringCoefficient(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_)
-  - [Analyst#localClusteringCoefficient(PgxGraph graph, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_boolean_)
-  - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
-  - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_boolean_)
+  - [Analyst#localClusteringCoefficient(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_)
+  - [Analyst#localClusteringCoefficient(PgxGraph graph, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_boolean_)
+  - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#localClusteringCoefficient(PgxGraph graph, VertexProperty<ID,​java.lang.Double> lcc, boolean ignoreEdgeDirection)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#localClusteringCoefficient_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_boolean_)
 
 The LCC of a vertex V is the fraction of connections between each pair of neighbors of V, i.e. the fraction of existing triangles from all the possible triangles involving V and every other pair of neighbor vertices of V. This implementation is intended for directed graphs and interprets them as undirected. Nodes with a degree smaller than 2 will be assigned a LCC value of 0.
 
@@ -30,7 +30,7 @@ The LCC of a vertex V is the fraction of connections between each pair of neighb
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

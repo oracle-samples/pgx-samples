@@ -5,14 +5,14 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#weightedPagerank(PgxGraph graph, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_boolean_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_boolean_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_boolean_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
-  - [Analyst#weightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
-  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_boolean_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_boolean_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_boolean_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, boolean norm, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_double_double_int_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
+  - [Analyst#weightedPagerank-oracle.pgx.api.PgxGraph-oracle.pgx.api.EdgeProperty-](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_)
+  - [Analyst#weightedPagerank(PgxGraph graph, double e, double d, int max, EdgeProperty<java.lang.Double> weight, VertexProperty<ID,java.lang.Double> rank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#weightedPagerank_oracle_pgx_api_PgxGraph_oracle_pgx_api_EdgeProperty_oracle_pgx_api_VertexProperty_)
 
 The Weighted PageRank works like the original PageRank algorithm, except that it allows for a weight value assigned to each edge. This weight determines the fraction of the PageRank score that will flow from the source vertex through the current edge to its destination vertex.
 
@@ -39,7 +39,7 @@ The Weighted PageRank works like the original PageRank algorithm, except that it
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

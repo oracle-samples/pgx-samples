@@ -5,8 +5,8 @@
 - **Time Complexity:** O(E) with E = number of edges
 - **Space Requirement:** O(V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
-  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
+  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_)
+  - [Analyst#limitedShortestPathHopDist(PgxGraph graph, PgxVertex<ID> src, PgxVertex<ID> dst, int maxHops, PgxMap<java.lang.Integer,​PgxVertex<ID>> highDegreeVertexMapping, VertexSet<ID> highDegreeVertices, VertexProperty<ID,​PgxVect<java.lang.Integer>> index, VertexSequence<ID> pathVertices, EdgeSequence pathEdges)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#limitedShortestPathHopDist_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex_oracle_pgx_api_PgxVertex_int_oracle_pgx_api_PgxMap_oracle_pgx_api_VertexSet_oracle_pgx_api_VertexProperty_oracle_pgx_api_VertexSequence_oracle_pgx_api_EdgeSequence_)
 
 Computes the shortest path between the source and destination vertex. The algorithm only considers paths up to a length of k.
 
@@ -36,7 +36,7 @@ Computes the shortest path between the source and destination vertex. The algori
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

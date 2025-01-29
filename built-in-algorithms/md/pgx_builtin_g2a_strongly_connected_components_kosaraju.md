@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V + E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#sccKosaraju(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#sccKosaraju_oracle_pgx_api_PgxGraph_)
-  - [Analyst#sccKosaraju(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#sccKosaraju_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#sccKosaraju(PgxGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#sccKosaraju_oracle_pgx_api_PgxGraph_)
+  - [Analyst#sccKosaraju(PgxGraph graph, VertexProperty<ID,java.lang.Long> partitionDistribution)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#sccKosaraju_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_)
 
 Kosaraju's algorithm works on directed graphs for finding strongly connected components (SCC). A SCC is a maximal subset of vertices of the graph with the particular characteristic that every vertex in the SCC can be reachable from any other other vertex in the SCC.
 
@@ -28,7 +28,7 @@ Kosaraju's algorithm works on directed graphs for finding strongly connected com
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

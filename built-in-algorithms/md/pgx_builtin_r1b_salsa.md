@@ -5,19 +5,19 @@
 - **Time Complexity:** O(E * k) with E = number of edges, k <= maximum number of iterations
 - **Space Requirement:** O(2 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#salsa(BipartiteGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_)
-  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_double_int_)
-  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_double_int_oracle_pgx_api_VertexProperty_)
-  - [Analyst#salsa(BipartiteGraph graph, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_VertexProperty_)
+  - [Analyst#salsa(BipartiteGraph graph)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_)
+  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_double_int_)
+  - [Analyst#salsa(BipartiteGraph graph, double maxDiff, int maxIter, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_double_int_oracle_pgx_api_VertexProperty_)
+  - [Analyst#salsa(BipartiteGraph graph, VertexProperty<ID,java.lang.Double> salsaRank)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#salsa_oracle_pgx_api_BipartiteGraph_oracle_pgx_api_VertexProperty_)
 
-The idea of hubs and authorities comes from the web pages: a hub is regarded as a page that is not authoritative in a specific matter, but it has instead links to authority pages, which are regarded as meaningful sources for a particular topic by many hubs. Thus a good hub will point to many authorities, while a good authority will be pointed by many hubs. SALSA is an algorithm that computes authorities and hubs ranking scores for the vertices using the network created by the edges of the [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgdg/graph-mutation-and-subgraphs.html) graph and assigning weights to the contributions of their 2nd-degree neighbors. This way of computing the scores creates the independence between the authority and hub scores, which are assigned to the vertices depending on the side of the graph they belong (left:hub / right:aut).
+The idea of hubs and authorities comes from the web pages: a hub is regarded as a page that is not authoritative in a specific matter, but it has instead links to authority pages, which are regarded as meaningful sources for a particular topic by many hubs. Thus a good hub will point to many authorities, while a good authority will be pointed by many hubs. SALSA is an algorithm that computes authorities and hubs ranking scores for the vertices using the network created by the edges of the [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgdg/graph-mutation-and-subgraphs.html) graph and assigning weights to the contributions of their 2nd-degree neighbors. This way of computing the scores creates the independence between the authority and hub scores, which are assigned to the vertices depending on the side of the graph they belong (left:hub / right:aut).
 
 ## Signature
 
 | Input Argument | Type | Comment |
 | :--- | :--- | :--- |
 | `G` | graph | the graph. |
-| `is_left` | vertexProp<bool> | boolean vertex property stating the side of the vertices in the [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgdg/graph-mutation-and-subgraphs.html) graph (left for hubs, right for auths). |
+| `is_left` | vertexProp<bool> | boolean vertex property stating the side of the vertices in the [bipartite](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgdg/graph-mutation-and-subgraphs.html) graph (left for hubs, right for auths). |
 | `tol` | double | maximum tolerated error value. The algorithm will stop once the sum of the error values of all vertices becomes smaller than this value. |
 | `max_iter` | int | maximum number of iterations that will be performed. |
 
@@ -33,7 +33,7 @@ The idea of hubs and authorities comes from the web pages: a hub is regarded as 
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 

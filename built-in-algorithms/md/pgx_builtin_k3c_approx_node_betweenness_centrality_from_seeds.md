@@ -5,8 +5,8 @@
 - **Time Complexity:** O(V * E) with V = number of vertices, E = number of edges
 - **Space Requirement:** O(3 * V) with V = number of vertices
 - **Javadoc:**
-  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex____)
-  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/24.4/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_oracle_pgx_api_PgxVertex____)
+  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_PgxVertex____)
+  - [Analyst#approximateVertexBetweennessCentralityFromSeeds(PgxGraph graph, VertexProperty<ID,java.lang.Double> bc, PgxVertex<ID>... seeds)](https://docs.oracle.com/en/database/oracle/property-graph/25.1/spgjv/oracle/pgx/api/Analyst.html#approximateVertexBetweennessCentralityFromSeeds_oracle_pgx_api_PgxGraph_oracle_pgx_api_VertexProperty_oracle_pgx_api_PgxVertex____)
 
 This variant of betweenness centrality approximates the centrality of the vertices by just using the vertices from the given sequence as starting points for the BFS traversals of the graph, instead of computing the exact value by using all the vertices in the graph.
 
@@ -29,7 +29,7 @@ This variant of betweenness centrality approximates the centrality of the vertic
 
 ```java
 /*
- * Copyright (C) 2013 - 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (C) 2013 - 2025 Oracle and/or its affiliates. All rights reserved.
  */
 package oracle.pgx.algorithms;
 
